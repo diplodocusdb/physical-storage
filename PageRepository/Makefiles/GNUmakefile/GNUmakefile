@@ -37,7 +37,8 @@ endif
 # Additionally, this makefile is customizable with the following
 # settings:
 #
-#      ISHIKO_ERRORS_ROOT  Path to the Ishiko Errors installation
+#      ISHIKO_ERRORS_ROOT      Path to the Ishiko Errors installation
+#      DIPLODOCUSDB_CORE_ROOT  Path to the DiplodocusDB installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -66,26 +67,37 @@ endif
 
 # Path to the Ishiko Errors installation
 ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
+# Path to the DiplodocusDB installation
+DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 
 # ------------
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
-	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
+	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
 
 $(_builddir)DiplodocusDBPageRepository_RecordData.o: ../../Source/RecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/RecordData.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/RecordData.cpp
+
+$(_builddir)DiplodocusDBPageRepository_Page.o: ../../Source/Page.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
+
+$(_builddir)DiplodocusDBPageRepository_PageCache.o: ../../Source/PageCache.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageCache.cpp
+
+$(_builddir)DiplodocusDBPageRepository_PageFileRepository.o: ../../Source/PageFileRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageFileRepository.cpp
 
 $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o: ../../Source/MasterFileMetadata.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/MasterFileMetadata.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/MasterFileMetadata.cpp
 
 $(_builddir)DiplodocusDBPageRepository_MasterFile.o: ../../Source/MasterFile.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/MasterFile.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/MasterFile.cpp
 
 clean:
 	rm -f $(_builddir)*.o

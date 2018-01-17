@@ -6,8 +6,10 @@ toolsets = gnu vs2015 vs2013;
 gnu.makefile = ../GNUmakefile/GNUmakefile;
 vs2015.solutionfile = ../VC14/DiplodocusDBPageRepository.sln;
 vs2013.solutionfile = ../VC12/DiplodocusDBPageRepository.sln;
+diplodocusdbpath = envvar("DIPLODOCUSDB");
+import $(diplodocusdbpath)/Core/Include/DiplodocusDB/DiplodocusDBCore.bkl;
 
-library DiplodocusDBPageRepository : IshikoErrors
+library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors
 {
     archs = x86 x86_64;
    
@@ -35,6 +37,9 @@ library DiplodocusDBPageRepository : IshikoErrors
 
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Record.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/RecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/MasterFile.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/MasterFileMetadata.h
     }
@@ -43,6 +48,9 @@ library DiplodocusDBPageRepository : IshikoErrors
     {
         ../../Source/Record.cpp
         ../../Source/RecordData.cpp
+        ../../Source/Page.cpp
+        ../../Source/PageCache.cpp
+        ../../Source/PageFileRepository.cpp
         ../../Source/MasterFileMetadata.cpp
         ../../Source/MasterFile.cpp
     }
