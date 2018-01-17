@@ -34,10 +34,12 @@ library DiplodocusDBPageRepository : IshikoErrors
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository.h
 
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Record.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/RecordData.h
     }
 
     sources
     {
         ../../Source/Record.cpp
+        ../../Source/RecordData.cpp
     }
 }

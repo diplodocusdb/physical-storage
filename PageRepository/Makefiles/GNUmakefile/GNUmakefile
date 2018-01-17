@@ -71,12 +71,15 @@ ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o
-	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o
+	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
+
+$(_builddir)DiplodocusDBPageRepository_RecordData.o: ../../Source/RecordData.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/RecordData.cpp
 
 clean:
 	rm -f $(_builddir)*.o
