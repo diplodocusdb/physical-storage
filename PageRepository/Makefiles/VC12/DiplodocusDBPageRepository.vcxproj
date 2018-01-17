@@ -152,11 +152,15 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\Record.cpp" />
     <ClCompile Include="..\..\Source\RecordData.cpp" />
+    <ClCompile Include="..\..\Source\MasterFileMetadata.cpp" />
+    <ClCompile Include="..\..\Source\MasterFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\Record.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\RecordData.h" />
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\MasterFile.h" />
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\MasterFileMetadata.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

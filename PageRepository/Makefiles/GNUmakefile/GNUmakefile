@@ -71,8 +71,8 @@ ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o
-	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
+	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
@@ -80,6 +80,12 @@ $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
 
 $(_builddir)DiplodocusDBPageRepository_RecordData.o: ../../Source/RecordData.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/RecordData.cpp
+
+$(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o: ../../Source/MasterFileMetadata.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/MasterFileMetadata.cpp
+
+$(_builddir)DiplodocusDBPageRepository_MasterFile.o: ../../Source/MasterFile.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/MasterFile.cpp
 
 clean:
 	rm -f $(_builddir)*.o

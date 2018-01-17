@@ -35,11 +35,15 @@ library DiplodocusDBPageRepository : IshikoErrors
 
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Record.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/RecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/MasterFile.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/MasterFileMetadata.h
     }
 
     sources
     {
         ../../Source/Record.cpp
         ../../Source/RecordData.cpp
+        ../../Source/MasterFileMetadata.cpp
+        ../../Source/MasterFile.cpp
     }
 }
