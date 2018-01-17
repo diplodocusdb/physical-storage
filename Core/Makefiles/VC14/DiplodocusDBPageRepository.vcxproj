@@ -150,11 +150,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\Page.cpp" />
+    <ClCompile Include="..\..\Source\Record.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
-    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\Page.h" />
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\Record.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

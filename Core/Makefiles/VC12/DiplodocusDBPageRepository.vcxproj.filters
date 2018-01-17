@@ -20,12 +20,12 @@
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\Page.h">
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\Record.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\Page.cpp">
+    <ClCompile Include="..\..\Source\Record.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

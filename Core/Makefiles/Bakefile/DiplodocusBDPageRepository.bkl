@@ -30,11 +30,11 @@ library DiplodocusDBPageRepository
     {
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository.h
 
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Record.h
     }
 
     sources
     {
-        ../../Source/Page.cpp
+        ../../Source/Record.cpp
     }
 }

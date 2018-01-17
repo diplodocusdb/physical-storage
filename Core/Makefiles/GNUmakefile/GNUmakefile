@@ -56,12 +56,12 @@ $(if $(_builddir_error),$(error Failed to create build directory: $(_builddir_er
 endif
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Page.o
-	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Page.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o
+	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o
 	$(RANLIB) $@
 
-$(_builddir)DiplodocusDBPageRepository_Page.o: ../../Source/Page.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
+$(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
 
 clean:
 	rm -f $(_builddir)*.o
