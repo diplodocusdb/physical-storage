@@ -33,6 +33,11 @@ override CXXFLAGS += -O2
 else ifneq (,$(config))
 $(warning Unknown configuration "$(config)")
 endif
+#
+# Additionally, this makefile is customizable with the following
+# settings:
+#
+#      ISHIKO_ERRORS_ROOT  Path to the Ishiko Errors installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -54,6 +59,16 @@ _builddir := $(if $(findstring $(abspath $(builddir)),$(builddir)),,../../)$(bui
 _builddir_error := $(shell mkdir -p $(_builddir) 2>&1)
 $(if $(_builddir_error),$(error Failed to create build directory: $(_builddir_error)))
 endif
+
+# ------------
+# Configurable settings:
+# 
+
+# Path to the Ishiko Errors installation
+ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
+
+# ------------
+
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
 ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o
@@ -61,7 +76,7 @@ all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusD
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
 
 clean:
 	rm -f $(_builddir)*.o
