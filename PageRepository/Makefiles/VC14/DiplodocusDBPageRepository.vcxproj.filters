@@ -32,6 +32,15 @@
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\EndOfPageRecordData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\KeyRecordData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\ValueRecordData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\ChildrenRecordData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\Page.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,6 +68,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\EndOfPageRecordData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KeyRecordData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ValueRecordData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ChildrenRecordData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Page.cpp">

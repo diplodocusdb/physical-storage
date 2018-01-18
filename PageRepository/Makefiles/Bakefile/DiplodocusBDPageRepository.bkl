@@ -1,4 +1,5 @@
 ishikopath = envvar("ISHIKO");
+import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/Boost.bkl;
 import $(ishikopath)/Errors/Include/Ishiko/Errors.bkl;
 
 toolsets = gnu vs2015 vs2013;
@@ -9,7 +10,7 @@ vs2013.solutionfile = ../VC12/DiplodocusDBPageRepository.sln;
 diplodocusdbpath = envvar("DIPLODOCUSDB");
 import $(diplodocusdbpath)/Core/Include/DiplodocusDB/DiplodocusDBCore.bkl;
 
-library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors
+library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors, Boost
 {
     archs = x86 x86_64;
    
@@ -39,6 +40,9 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/RecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/StartOfPageRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/EndOfPageRecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/KeyRecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/ValueRecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/ChildrenRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
@@ -52,6 +56,9 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors
         ../../Source/RecordData.cpp
         ../../Source/StartOfPageRecordData.cpp
         ../../Source/EndOfPageRecordData.cpp
+        ../../Source/KeyRecordData.cpp
+        ../../Source/ValueRecordData.cpp
+        ../../Source/ChildrenRecordData.cpp
         ../../Source/Page.cpp
         ../../Source/PageCache.cpp
         ../../Source/PageFileRepository.cpp
