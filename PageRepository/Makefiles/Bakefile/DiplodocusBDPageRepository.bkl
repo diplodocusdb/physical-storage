@@ -36,13 +36,8 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors, Boost
     {
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository.h
 
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Record.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/RecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/StartOfPageRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/EndOfPageRecordData.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/KeyRecordData.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/ValueRecordData.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/ChildrenRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageStartMarker.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageEndMarker.h
@@ -52,13 +47,8 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors, Boost
 
     sources
     {
-        ../../Source/Record.cpp
-        ../../Source/RecordData.cpp
         ../../Source/StartOfPageRecordData.cpp
         ../../Source/EndOfPageRecordData.cpp
-        ../../Source/KeyRecordData.cpp
-        ../../Source/ValueRecordData.cpp
-        ../../Source/ChildrenRecordData.cpp
         ../../Source/Page.cpp
         ../../Source/PageStartMarker.cpp
         ../../Source/PageEndMarker.cpp

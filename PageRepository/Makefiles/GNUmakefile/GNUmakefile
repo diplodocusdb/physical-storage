@@ -77,30 +77,15 @@ DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_KeyRecordData.o $(_builddir)DiplodocusDBPageRepository_ValueRecordData.o $(_builddir)DiplodocusDBPageRepository_ChildrenRecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageStartMarker.o $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
-	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_KeyRecordData.o $(_builddir)DiplodocusDBPageRepository_ValueRecordData.o $(_builddir)DiplodocusDBPageRepository_ChildrenRecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageStartMarker.o $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageStartMarker.o $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
+	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageStartMarker.o $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
 	$(RANLIB) $@
-
-$(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Record.cpp
-
-$(_builddir)DiplodocusDBPageRepository_RecordData.o: ../../Source/RecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/RecordData.cpp
 
 $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o: ../../Source/StartOfPageRecordData.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/StartOfPageRecordData.cpp
 
 $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o: ../../Source/EndOfPageRecordData.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/EndOfPageRecordData.cpp
-
-$(_builddir)DiplodocusDBPageRepository_KeyRecordData.o: ../../Source/KeyRecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/KeyRecordData.cpp
-
-$(_builddir)DiplodocusDBPageRepository_ValueRecordData.o: ../../Source/ValueRecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/ValueRecordData.cpp
-
-$(_builddir)DiplodocusDBPageRepository_ChildrenRecordData.o: ../../Source/ChildrenRecordData.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/ChildrenRecordData.cpp
 
 $(_builddir)DiplodocusDBPageRepository_Page.o: ../../Source/Page.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
