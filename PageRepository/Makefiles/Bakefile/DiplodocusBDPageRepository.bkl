@@ -37,6 +37,8 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors
 
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Record.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/RecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/StartOfPageRecordData.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/EndOfPageRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
@@ -48,6 +50,8 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors
     {
         ../../Source/Record.cpp
         ../../Source/RecordData.cpp
+        ../../Source/StartOfPageRecordData.cpp
+        ../../Source/EndOfPageRecordData.cpp
         ../../Source/Page.cpp
         ../../Source/PageCache.cpp
         ../../Source/PageFileRepository.cpp

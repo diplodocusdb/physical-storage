@@ -74,8 +74,8 @@ DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
-	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
+	$(AR) rcu $@ $(_builddir)DiplodocusDBPageRepository_Record.o $(_builddir)DiplodocusDBPageRepository_RecordData.o $(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o $(_builddir)DiplodocusDBPageRepository_MasterFileMetadata.o $(_builddir)DiplodocusDBPageRepository_MasterFile.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
@@ -83,6 +83,12 @@ $(_builddir)DiplodocusDBPageRepository_Record.o: ../../Source/Record.cpp
 
 $(_builddir)DiplodocusDBPageRepository_RecordData.o: ../../Source/RecordData.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/RecordData.cpp
+
+$(_builddir)DiplodocusDBPageRepository_StartOfPageRecordData.o: ../../Source/StartOfPageRecordData.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/StartOfPageRecordData.cpp
+
+$(_builddir)DiplodocusDBPageRepository_EndOfPageRecordData.o: ../../Source/EndOfPageRecordData.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/EndOfPageRecordData.cpp
 
 $(_builddir)DiplodocusDBPageRepository_Page.o: ../../Source/Page.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
