@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddPageFileRepositoryTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome PageFileRepositoryCreationTest1();
+
 #endif

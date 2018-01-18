@@ -21,8 +21,17 @@
 */
 
 #include "PageFileRepositoryTests.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 
 void AddPageFileRepositoryTests(TestHarness& theTestHarness)
 {
     TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("PageFileRepository tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", PageFileRepositoryCreationTest1, repositoryTestSequence);
+}
+
+TestResult::EOutcome PageFileRepositoryCreationTest1()
+{
+    DiplodocusDB::PageFileRepository repository;
+    return TestResult::ePassed;
 }
