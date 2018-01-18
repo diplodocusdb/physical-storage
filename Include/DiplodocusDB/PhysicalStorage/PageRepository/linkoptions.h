@@ -20,49 +20,13 @@
     IN THE SOFTWARE.
 */
 
-#ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGE_H_
-#define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGE_H_
+#ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_LINKOPTIONS_H_
+#define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_LINKOPTIONS_H_
 
-#include "PageStartMarker.h"
-#include "PageEndMarker.h"
-#include "Ishiko/Errors/Error.h"
-#include <fstream>
-#include <set>
-#include <memory>
-
-namespace DiplodocusDB
-{
-
-class PageFileRepository;
-
-class Page
-{
-public:
-    Page(PageFileRepository& file, size_t index);
-    ~Page();
-
-    Page* write(const char* buffer, size_t bufferSize, std::set<size_t>& updatedPages, Ishiko::Error& error);
-
-    void save(Ishiko::Error& error);
-    void init();
-    void load(Ishiko::Error& error);
-
-
-public:
-    static const size_t sm_size = 4096;
-
-private:
-    PageFileRepository& m_file;
-    size_t m_index;
-    char m_buffer[sm_size];
-    size_t m_dataSize;
-    size_t m_availableSpace;
-    PageStartMarker m_startMarker;
-    PageEndMarker m_endMarker;
-};
-
-}
-
-#include "linkoptions.h"
+#ifdef _DEBUG
+#pragma comment(lib, "DiplodocusDBPageRepository-d.lib")
+#else
+#pragma comment(lib, "DiplodocusDBPageRepository.lib")
+#endif
 
 #endif

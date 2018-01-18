@@ -25,4 +25,6 @@
 
 #include "PageRepository/Record.h"
 
+#include "PageRepository/linkoptions.h"
+
 #endif
