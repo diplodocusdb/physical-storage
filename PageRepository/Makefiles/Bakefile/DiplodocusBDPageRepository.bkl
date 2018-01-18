@@ -44,6 +44,8 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors, Boost
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/ValueRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/ChildrenRecordData.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageStartMarker.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageEndMarker.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
         ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/MasterFile.h
@@ -60,6 +62,8 @@ library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors, Boost
         ../../Source/ValueRecordData.cpp
         ../../Source/ChildrenRecordData.cpp
         ../../Source/Page.cpp
+        ../../Source/PageStartMarker.cpp
+        ../../Source/PageEndMarker.cpp
         ../../Source/PageCache.cpp
         ../../Source/PageFileRepository.cpp
         ../../Source/MasterFileMetadata.cpp
