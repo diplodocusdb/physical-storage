@@ -20,14 +20,9 @@
     IN THE SOFTWARE.
 */
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
 #include "PageFileRepositoryTests.h"
 
-int main(int argc, char* argv[])
+void AddPageFileRepositoryTests(TestHarness& theTestHarness)
 {
-    Ishiko::TestFramework::TestHarness theTestHarness("DiplodocusDBPageRepository");
-
-    AddPageFileRepositoryTests(theTestHarness);
-
-    return theTestHarness.run();
+    TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("PageFileRepository tests");
 }

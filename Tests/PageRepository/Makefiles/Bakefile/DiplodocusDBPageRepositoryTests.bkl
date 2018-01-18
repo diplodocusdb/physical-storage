@@ -10,8 +10,14 @@ program DiplodocusDBPageRepositoryTests : IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 
+    headers
+    {
+        ../../Source/PageFileRepositoryTests.h
+    }
+
     sources
     {
         ../../Source/main.cpp
+        ../../Source/PageFileRepositoryTests.cpp
     }
 }
