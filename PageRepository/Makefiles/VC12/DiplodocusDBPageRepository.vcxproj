@@ -162,8 +162,6 @@
     <ClCompile Include="..\..\Source\PageEndMarker.cpp" />
     <ClCompile Include="..\..\Source\PageCache.cpp" />
     <ClCompile Include="..\..\Source\PageFileRepository.cpp" />
-    <ClCompile Include="..\..\Source\MasterFileMetadata.cpp" />
-    <ClCompile Include="..\..\Source\MasterFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
@@ -179,8 +177,6 @@
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageEndMarker.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageCache.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageFileRepository.h" />
-    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\MasterFile.h" />
-    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\MasterFileMetadata.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
