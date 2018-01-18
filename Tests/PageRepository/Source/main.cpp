@@ -22,10 +22,15 @@
 
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
 #include "PageFileRepositoryTests.h"
+#include <boost/filesystem/operations.hpp>
 
 int main(int argc, char* argv[])
 {
     Ishiko::TestFramework::TestHarness theTestHarness("DiplodocusDBPageRepository");
+
+    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
+    boost::filesystem::create_directories("../../TestOutput");
+    theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
 
     AddPageFileRepositoryTests(theTestHarness);
 

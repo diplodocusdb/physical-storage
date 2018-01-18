@@ -30,5 +30,6 @@ using namespace Ishiko::TestFramework;
 void AddPageFileRepositoryTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome PageFileRepositoryCreationTest1();
+TestResult::EOutcome PageFileRepositoryCreateTest1(FileComparisonTest& test);
 
 #endif
