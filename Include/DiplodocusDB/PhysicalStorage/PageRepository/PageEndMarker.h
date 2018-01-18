@@ -23,4 +23,23 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEENDMARKER_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEENDMARKER_H_
 
+namespace DiplodocusDB
+{
+
+class PageEndMarker
+{
+public:
+    PageEndMarker();
+    ~PageEndMarker();
+
+    size_t size() const;
+
+    void write(char* buffer);
+
+private:
+    size_t m_nextPage;
+};
+
+}
+
 #endif

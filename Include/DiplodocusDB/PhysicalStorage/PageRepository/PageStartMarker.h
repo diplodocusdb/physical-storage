@@ -23,4 +23,26 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGESTARTMARKER_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGESTARTMARKER_H_
 
+namespace DiplodocusDB
+{
+
+class PageStartMarker
+{
+public:
+    PageStartMarker();
+    ~PageStartMarker();
+
+    size_t size() const;
+
+    void setDataSize(size_t size);
+
+    void write(char* buffer);
+
+private:
+    size_t m_previousPage;
+    size_t m_dataSize;
+};
+
+}
+
 #endif

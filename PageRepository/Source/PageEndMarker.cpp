@@ -21,3 +21,28 @@
 */
 
 #include "PageEndMarker.h"
+#include <cstring>
+
+namespace DiplodocusDB
+{
+
+PageEndMarker::PageEndMarker()
+    : m_nextPage(0)
+{
+}
+
+PageEndMarker::~PageEndMarker()
+{
+}
+
+size_t PageEndMarker::size() const
+{
+    return 6;
+}
+
+void PageEndMarker::write(char* buffer)
+{
+    memcpy(buffer, "\xF1\x04\x00\x00\x00\x00", 6);
+}
+
+}

@@ -22,18 +22,14 @@
 
 #include "Page.h"
 #include "PageFileRepository.h"
-#include "EndOfPageRecordData.h"
-#include <sstream>
 
 namespace DiplodocusDB
 {
 
 Page::Page(PageFileRepository& file,
            size_t index)
-    : m_file(file), m_index(index), m_bufferSize(0),
-    m_startOfPageRecordData(std::make_shared<StartOfPageRecordData>()),
-    m_endOfPageRecord(std::make_shared<EndOfPageRecordData>()),
-    m_disableSpaceCheck(false)
+    : m_file(file), m_index(index), m_dataSize(0),
+    m_availableSpace(sm_size - m_startMarker.size() - m_endMarker.size())
 {
 }
 
@@ -41,34 +37,30 @@ Page::~Page()
 {
 }
 
-char* Page::buffer()
-{
-    return m_buffer;
-}
-
 Page* Page::write(const char* buffer,
                   size_t bufferSize,
                   std::set<size_t>& updatedPages,
                   Ishiko::Error& error)
 {
-    size_t availableSpace = (sm_size - m_bufferSize - m_endOfPageRecord.size());
-    if ((bufferSize <= availableSpace) || m_disableSpaceCheck)
+    if (bufferSize <= m_availableSpace)
     {
-        memcpy(m_buffer + m_bufferSize, buffer, bufferSize);
-        m_bufferSize += bufferSize;
+        memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, bufferSize);
         updatedPages.insert(m_index);
+        m_dataSize += bufferSize;
+        m_availableSpace -= bufferSize;
         return this;
     }
     else
     {
         Page* nextPage = m_file.allocatePage(error);
-        if (availableSpace > 0)
+        if (m_availableSpace > 0)
         {
-            memcpy(m_buffer + m_bufferSize, buffer, availableSpace);
-            m_bufferSize += availableSpace;
+            memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, m_availableSpace);
             updatedPages.insert(m_index);
+            m_dataSize += m_availableSpace;
+            m_availableSpace = 0;
         }
-        return nextPage->write((buffer + availableSpace), (bufferSize - availableSpace), updatedPages, error);
+        return nextPage->write((buffer + m_availableSpace), (bufferSize - m_availableSpace), updatedPages, error);
     }
 }
 
@@ -83,21 +75,10 @@ void Page::save(Ishiko::Error& error)
         return;
     }
 
-    std::set<size_t> updatedPages;
+    m_startMarker.setDataSize(m_dataSize);
+    m_startMarker.write(m_buffer);
+    m_endMarker.write(m_buffer + m_startMarker.size() + m_dataSize);
     
-    m_startOfPageRecordData->setSize(m_bufferSize);
-
-    size_t tempBufferSize = m_bufferSize;
-    m_bufferSize = 0;
-    Record startOfPageRecord(m_startOfPageRecordData);
-    startOfPageRecord.write(*this, updatedPages, error);
-
-    m_bufferSize = tempBufferSize;
-    m_disableSpaceCheck = true;
-    m_endOfPageRecord.write(*this, updatedPages, error);
-    m_disableSpaceCheck = false;
-    m_bufferSize = tempBufferSize;
-
     file.write(m_buffer, sm_size);
     if (!file.good())
     {
@@ -109,7 +90,6 @@ void Page::save(Ishiko::Error& error)
 void Page::init()
 {
     memset(m_buffer, 0, sm_size);
-    m_bufferSize = 10;
 }
 
 void Page::load(Ishiko::Error& error)
@@ -130,7 +110,7 @@ void Page::load(Ishiko::Error& error)
         return;
     }
 
-    m_bufferSize = *((uint32_t*)(m_buffer + 6));
+    m_dataSize = *((uint32_t*)(m_buffer + 6));
 }
 
 }

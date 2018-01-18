@@ -21,3 +21,35 @@
 */
 
 #include "PageStartMarker.h"
+#include <cstring>
+#include <cstdint>
+
+namespace DiplodocusDB
+{
+
+PageStartMarker::PageStartMarker()
+    : m_previousPage(0), m_dataSize(0)
+{
+}
+
+PageStartMarker::~PageStartMarker()
+{
+}
+
+size_t PageStartMarker::size() const
+{
+    return 10;
+}
+
+void PageStartMarker::setDataSize(size_t size)
+{
+    m_dataSize = size;
+}
+
+void PageStartMarker::write(char* buffer)
+{
+    memcpy(buffer, "\xF0\x08\x00\x00\x00\x00", 6);
+    *((uint32_t*)(buffer + 6)) = m_dataSize;
+}
+
+}
