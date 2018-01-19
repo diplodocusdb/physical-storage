@@ -31,6 +31,7 @@ void AddPageFileRepositoryTests(TestHarness& theTestHarness)
 
     new FileComparisonTest("create test 1", PageFileRepositoryCreateTest1, repositoryTestSequence);
     new FileComparisonTest("allocatePage test 1", PageFileRepositoryAllocatePageTest1, repositoryTestSequence);
+    new FileComparisonTest("allocatePage test 2", PageFileRepositoryAllocatePageTest2, repositoryTestSequence);
 }
 
 TestResult::EOutcome PageFileRepositoryCreationTest1()
@@ -87,6 +88,44 @@ TestResult::EOutcome PageFileRepositoryAllocatePageTest1(FileComparisonTest& tes
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryAllocatePageTest1.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageFileRepositoryAllocatePageTest2(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageFileRepositoryAllocatePageTest2.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page* page1 = repository.allocatePage(error);
+        if (!error && page1)
+        {
+            page1->save(error);
+            if (!error)
+            {
+                DiplodocusDB::Page* page2 = repository.allocatePage(error);
+                if (!error && page2)
+                {
+                    page2->save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
+                }
+            }
+        }
+    }
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryAllocatePageTest2.dpdb");
 
     return result;
 }
