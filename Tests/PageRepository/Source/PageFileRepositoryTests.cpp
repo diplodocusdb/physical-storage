@@ -30,6 +30,7 @@ void AddPageFileRepositoryTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", PageFileRepositoryCreationTest1, repositoryTestSequence);
 
     new FileComparisonTest("create test 1", PageFileRepositoryCreateTest1, repositoryTestSequence);
+    new FileComparisonTest("allocatePage test 1", PageFileRepositoryAllocatePageTest1, repositoryTestSequence);
 }
 
 TestResult::EOutcome PageFileRepositoryCreationTest1()
@@ -56,6 +57,36 @@ TestResult::EOutcome PageFileRepositoryCreateTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryCreateTest1.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageFileRepositoryAllocatePageTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageFileRepositoryAllocatePageTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page* page = repository.allocatePage(error);
+        if (!error && page)
+        {
+            page->save(error);
+            if (!error)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryAllocatePageTest1.dpdb");
 
     return result;
 }
