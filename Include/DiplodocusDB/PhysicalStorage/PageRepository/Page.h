@@ -41,12 +41,14 @@ public:
     Page(PageFileRepository& file, size_t index);
     ~Page();
 
+    size_t index() const;
+
+    void read(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
     Page* write(const char* buffer, size_t bufferSize, std::set<size_t>& updatedPages, Ishiko::Error& error);
 
     void save(Ishiko::Error& error);
     void init();
     void load(Ishiko::Error& error);
-
 
 public:
     static const size_t sm_size = 4096;

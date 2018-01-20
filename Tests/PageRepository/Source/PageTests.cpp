@@ -21,8 +21,31 @@
 */
 
 #include "PageTests.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/Page.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 
 void AddPageTests(TestHarness& theTestHarness)
 {
     TestSequence& pageTestSequence = theTestHarness.appendTestSequence("Page tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", PageCreationTest1, pageTestSequence);
+}
+
+TestResult::EOutcome PageCreationTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageCreationTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        result = TestResult::ePassed;
+    }
+
+    return result;
 }

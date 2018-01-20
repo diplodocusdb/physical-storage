@@ -37,6 +37,19 @@ Page::~Page()
 {
 }
 
+size_t Page::index() const
+{
+    return m_index;
+}
+
+void Page::read(char* buffer,
+                size_t pos,
+                size_t n,
+                Ishiko::Error& error) const
+{
+    memcpy(buffer, m_buffer + m_startMarker.size() + pos, n);
+}
+
 Page* Page::write(const char* buffer,
                   size_t bufferSize,
                   std::set<size_t>& updatedPages,

@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddPageTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome PageCreationTest1(Test& test);
+
 #endif
