@@ -31,6 +31,7 @@ void AddPageRepositoryWriterTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", PageRepositoryWriterCreationTest1, writerTestSequence);
 
     new FileComparisonTest("write test 1", PageRepositoryWriterWriteTest1, writerTestSequence);
+    new FileComparisonTest("write test 2", PageRepositoryWriterWriteTest2, writerTestSequence);
 }
 
 TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
@@ -90,6 +91,48 @@ TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest1.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest2.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page* page = repository.allocatePage(error);
+        if (!error)
+        {
+            DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+            if (!error)
+            {
+                writer.write("value1", 6, error);
+                if (!error)
+                {
+                    writer.write("value2", 6, error);
+                    if (!error)
+                    {
+                        writer.save(error);
+                        if (!error)
+                        {
+                            result = TestResult::ePassed;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest2.dpdb");
 
     return result;
 }
