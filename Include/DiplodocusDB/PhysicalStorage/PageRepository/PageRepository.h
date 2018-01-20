@@ -23,4 +23,28 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORY_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORY_H_
 
+#include "Page.h"
+#include "PageRepositoryWriter.h"
+#include "Ishiko/Errors/Error.h"
+
+namespace DiplodocusDB
+{
+
+class PageRepository
+{
+public:
+    PageRepository();
+    virtual ~PageRepository();
+
+    virtual size_t pageCount() = 0;
+    virtual Page* allocatePage(Ishiko::Error& error) = 0;
+    virtual Page* page(size_t i, Ishiko::Error& error) = 0;
+
+    virtual PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
+    virtual void replace() = 0;
+    virtual void erase() = 0;
+};
+
+}
+
 #endif

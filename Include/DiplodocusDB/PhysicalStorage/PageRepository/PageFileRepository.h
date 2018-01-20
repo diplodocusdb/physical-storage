@@ -23,6 +23,7 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEFILEREPOSITORY_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEFILEREPOSITORY_H_
 
+#include "PageRepository.h"
 #include "Page.h"
 #include "PageCache.h"
 #include "Ishiko/Errors/Error.h"
@@ -32,18 +33,23 @@
 namespace DiplodocusDB
 {
 
-class PageFileRepository
+class PageFileRepository : public PageRepository
 {
 public:
     PageFileRepository();
-    ~PageFileRepository();
+    ~PageFileRepository() override;
 
     void create(const boost::filesystem::path& path, Ishiko::Error& error);
     void open(const boost::filesystem::path& path, Ishiko::Error& error);
     void close();
 
-    Page* allocatePage(Ishiko::Error& error);
-    Page* page(size_t i, Ishiko::Error& error);
+    size_t pageCount() override;
+    Page* allocatePage(Ishiko::Error& error) override;
+    Page* page(size_t i, Ishiko::Error& error) override;
+
+    PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) override;
+    void replace() override;
+    void erase() override;
 
     std::fstream& file();
 
