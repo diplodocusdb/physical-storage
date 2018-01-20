@@ -32,6 +32,7 @@ void AddPageTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", PageCreationTest1, pageTestSequence);
 
     new HeapAllocationErrorsTest("load test 1", PageLoadTest1, pageTestSequence);
+    new HeapAllocationErrorsTest("load test 2", PageLoadTest2, pageTestSequence);
 
     new HeapAllocationErrorsTest("read test 1", PageReadTest1, pageTestSequence);
 
@@ -83,9 +84,60 @@ TestResult::EOutcome PageLoadTest1(Test& test)
     return result;
 }
 
+TestResult::EOutcome PageLoadTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageLoadTest2.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        page.load(error);
+        if (!error)
+        {
+            if (page.dataSize() == 6)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
 TestResult::EOutcome PageReadTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageReadTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        page.load(error);
+        if (!error)
+        {
+            if (page.dataSize() == 6)
+            {
+                char buffer[6];
+                page.read(buffer, 0, 6, error);
+                if (!error && (strncmp(buffer, "value1", 6) == 0))
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
     return result;
 }
 
