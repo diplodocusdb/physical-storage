@@ -21,8 +21,17 @@
 */
 
 #include "PageRepositoryReaderTests.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryReader.h"
 
 void AddPageRepositoryReaderTests(TestHarness& theTestHarness)
 {
     TestSequence& readerTestSequence = theTestHarness.appendTestSequence("PageRepositoryReader tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", PageRepositoryReaderCreationTest1, readerTestSequence);
+}
+
+TestResult::EOutcome PageRepositoryReaderCreationTest1()
+{
+    DiplodocusDB::PageRepositoryReader reader;
+    return TestResult::ePassed;
 }

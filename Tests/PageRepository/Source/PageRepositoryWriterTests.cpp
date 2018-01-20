@@ -21,8 +21,75 @@
 */
 
 #include "PageRepositoryWriterTests.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryWriter.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 
 void AddPageRepositoryWriterTests(TestHarness& theTestHarness)
 {
     TestSequence& writerTestSequence = theTestHarness.appendTestSequence("PageRepositoryWriter tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", PageRepositoryWriterCreationTest1, writerTestSequence);
+
+    new FileComparisonTest("write test 1", PageRepositoryWriterWriteTest1, writerTestSequence);
+}
+
+TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterCreationTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page* page = repository.page(0, error);
+        if (!error)
+        {
+            DiplodocusDB::PageRepositoryWriter writer(*page);
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page* page = repository.allocatePage(error);
+        if (!error)
+        {
+            DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+            if (!error)
+            {
+                writer.write("value1", 6, error);
+                if (!error)
+                {
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
+                }
+            }
+        }
+    }
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest1.dpdb");
+
+    return result;
 }

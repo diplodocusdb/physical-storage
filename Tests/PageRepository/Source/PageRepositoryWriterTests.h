@@ -29,4 +29,7 @@ using namespace Ishiko::TestFramework;
 
 void AddPageRepositoryWriterTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test);
+TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test);
+
 #endif
