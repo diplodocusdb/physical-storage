@@ -38,7 +38,7 @@ PageStartMarker::~PageStartMarker()
 
 size_t PageStartMarker::size() const
 {
-    return 10;
+    return 8;
 }
 
 void PageStartMarker::setDataSize(size_t size)
@@ -48,8 +48,8 @@ void PageStartMarker::setDataSize(size_t size)
 
 void PageStartMarker::write(char* buffer)
 {
-    memcpy(buffer, "\xF0\x08\x00\x00\x00\x00", 6);
-    *((uint32_t*)(buffer + 6)) = m_dataSize;
+    memcpy(buffer, "\xF0\x06\x00\x00\x00\x00", 6);
+    *((uint16_t*)(buffer + 6)) = m_dataSize;
 }
 
 }

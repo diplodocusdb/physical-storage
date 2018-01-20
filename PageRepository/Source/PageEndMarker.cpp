@@ -37,12 +37,12 @@ PageEndMarker::~PageEndMarker()
 
 size_t PageEndMarker::size() const
 {
-    return 6;
+    return 8;
 }
 
 void PageEndMarker::write(char* buffer)
 {
-    memcpy(buffer, "\xF1\x04\x00\x00\x00\x00", 6);
+    memcpy(buffer, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
 }
 
 }

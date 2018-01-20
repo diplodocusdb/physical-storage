@@ -42,6 +42,11 @@ size_t Page::index() const
     return m_index;
 }
 
+size_t Page::dataSize() const
+{
+    return m_dataSize;
+}
+
 void Page::read(char* buffer,
                 size_t pos,
                 size_t n,
@@ -52,13 +57,11 @@ void Page::read(char* buffer,
 
 Page* Page::write(const char* buffer,
                   size_t bufferSize,
-                  std::set<size_t>& updatedPages,
                   Ishiko::Error& error)
 {
     if (bufferSize <= m_availableSpace)
     {
         memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, bufferSize);
-        updatedPages.insert(m_index);
         m_dataSize += bufferSize;
         m_availableSpace -= bufferSize;
         return this;
@@ -69,11 +72,10 @@ Page* Page::write(const char* buffer,
         if (m_availableSpace > 0)
         {
             memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, m_availableSpace);
-            updatedPages.insert(m_index);
             m_dataSize += m_availableSpace;
             m_availableSpace = 0;
         }
-        return nextPage->write((buffer + m_availableSpace), (bufferSize - m_availableSpace), updatedPages, error);
+        return nextPage->write((buffer + m_availableSpace), (bufferSize - m_availableSpace), error);
     }
 }
 
@@ -123,7 +125,7 @@ void Page::load(Ishiko::Error& error)
         return;
     }
 
-    m_dataSize = *((uint32_t*)(m_buffer + 6));
+    m_dataSize = *((uint16_t*)(m_buffer + 6));
 }
 
 }
