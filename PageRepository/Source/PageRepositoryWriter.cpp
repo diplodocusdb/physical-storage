@@ -21,3 +21,29 @@
 */
 
 #include "PageRepositoryWriter.h"
+
+namespace DiplodocusDB
+{
+
+PageRepositoryWriter::PageRepositoryWriter(Page& startPage)
+    : m_page(startPage)
+{
+}
+
+PageRepositoryWriter::~PageRepositoryWriter()
+{
+}
+
+void PageRepositoryWriter::write(const char* buffer,
+                                 size_t bufferSize,
+                                 Ishiko::Error& error)
+{
+    m_page.write(buffer, bufferSize, error);
+}
+
+void PageRepositoryWriter::save(Ishiko::Error& error)
+{
+    m_page.save(error);
+}
+
+}

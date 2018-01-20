@@ -23,4 +23,24 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYWRITER_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYWRITER_H_
 
+#include "Page.h"
+
+namespace DiplodocusDB
+{
+
+class PageRepositoryWriter
+{
+public:
+    PageRepositoryWriter(Page& startPage);
+    ~PageRepositoryWriter();
+
+    void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
+    void save(Ishiko::Error& error);
+
+private:
+    Page& m_page;
+};
+
+}
+
 #endif

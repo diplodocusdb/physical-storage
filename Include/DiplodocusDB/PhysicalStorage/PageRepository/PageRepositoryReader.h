@@ -23,4 +23,16 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADER_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADER_H_
 
+namespace DiplodocusDB
+{
+
+class PageRepositoryReader
+{
+public:
+    PageRepositoryReader();
+    ~PageRepositoryReader();
+};
+
+}
+
 #endif
