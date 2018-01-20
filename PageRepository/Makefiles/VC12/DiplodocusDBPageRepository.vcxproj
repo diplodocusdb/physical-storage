@@ -154,6 +154,8 @@
     <ClCompile Include="..\..\Source\PageStartMarker.cpp" />
     <ClCompile Include="..\..\Source\PageEndMarker.cpp" />
     <ClCompile Include="..\..\Source\PageCache.cpp" />
+    <ClCompile Include="..\..\Source\PageRepositoryReader.cpp" />
+    <ClCompile Include="..\..\Source\PageRepositoryWriter.cpp" />
     <ClCompile Include="..\..\Source\PageFileRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +164,8 @@
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageStartMarker.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageEndMarker.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageCache.h" />
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryReader.h" />
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryWriter.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageFileRepository.h" />
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\linkoptions.h" />
   </ItemGroup>
