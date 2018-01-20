@@ -15,11 +15,15 @@ program DiplodocusDBPageRepositoryTests : DiplodocusDBPageRepository, IshikoTest
     headers
     {
         ../../Source/PageFileRepositoryTests.h
+        ../../Source/PageRepositoryWriterTests.h
+        ../../Source/PageRepositoryReaderTests.h
     }
 
     sources
     {
         ../../Source/main.cpp
         ../../Source/PageFileRepositoryTests.cpp
+        ../../Source/PageRepositoryWriterTests.cpp
+        ../../Source/PageRepositoryReaderTests.cpp
     }
 }

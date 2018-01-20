@@ -20,23 +20,9 @@
     IN THE SOFTWARE.
 */
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
-#include "PageFileRepositoryTests.h"
-#include "PageRepositoryReaderTests.h"
 #include "PageRepositoryWriterTests.h"
-#include <boost/filesystem/operations.hpp>
 
-int main(int argc, char* argv[])
+void AddPageRepositoryWriterTests(TestHarness& theTestHarness)
 {
-    Ishiko::TestFramework::TestHarness theTestHarness("DiplodocusDBPageRepository");
-
-    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
-    boost::filesystem::create_directories("../../TestOutput");
-    theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
-
-    AddPageFileRepositoryTests(theTestHarness);
-    AddPageRepositoryReaderTests(theTestHarness);
-    AddPageRepositoryWriterTests(theTestHarness);
-
-    return theTestHarness.run();
+    TestSequence& writerTestSequence = theTestHarness.appendTestSequence("PageRepositoryWriter tests");
 }
