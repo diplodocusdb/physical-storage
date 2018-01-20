@@ -23,12 +23,19 @@
 #include "PageTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/Page.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
+#include <boost/filesystem/operations.hpp>
 
 void AddPageTests(TestHarness& theTestHarness)
 {
     TestSequence& pageTestSequence = theTestHarness.appendTestSequence("Page tests");
 
     new HeapAllocationErrorsTest("Creation test 1", PageCreationTest1, pageTestSequence);
+
+    new HeapAllocationErrorsTest("load test 1", PageLoadTest1, pageTestSequence);
+
+    new HeapAllocationErrorsTest("read test 1", PageReadTest1, pageTestSequence);
+
+    new FileComparisonTest("write test 1", PageWriteTest1, pageTestSequence);
 }
 
 TestResult::EOutcome PageCreationTest1(Test& test)
@@ -47,5 +54,71 @@ TestResult::EOutcome PageCreationTest1(Test& test)
         result = TestResult::ePassed;
     }
 
+    return result;
+}
+
+TestResult::EOutcome PageLoadTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageLoadTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        page.load(error);
+        if (!error)
+        {
+            if (page.dataSize() == 0)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome PageReadTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+    return result;
+}
+
+TestResult::EOutcome PageWriteTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageWriteTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageWriteTest1.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        page.init();
+        page.write("value1", 6, error);
+        if (!error)
+        {
+            page.save(error);
+            if (!error)
+            {
+                result = TestResult::ePassed;
+            }
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageWriteTest1.dpdb");
+    
     return result;
 }
