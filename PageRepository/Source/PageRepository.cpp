@@ -21,3 +21,16 @@
 */
 
 #include "PageRepository.h"
+
+namespace DiplodocusDB
+{
+
+PageRepository::PageRepository()
+{
+}
+
+PageRepository::~PageRepository()
+{
+}
+
+}

@@ -75,6 +75,11 @@ void PageFileRepository::close()
     m_file.close();
 }
 
+size_t PageFileRepository::pageCount()
+{
+    return m_pageCount;
+}
+
 Page* PageFileRepository::allocatePage(Ishiko::Error& error)
 {
     Page* page = m_pageCache.allocatePage(m_pageCount, error);
@@ -89,6 +94,22 @@ Page* PageFileRepository::page(size_t i,
                                Ishiko::Error& error)
 {
     return m_pageCache.page(i, error);
+}
+
+PageRepositoryWriter PageFileRepository::insert(size_t startPage,
+                                                size_t offset,
+                                                Ishiko::Error& error)
+{
+    Page* p = page(startPage, error);
+    return PageRepositoryWriter(*p);
+}
+
+void PageFileRepository::replace()
+{
+}
+
+void PageFileRepository::erase()
+{
 }
 
 std::fstream& PageFileRepository::file()
