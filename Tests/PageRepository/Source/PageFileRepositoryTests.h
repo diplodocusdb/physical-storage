@@ -31,6 +31,8 @@ void AddPageFileRepositoryTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome PageFileRepositoryCreationTest1();
 TestResult::EOutcome PageFileRepositoryCreateTest1(FileComparisonTest& test);
+TestResult::EOutcome PageFileRepositoryOpenTest1(Test& test);
+TestResult::EOutcome PageFileRepositoryOpenTest2(Test& test);
 TestResult::EOutcome PageFileRepositoryAllocatePageTest1(FileComparisonTest& test);
 TestResult::EOutcome PageFileRepositoryAllocatePageTest2(FileComparisonTest& test);
 

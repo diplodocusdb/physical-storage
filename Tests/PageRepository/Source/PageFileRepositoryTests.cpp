@@ -30,6 +30,10 @@ void AddPageFileRepositoryTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", PageFileRepositoryCreationTest1, repositoryTestSequence);
 
     new FileComparisonTest("create test 1", PageFileRepositoryCreateTest1, repositoryTestSequence);
+
+    new HeapAllocationErrorsTest("open test 1", PageFileRepositoryOpenTest1, repositoryTestSequence);
+    new HeapAllocationErrorsTest("open test 2", PageFileRepositoryOpenTest2, repositoryTestSequence);
+
     new FileComparisonTest("allocatePage test 1", PageFileRepositoryAllocatePageTest1, repositoryTestSequence);
     new FileComparisonTest("allocatePage test 2", PageFileRepositoryAllocatePageTest2, repositoryTestSequence);
 }
@@ -58,6 +62,48 @@ TestResult::EOutcome PageFileRepositoryCreateTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryCreateTest1.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageFileRepositoryOpenTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageFileRepositoryOpenTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        if (repository.pageCount() == 0)
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome PageFileRepositoryOpenTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageFileRepositoryOpenTest2.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        if (repository.pageCount() == 1)
+        {
+            result = TestResult::ePassed;
+        }
+    }
 
     return result;
 }
