@@ -15,6 +15,7 @@ program DiplodocusDBPageRepositoryTests : DiplodocusDBPageRepository, IshikoTest
     headers
     {
         ../../Source/PageFileRepositoryTests.h
+        ../../Source/PageTests.h
         ../../Source/PageRepositoryWriterTests.h
         ../../Source/PageRepositoryReaderTests.h
     }
@@ -23,6 +24,7 @@ program DiplodocusDBPageRepositoryTests : DiplodocusDBPageRepository, IshikoTest
     {
         ../../Source/main.cpp
         ../../Source/PageFileRepositoryTests.cpp
+        ../../Source/PageTests.cpp
         ../../Source/PageRepositoryWriterTests.cpp
         ../../Source/PageRepositoryReaderTests.cpp
     }

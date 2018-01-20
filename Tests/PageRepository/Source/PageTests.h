@@ -20,25 +20,13 @@
     IN THE SOFTWARE.
 */
 
+#ifndef _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGETESTS_H_
+#define _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGETESTS_H_
+
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
-#include "PageFileRepositoryTests.h"
-#include "PageTests.h"
-#include "PageRepositoryReaderTests.h"
-#include "PageRepositoryWriterTests.h"
-#include <boost/filesystem/operations.hpp>
 
-int main(int argc, char* argv[])
-{
-    Ishiko::TestFramework::TestHarness theTestHarness("DiplodocusDBPageRepository");
+using namespace Ishiko::TestFramework;
 
-    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
-    boost::filesystem::create_directories("../../TestOutput");
-    theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
+void AddPageTests(TestHarness& theTestHarness);
 
-    AddPageFileRepositoryTests(theTestHarness);
-    AddPageTests(theTestHarness);
-    AddPageRepositoryReaderTests(theTestHarness);
-    AddPageRepositoryWriterTests(theTestHarness);
-
-    return theTestHarness.run();
-}
+#endif
