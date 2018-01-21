@@ -72,7 +72,7 @@ void Page::insert(const char* buffer,
         char* p = (m_buffer + m_startMarker.size());
         if (pos != m_dataSize)
         {
-            memmove(p + pos + bufferSize, p + pos, bufferSize);
+            memmove(p + pos + bufferSize, p + pos, (m_dataSize - pos));
         }
         memcpy(p + pos, buffer, bufferSize);
         m_dataSize += bufferSize;
