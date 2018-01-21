@@ -22,16 +22,66 @@
 
 #include "PageRepositoryReaderTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryReader.h"
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 
 void AddPageRepositoryReaderTests(TestHarness& theTestHarness)
 {
     TestSequence& readerTestSequence = theTestHarness.appendTestSequence("PageRepositoryReader tests");
 
     new HeapAllocationErrorsTest("Creation test 1", PageRepositoryReaderCreationTest1, readerTestSequence);
+
+    new HeapAllocationErrorsTest("read test 1", PageRepositoryReaderReadTest1, readerTestSequence);
 }
 
-TestResult::EOutcome PageRepositoryReaderCreationTest1()
+TestResult::EOutcome PageRepositoryReaderCreationTest1(Test& test)
 {
-    DiplodocusDB::PageRepositoryReader reader;
-    return TestResult::ePassed;
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderCreationTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+        if (!error)
+        {
+            DiplodocusDB::PageRepositoryReader reader(page);
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome PageRepositoryReaderReadTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderReadTest1.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+        if (!error)
+        {
+            char buffer[6];
+            reader.read(buffer, 6, error);
+            if (!error)
+            {
+                if (strncmp(buffer, "value1", 6) == 0)
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    return result;
 }

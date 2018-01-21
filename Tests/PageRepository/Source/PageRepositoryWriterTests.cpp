@@ -46,10 +46,10 @@ TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
     repository.open(inputPath, error);
     if (!error)
     {
-        DiplodocusDB::Page* page = repository.page(0, error);
+        std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
         if (!error)
         {
-            DiplodocusDB::PageRepositoryWriter writer(*page);
+            DiplodocusDB::PageRepositoryWriter writer(page);
             result = TestResult::ePassed;
         }
     }
@@ -69,7 +69,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test)
     repository.create(outputPath, error);
     if (!error)
     {
-        DiplodocusDB::Page* page = repository.allocatePage(error);
+        std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
         if (!error)
         {
             DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
@@ -107,7 +107,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test)
     repository.create(outputPath, error);
     if (!error)
     {
-        DiplodocusDB::Page* page = repository.allocatePage(error);
+        std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
         if (!error)
         {
             DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);

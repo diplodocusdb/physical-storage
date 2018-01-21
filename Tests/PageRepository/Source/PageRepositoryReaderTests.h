@@ -29,6 +29,7 @@ using namespace Ishiko::TestFramework;
 
 void AddPageRepositoryReaderTests(TestHarness& theTestHarness);
 
-TestResult::EOutcome PageRepositoryReaderCreationTest1();
+TestResult::EOutcome PageRepositoryReaderCreationTest1(Test& test);
+TestResult::EOutcome PageRepositoryReaderReadTest1(Test& test);
 
 #endif

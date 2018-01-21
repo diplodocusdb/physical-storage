@@ -120,7 +120,7 @@ TestResult::EOutcome PageFileRepositoryAllocatePageTest1(FileComparisonTest& tes
     repository.create(outputPath, error);
     if (!error)
     {
-        DiplodocusDB::Page* page = repository.allocatePage(error);
+        std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
         if (!error && page)
         {
             page->save(error);
@@ -150,13 +150,13 @@ TestResult::EOutcome PageFileRepositoryAllocatePageTest2(FileComparisonTest& tes
     repository.create(outputPath, error);
     if (!error)
     {
-        DiplodocusDB::Page* page1 = repository.allocatePage(error);
+        std::shared_ptr<DiplodocusDB::Page> page1 = repository.allocatePage(error);
         if (!error && page1)
         {
             page1->save(error);
             if (!error)
             {
-                DiplodocusDB::Page* page2 = repository.allocatePage(error);
+                std::shared_ptr<DiplodocusDB::Page> page2 = repository.allocatePage(error);
                 if (!error && page2)
                 {
                     page2->save(error);
