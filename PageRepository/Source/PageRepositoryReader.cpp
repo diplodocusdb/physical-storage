@@ -38,7 +38,7 @@ void PageRepositoryReader::read(char* buffer,
                                 size_t n,
                                 Ishiko::Error& error)
 {
-    m_currentPage->read(buffer, m_currentOffset, n, error);
+    m_currentPage->get(buffer, m_currentOffset, n, error);
     if (!error)
     {
         m_currentOffset += n;

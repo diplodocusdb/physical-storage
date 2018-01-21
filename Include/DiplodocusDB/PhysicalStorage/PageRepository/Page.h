@@ -44,8 +44,8 @@ public:
     size_t index() const;
     size_t dataSize() const;
 
-    void read(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
-    void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
+    void get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
+    void insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Error& error);
 
     void save(Ishiko::Error& error);
     void init();

@@ -47,10 +47,10 @@ size_t Page::dataSize() const
     return m_dataSize;
 }
 
-void Page::read(char* buffer,
-                size_t pos,
-                size_t n,
-                Ishiko::Error& error) const
+void Page::get(char* buffer,
+               size_t pos,
+               size_t n,
+               Ishiko::Error& error) const
 {
     if ((pos + n) <= m_dataSize)
     {
@@ -62,13 +62,19 @@ void Page::read(char* buffer,
     }
 }
 
-void Page::write(const char* buffer,
-                 size_t bufferSize,
-                 Ishiko::Error& error)
+void Page::insert(const char* buffer,
+                  size_t bufferSize,
+                  size_t pos,
+                  Ishiko::Error& error)
 {
     if (bufferSize <= m_availableSpace)
     {
-        memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, bufferSize);
+        char* p = (m_buffer + m_startMarker.size());
+        if (pos != m_dataSize)
+        {
+            memmove(p + pos + bufferSize, p + pos, bufferSize);
+        }
+        memcpy(p + pos, buffer, bufferSize);
         m_dataSize += bufferSize;
         m_availableSpace -= bufferSize;
     }
