@@ -31,6 +31,7 @@ void AddPageRepositoryReaderTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", PageRepositoryReaderCreationTest1, readerTestSequence);
 
     new HeapAllocationErrorsTest("read test 1", PageRepositoryReaderReadTest1, readerTestSequence);
+    new HeapAllocationErrorsTest("read test 2", PageRepositoryReaderReadTest2, readerTestSequence);
 }
 
 TestResult::EOutcome PageRepositoryReaderCreationTest1(Test& test)
@@ -78,6 +79,43 @@ TestResult::EOutcome PageRepositoryReaderReadTest1(Test& test)
                 if (strncmp(buffer, "value1", 6) == 0)
                 {
                     result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome PageRepositoryReaderReadTest2(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderReadTest2.dpdb");
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+        if (!error)
+        {
+            char buffer[6];
+            reader.read(buffer, 6, error);
+            if (!error)
+            {
+                if (strncmp(buffer, "value1", 6) == 0)
+                {
+                    reader.read(buffer, 6, error);
+                    if (!error)
+                    {
+                        if (strncmp(buffer, "value2", 6) == 0)
+                        {
+                            result = TestResult::ePassed;
+                        }
+                    }
                 }
             }
         }

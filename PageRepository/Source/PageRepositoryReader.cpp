@@ -26,7 +26,7 @@ namespace DiplodocusDB
 {
 
 PageRepositoryReader::PageRepositoryReader(std::shared_ptr<Page> startPage)
-    : m_page(startPage)
+    : m_currentPage(startPage), m_currentOffset(0)
 {
 }
 
@@ -38,7 +38,11 @@ void PageRepositoryReader::read(char* buffer,
                                 size_t n,
                                 Ishiko::Error& error)
 {
-    m_page->read(buffer, 0, n, error);
+    m_currentPage->read(buffer, m_currentOffset, n, error);
+    if (!error)
+    {
+        m_currentOffset += n;
+    }
 }
 
 }

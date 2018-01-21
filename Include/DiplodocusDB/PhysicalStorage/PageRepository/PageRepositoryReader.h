@@ -39,7 +39,8 @@ public:
     void read(char* buffer, size_t n, Ishiko::Error& error);
 
 private:
-    std::shared_ptr<Page> m_page;
+    std::shared_ptr<Page> m_currentPage;
+    size_t m_currentOffset;
 };
 
 }
