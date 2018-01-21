@@ -52,7 +52,14 @@ void Page::read(char* buffer,
                 size_t n,
                 Ishiko::Error& error) const
 {
-    memcpy(buffer, m_buffer + m_startMarker.size() + pos, n);
+    if ((pos + n) <= m_dataSize)
+    {
+        memcpy(buffer, m_buffer + m_startMarker.size() + pos, n);
+    }
+    else
+    {
+        error = -1;
+    }
 }
 
 void Page::write(const char* buffer,
