@@ -34,9 +34,10 @@ void AddPageTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("load test 1", PageLoadTest1, pageTestSequence);
     new HeapAllocationErrorsTest("load test 2", PageLoadTest2, pageTestSequence);
 
-    new HeapAllocationErrorsTest("read test 1", PageReadTest1, pageTestSequence);
+    new HeapAllocationErrorsTest("get test 1", PageGetTest1, pageTestSequence);
 
-    new FileComparisonTest("write test 1", PageWriteTest1, pageTestSequence);
+    new FileComparisonTest("insert test 1", PageInsertTest1, pageTestSequence);
+    new FileComparisonTest("insert test 2", PageInsertTest2, pageTestSequence);
 }
 
 TestResult::EOutcome PageCreationTest1(Test& test)
@@ -110,11 +111,11 @@ TestResult::EOutcome PageLoadTest2(Test& test)
     return result;
 }
 
-TestResult::EOutcome PageReadTest1(Test& test)
+TestResult::EOutcome PageGetTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageReadTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageGetTest1.dpdb");
 
     Ishiko::Error error;
 
@@ -129,7 +130,7 @@ TestResult::EOutcome PageReadTest1(Test& test)
             if (page.dataSize() == 6)
             {
                 char buffer[6];
-                page.read(buffer, 0, 6, error);
+                page.get(buffer, 0, 6, error);
                 if (!error && (strncmp(buffer, "value1", 6) == 0))
                 {
                     result = TestResult::ePassed;
@@ -141,12 +142,12 @@ TestResult::EOutcome PageReadTest1(Test& test)
     return result;
 }
 
-TestResult::EOutcome PageWriteTest1(FileComparisonTest& test)
+TestResult::EOutcome PageInsertTest1(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageWriteTest1.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageWriteTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageInsertTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageInsertTest1.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
@@ -158,7 +159,7 @@ TestResult::EOutcome PageWriteTest1(FileComparisonTest& test)
     {
         DiplodocusDB::Page page(repository, 0);
         page.init();
-        page.write("value1", 6, error);
+        page.insert("value1", 6, 0, error);
         if (!error)
         {
             page.save(error);
@@ -170,7 +171,44 @@ TestResult::EOutcome PageWriteTest1(FileComparisonTest& test)
     }
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageWriteTest1.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest1.dpdb");
     
+    return result;
+}
+
+TestResult::EOutcome PageInsertTest2(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageInsertTest2.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageInsertTest2.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        page.load(error);
+        if (!error)
+        {
+            page.insert("value0", 6, 0, error);
+            if (!error)
+            {
+                page.save(error);
+                if (!error)
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest2.dpdb");
+
     return result;
 }

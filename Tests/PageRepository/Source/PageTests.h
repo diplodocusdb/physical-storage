@@ -32,7 +32,8 @@ void AddPageTests(TestHarness& theTestHarness);
 TestResult::EOutcome PageCreationTest1(Test& test);
 TestResult::EOutcome PageLoadTest1(Test& test);
 TestResult::EOutcome PageLoadTest2(Test& test);
-TestResult::EOutcome PageReadTest1(Test& test);
-TestResult::EOutcome PageWriteTest1(FileComparisonTest& test);
+TestResult::EOutcome PageGetTest1(Test& test);
+TestResult::EOutcome PageInsertTest1(FileComparisonTest& test);
+TestResult::EOutcome PageInsertTest2(FileComparisonTest& test);
 
 #endif

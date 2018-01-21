@@ -32,5 +32,6 @@ void AddPageRepositoryWriterTests(TestHarness& theTestHarness);
 TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test);
 TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test);
 TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test);
+TestResult::EOutcome PageRepositoryWriterWriteTest3(FileComparisonTest& test);
 
 #endif
