@@ -29,6 +29,7 @@
 #include "Ishiko/Errors/Error.h"
 #include <boost/filesystem/path.hpp>
 #include <fstream>
+#include <memory>
 
 namespace DiplodocusDB
 {
@@ -44,10 +45,14 @@ public:
     void close();
 
     size_t pageCount() override;
-    Page* allocatePage(Ishiko::Error& error) override;
-    Page* page(size_t i, Ishiko::Error& error) override;
+    std::shared_ptr<Page> allocatePage(Ishiko::Error& error) override;
+    std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) override;
+
+    PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) override;
+    PageRepositoryReader read(std::shared_ptr<Page> startPage, size_t offset, Ishiko::Error& error) override;
 
     PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) override;
+    PageRepositoryWriter insert(std::shared_ptr<Page> startPage, size_t offset, Ishiko::Error& error) override;
     void replace() override;
     void erase() override;
 

@@ -45,7 +45,7 @@ public:
     size_t dataSize() const;
 
     void read(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
-    Page* write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
+    void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
 
     void save(Ishiko::Error& error);
     void init();

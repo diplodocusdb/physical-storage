@@ -55,27 +55,19 @@ void Page::read(char* buffer,
     memcpy(buffer, m_buffer + m_startMarker.size() + pos, n);
 }
 
-Page* Page::write(const char* buffer,
-                  size_t bufferSize,
-                  Ishiko::Error& error)
+void Page::write(const char* buffer,
+                 size_t bufferSize,
+                 Ishiko::Error& error)
 {
     if (bufferSize <= m_availableSpace)
     {
         memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, bufferSize);
         m_dataSize += bufferSize;
         m_availableSpace -= bufferSize;
-        return this;
     }
     else
     {
-        Page* nextPage = m_file.allocatePage(error);
-        if (m_availableSpace > 0)
-        {
-            memcpy(m_buffer + m_startMarker.size() + m_dataSize, buffer, m_availableSpace);
-            m_dataSize += m_availableSpace;
-            m_availableSpace = 0;
-        }
-        return nextPage->write((buffer + m_availableSpace), (bufferSize - m_availableSpace), error);
+        error = -1;
     }
 }
 

@@ -40,11 +40,11 @@ public:
     PageCache(PageFileRepository& file);
     ~PageCache();
 
-    Page* allocatePage(size_t i, Ishiko::Error& error);
-    Page* page(size_t i, Ishiko::Error& error);
+    std::shared_ptr<Page> allocatePage(size_t i, Ishiko::Error& error);
+    std::shared_ptr<Page> page(size_t i, Ishiko::Error& error);
 
 private:
-    Page* loadPage(size_t i, Ishiko::Error& error);
+    std::shared_ptr<Page> loadPage(size_t i, Ishiko::Error& error);
 
 private:
     PageFileRepository& m_file;
