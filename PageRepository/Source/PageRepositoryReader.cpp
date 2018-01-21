@@ -25,12 +25,20 @@
 namespace DiplodocusDB
 {
 
-PageRepositoryReader::PageRepositoryReader()
+PageRepositoryReader::PageRepositoryReader(std::shared_ptr<Page> startPage)
+    : m_page(startPage)
 {
 }
 
 PageRepositoryReader::~PageRepositoryReader()
 {
+}
+
+void PageRepositoryReader::read(char* buffer,
+                                size_t n,
+                                Ishiko::Error& error)
+{
+    m_page->read(buffer, 0, n, error);
 }
 
 }

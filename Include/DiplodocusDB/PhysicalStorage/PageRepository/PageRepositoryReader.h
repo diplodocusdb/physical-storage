@@ -23,14 +23,23 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADER_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADER_H_
 
+#include "Page.h"
+#include "Ishiko/Errors/Error.h"
+#include <memory>
+
 namespace DiplodocusDB
 {
 
 class PageRepositoryReader
 {
 public:
-    PageRepositoryReader();
+    PageRepositoryReader(std::shared_ptr<Page> startPage);
     ~PageRepositoryReader();
+
+    void read(char* buffer, size_t n, Ishiko::Error& error);
+
+private:
+    std::shared_ptr<Page> m_page;
 };
 
 }

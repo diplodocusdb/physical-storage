@@ -24,8 +24,10 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORY_H_
 
 #include "Page.h"
+#include "PageRepositoryReader.h"
 #include "PageRepositoryWriter.h"
 #include "Ishiko/Errors/Error.h"
+#include <memory>
 
 namespace DiplodocusDB
 {
@@ -37,10 +39,14 @@ public:
     virtual ~PageRepository();
 
     virtual size_t pageCount() = 0;
-    virtual Page* allocatePage(Ishiko::Error& error) = 0;
-    virtual Page* page(size_t i, Ishiko::Error& error) = 0;
+    virtual std::shared_ptr<Page> allocatePage(Ishiko::Error& error) = 0;
+    virtual std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) = 0;
+
+    virtual PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
+    virtual PageRepositoryReader read(std::shared_ptr<Page> startPage, size_t offset, Ishiko::Error& error) = 0;
 
     virtual PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
+    virtual PageRepositoryWriter insert(std::shared_ptr<Page> startPage, size_t offset, Ishiko::Error& error) = 0;
     virtual void replace() = 0;
     virtual void erase() = 0;
 };

@@ -25,7 +25,7 @@
 namespace DiplodocusDB
 {
 
-PageRepositoryWriter::PageRepositoryWriter(Page& startPage)
+PageRepositoryWriter::PageRepositoryWriter(std::shared_ptr<Page> startPage)
     : m_page(startPage)
 {
 }
@@ -38,12 +38,12 @@ void PageRepositoryWriter::write(const char* buffer,
                                  size_t bufferSize,
                                  Ishiko::Error& error)
 {
-    m_page.write(buffer, bufferSize, error);
+    m_page->write(buffer, bufferSize, error);
 }
 
 void PageRepositoryWriter::save(Ishiko::Error& error)
 {
-    m_page.save(error);
+    m_page->save(error);
 }
 
 }
