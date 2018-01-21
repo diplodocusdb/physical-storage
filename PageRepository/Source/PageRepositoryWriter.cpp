@@ -25,8 +25,9 @@
 namespace DiplodocusDB
 {
 
-PageRepositoryWriter::PageRepositoryWriter(std::shared_ptr<Page> startPage)
-    : m_currentPage(startPage), m_currentOffset(0)
+PageRepositoryWriter::PageRepositoryWriter(std::shared_ptr<Page> startPage,
+                                           size_t startOffset)
+    : m_currentPage(startPage), m_currentOffset(startOffset)
 {
 }
 

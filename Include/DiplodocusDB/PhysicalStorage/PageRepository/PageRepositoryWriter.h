@@ -32,7 +32,7 @@ namespace DiplodocusDB
 class PageRepositoryWriter
 {
 public:
-    PageRepositoryWriter(std::shared_ptr<Page> startPage);
+    PageRepositoryWriter(std::shared_ptr<Page> startPage, size_t startOffset);
     ~PageRepositoryWriter();
 
     void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);

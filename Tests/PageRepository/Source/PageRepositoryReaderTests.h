@@ -32,5 +32,6 @@ void AddPageRepositoryReaderTests(TestHarness& theTestHarness);
 TestResult::EOutcome PageRepositoryReaderCreationTest1(Test& test);
 TestResult::EOutcome PageRepositoryReaderReadTest1(Test& test);
 TestResult::EOutcome PageRepositoryReaderReadTest2(Test& test);
+TestResult::EOutcome PageRepositoryReaderReadTest3(Test& test);
 
 #endif

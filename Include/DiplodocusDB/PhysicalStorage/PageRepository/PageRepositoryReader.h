@@ -33,7 +33,7 @@ namespace DiplodocusDB
 class PageRepositoryReader
 {
 public:
-    PageRepositoryReader(std::shared_ptr<Page> startPage);
+    PageRepositoryReader(std::shared_ptr<Page> startPage, size_t startOffset);
     ~PageRepositoryReader();
 
     void read(char* buffer, size_t n, Ishiko::Error& error);
