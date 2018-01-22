@@ -36,8 +36,12 @@ void AddPageTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("get test 1", PageGetTest1, pageTestSequence);
 
+    new FileComparisonTest("insertNextPage test 1", PageInsertNextPageTest1, pageTestSequence);
+
     new FileComparisonTest("insert test 1", PageInsertTest1, pageTestSequence);
     new FileComparisonTest("insert test 2", PageInsertTest2, pageTestSequence);
+
+    new FileComparisonTest("moveTo test 1", PageMoveToTest1, pageTestSequence);
 }
 
 TestResult::EOutcome PageCreationTest1(Test& test)
@@ -142,6 +146,43 @@ TestResult::EOutcome PageGetTest1(Test& test)
     return result;
 }
 
+TestResult::EOutcome PageInsertNextPageTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageInsertNextPageTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageInsertNextPageTest1.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+        if (!error)
+        {
+            std::shared_ptr<DiplodocusDB::Page> page2 = page1->insertNextPage(error);
+            if (!error)
+            {
+                page1->save(error);
+                page2->save(error);
+                if (!error)
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertNextPageTest1.dpdb");
+
+    return result;
+}
+
 TestResult::EOutcome PageInsertTest1(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
@@ -209,6 +250,30 @@ TestResult::EOutcome PageInsertTest2(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest2.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageMoveToTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageMoveToTest1.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest1.dpdb");
 
     return result;
 }
