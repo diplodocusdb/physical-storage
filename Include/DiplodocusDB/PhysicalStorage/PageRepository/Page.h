@@ -43,6 +43,7 @@ public:
 
     size_t index() const;
     size_t dataSize() const;
+    size_t availableSpace() const;
 
     void get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
     void insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Error& error);
@@ -50,6 +51,8 @@ public:
     void save(Ishiko::Error& error);
     void init();
     void load(Ishiko::Error& error);
+
+    std::shared_ptr<Page> insertNextPage(Ishiko::Error& error);
 
 public:
     static const size_t sm_size = 4096;

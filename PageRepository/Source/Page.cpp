@@ -47,6 +47,11 @@ size_t Page::dataSize() const
     return m_dataSize;
 }
 
+size_t Page::availableSpace() const
+{
+    return m_availableSpace;
+}
+
 void Page::get(char* buffer,
                size_t pos,
                size_t n,
@@ -131,6 +136,18 @@ void Page::load(Ishiko::Error& error)
     }
 
     m_dataSize = *((uint16_t*)(m_buffer + 6));
+}
+
+std::shared_ptr<Page> Page::insertNextPage(Ishiko::Error& error)
+{
+    std::shared_ptr<Page> page = m_file.allocatePage(error);
+    if (!error)
+    {
+        page->init();
+        page->m_endMarker.setNextPage(m_endMarker.nextPage());
+        m_endMarker.setNextPage(page->index());
+    }
+    return page;
 }
 
 }

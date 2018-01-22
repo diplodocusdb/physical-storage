@@ -22,6 +22,7 @@
 
 #include "PageEndMarker.h"
 #include <cstring>
+#include <cstdint>
 
 namespace DiplodocusDB
 {
@@ -40,9 +41,20 @@ size_t PageEndMarker::size() const
     return 8;
 }
 
+size_t PageEndMarker::nextPage() const
+{
+    return m_nextPage;
+}
+
+void PageEndMarker::setNextPage(size_t nextPage)
+{
+    m_nextPage = nextPage;
+}
+
 void PageEndMarker::write(char* buffer)
 {
     memcpy(buffer, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
+    *((uint32_t*)(buffer + 2)) = m_nextPage;
 }
 
 }
