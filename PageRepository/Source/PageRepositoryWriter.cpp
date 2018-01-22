@@ -39,8 +39,19 @@ void PageRepositoryWriter::write(const char* buffer,
                                  size_t bufferSize,
                                  Ishiko::Error& error)
 {
-    if (bufferSize > m_currentPage->availableSpace())
+    size_t availableSpace = m_currentPage->availableSpace();
+    if (bufferSize > availableSpace)
     {
+        if (availableSpace > 0)
+        {
+            m_currentPage->insert(buffer, availableSpace, m_currentOffset, error);
+            if (error)
+            {
+                return;
+            }
+            buffer += availableSpace;
+            bufferSize -= availableSpace;
+        }
         std::shared_ptr<Page> newPage = m_currentPage->insertNextPage(error);
         if (error)
         {

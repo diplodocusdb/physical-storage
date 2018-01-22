@@ -37,6 +37,7 @@ void AddPageRepositoryWriterTests(TestHarness& theTestHarness)
     new FileComparisonTest("write test 4", PageRepositoryWriterWriteTest4, writerTestSequence);
     new FileComparisonTest("write test 5", PageRepositoryWriterWriteTest5, writerTestSequence);
     new FileComparisonTest("write test 6", PageRepositoryWriterWriteTest6, writerTestSequence);
+    new FileComparisonTest("write test 7", PageRepositoryWriterWriteTest7, writerTestSequence);
 }
 
 TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
@@ -288,6 +289,46 @@ TestResult::EOutcome PageRepositoryWriterWriteTest6(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageRepositoryWriterWriteTest7(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest7.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest7.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+        if (!error)
+        {
+            for (size_t i = 0; i < 407; ++i)
+            {
+                writer.write("0123456789", 10, error);
+            }
+            writer.write("01234567890", 11, error);
+            if (!error)
+            {
+                writer.save(error);
+                if (!error)
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest7.dpdb");
 
     return result;
 }
