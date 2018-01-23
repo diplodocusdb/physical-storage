@@ -41,6 +41,8 @@ void AddPageTests(TestHarness& theTestHarness)
     new FileComparisonTest("insert test 1", PageInsertTest1, pageTestSequence);
     new FileComparisonTest("insert test 2", PageInsertTest2, pageTestSequence);
 
+    new FileComparisonTest("erase test 1", PageEraseTest1, pageTestSequence);
+
     new FileComparisonTest("moveTo test 1", PageMoveToTest1, pageTestSequence);
 }
 
@@ -168,10 +170,13 @@ TestResult::EOutcome PageInsertNextPageTest1(FileComparisonTest& test)
             if (!error)
             {
                 page1->save(error);
-                page2->save(error);
                 if (!error)
                 {
-                    result = TestResult::ePassed;
+                    page2->save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -254,6 +259,43 @@ TestResult::EOutcome PageInsertTest2(FileComparisonTest& test)
     return result;
 }
 
+TestResult::EOutcome PageEraseTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageEraseTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageEraseTest1.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        DiplodocusDB::Page page(repository, 0);
+        page.load(error);
+        if (!error)
+        {
+            page.erase(0, 6, error);
+            if (!error)
+            {
+                page.save(error);
+                if (!error)
+                {
+                    result = TestResult::ePassed;
+                }
+            }
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageEraseTest1.dpdb");
+
+    return result;
+}
+
 TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
@@ -270,6 +312,26 @@ TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test)
     if (!error)
     {
         std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+        if (!error)
+        {
+            std::shared_ptr<DiplodocusDB::Page> page2 = repository.page(1, error);
+            if (!error)
+            {
+                page1->moveTo(0, 6, *page2, error);
+                if (!error)
+                {
+                    page1->save(error);
+                    if (!error)
+                    {
+                        page2->save(error);
+                        if (!error)
+                        {
+                            result = TestResult::ePassed;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     test.setOutputFilePath(outputPath);
