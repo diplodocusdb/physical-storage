@@ -47,6 +47,8 @@ public:
 
     void get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
     void insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Error& error);
+    void erase(size_t pos, size_t n, Ishiko::Error& error);
+    void moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error);
 
     void save(Ishiko::Error& error);
     void init();

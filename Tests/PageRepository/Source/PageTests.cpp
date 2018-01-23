@@ -411,7 +411,7 @@ TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test)
     }
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest1.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageMoveToTest1.dpdb");
 
     return result;
 }

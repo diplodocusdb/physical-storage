@@ -89,6 +89,27 @@ void Page::insert(const char* buffer,
     }
 }
 
+void Page::erase(size_t pos,
+                 size_t n,
+                 Ishiko::Error& error)
+{
+    memmove(m_buffer + m_startMarker.size() + pos, m_buffer + m_startMarker.size() + pos + n, m_dataSize + m_endMarker.size() - pos - n);
+    memset(m_buffer + m_startMarker.size() + m_dataSize + m_endMarker.size() - n, 0, n);
+    m_dataSize -= n;
+}
+
+void Page::moveTo(size_t pos,
+                  size_t n,
+                  Page& targetPage,
+                  Ishiko::Error& error)
+{
+    targetPage.insert(m_buffer + m_startMarker.size() + pos, n, 0, error);
+    if (!error)
+    {
+        erase(pos, n, error);
+    }
+}
+
 void Page::save(Ishiko::Error& error)
 {
     std::fstream& file = m_file.file();
@@ -136,6 +157,9 @@ void Page::load(Ishiko::Error& error)
     }
 
     m_dataSize = *((uint16_t*)(m_buffer + 6));
+
+    uint32_t nextPage = *((uint32_t*)(m_buffer + m_startMarker.size() + m_dataSize + 2));
+    m_endMarker.setNextPage(nextPage);
 }
 
 std::shared_ptr<Page> Page::insertNextPage(Ishiko::Error& error)
