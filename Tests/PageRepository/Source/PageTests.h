@@ -37,6 +37,7 @@ TestResult::EOutcome PageInsertNextPageTest1(FileComparisonTest& test);
 TestResult::EOutcome PageInsertTest1(FileComparisonTest& test);
 TestResult::EOutcome PageInsertTest2(FileComparisonTest& test);
 TestResult::EOutcome PageEraseTest1(FileComparisonTest& test);
+TestResult::EOutcome PageEraseTest2(FileComparisonTest& test);
 TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test);
 
 #endif
