@@ -123,7 +123,7 @@ PageRepositoryWriter PageFileRepository::insert(std::shared_ptr<Page> startPage,
                                                 size_t offset,
                                                 Ishiko::Error& error)
 {
-    return PageRepositoryWriter(startPage, offset);
+    return PageRepositoryWriter(*this, startPage, offset);
 }
 
 void PageFileRepository::replace()

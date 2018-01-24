@@ -45,6 +45,7 @@ public:
     size_t dataSize() const;
     size_t maxDataSize() const;
     size_t availableSpace() const;
+    size_t nextPage() const;
 
     void get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;
     void insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Error& error);

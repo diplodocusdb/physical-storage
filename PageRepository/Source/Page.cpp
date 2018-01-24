@@ -57,6 +57,11 @@ size_t Page::availableSpace() const
     return m_availableSpace;
 }
 
+size_t Page::nextPage() const
+{
+    return m_endMarker.nextPage();
+}
+
 void Page::get(char* buffer,
                size_t pos,
                size_t n,

@@ -21,13 +21,16 @@
 */
 
 #include "PageRepositoryWriter.h"
+#include "PageRepository.h"
 
 namespace DiplodocusDB
 {
 
-PageRepositoryWriter::PageRepositoryWriter(std::shared_ptr<Page> startPage,
+PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository,
+                                           std::shared_ptr<Page> startPage,
                                            size_t startOffset)
-    : m_currentPage(startPage), m_currentOffset(startOffset)
+    : m_repository(repository), m_currentPage(startPage),
+    m_currentOffset(startOffset)
 {
 }
 
@@ -58,7 +61,16 @@ void PageRepositoryWriter::write(const char* buffer,
         else
         {
             // We need to move some data to a new page
-            std::shared_ptr<Page> newPage = m_currentPage->insertNextPage(error);
+            size_t nextPageIndex = m_currentPage->nextPage();
+            std::shared_ptr<Page> newPage;
+            if (nextPageIndex != 0)
+            {
+                newPage = m_repository.page(nextPageIndex, error);
+            }
+            else
+            {
+                newPage = m_currentPage->insertNextPage(error);
+            }
             if (error)
             {
                 return;
@@ -82,7 +94,16 @@ void PageRepositoryWriter::write(const char* buffer,
     {
         // Only part of the new data can fit in the current page. We have to
         // move any existing data to the next page.
-        std::shared_ptr<Page> newPage = m_currentPage->insertNextPage(error);
+        size_t nextPageIndex = m_currentPage->nextPage();
+        std::shared_ptr<Page> newPage;
+        if (nextPageIndex != 0)
+        {
+            newPage = m_repository.page(nextPageIndex, error);
+        }
+        else
+        {
+            newPage = m_currentPage->insertNextPage(error);
+        }
         if (error)
         {
             return;

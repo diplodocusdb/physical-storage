@@ -56,7 +56,7 @@ TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
         std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
         if (!error)
         {
-            DiplodocusDB::PageRepositoryWriter writer(page, 0);
+            DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
             result = TestResult::ePassed;
         }
     }

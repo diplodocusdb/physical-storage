@@ -30,16 +30,19 @@
 namespace DiplodocusDB
 {
 
+class PageRepository;
+
 class PageRepositoryWriter
 {
 public:
-    PageRepositoryWriter(std::shared_ptr<Page> startPage, size_t startOffset);
+    PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage, size_t startOffset);
     ~PageRepositoryWriter();
 
     void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
     void save(Ishiko::Error& error);
 
 private:
+    PageRepository& m_repository;
     std::shared_ptr<Page> m_currentPage;
     size_t m_currentOffset;
     std::set<std::shared_ptr<Page> > m_updatedPages;
