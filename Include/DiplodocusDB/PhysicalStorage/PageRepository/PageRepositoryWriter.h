@@ -24,7 +24,7 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYWRITER_H_
 
 #include "Page.h"
-#include <vector>
+#include <set>
 #include <memory>
 
 namespace DiplodocusDB
@@ -42,7 +42,7 @@ public:
 private:
     std::shared_ptr<Page> m_currentPage;
     size_t m_currentOffset;
-    std::vector<std::shared_ptr<Page> > m_previousPages;
+    std::set<std::shared_ptr<Page> > m_updatedPages;
 };
 
 }

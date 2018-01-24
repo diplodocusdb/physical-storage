@@ -37,5 +37,6 @@ TestResult::EOutcome PageRepositoryWriterWriteTest4(FileComparisonTest& test);
 TestResult::EOutcome PageRepositoryWriterWriteTest5(FileComparisonTest& test);
 TestResult::EOutcome PageRepositoryWriterWriteTest6(FileComparisonTest& test);
 TestResult::EOutcome PageRepositoryWriterWriteTest7(FileComparisonTest& test);
+TestResult::EOutcome PageRepositoryWriterWriteTest8(FileComparisonTest& test);
 
 #endif

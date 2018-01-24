@@ -39,42 +39,79 @@ void PageRepositoryWriter::write(const char* buffer,
                                  size_t bufferSize,
                                  Ishiko::Error& error)
 {
-    size_t availableSpace = m_currentPage->availableSpace();
-    if (bufferSize > availableSpace)
+    if ((m_currentOffset + bufferSize) <= m_currentPage->maxDataSize())
     {
-        if (availableSpace > 0)
+        // The new data can fit in the current page. We may have to move
+        // existing data though.
+        size_t availableSpace = m_currentPage->availableSpace();
+        if (bufferSize <= availableSpace)
         {
-            m_currentPage->insert(buffer, availableSpace, m_currentOffset, error);
+            // The new data can fit in the current page without moving any
+            // data.
+            m_currentPage->insert(buffer, bufferSize, m_currentOffset, error);
+            if (!error)
+            {
+                m_currentOffset += bufferSize;
+            }
+            m_updatedPages.insert(m_currentPage);
+        }
+        else
+        {
+            // We need to move some data to a new page
+            std::shared_ptr<Page> newPage = m_currentPage->insertNextPage(error);
             if (error)
             {
                 return;
             }
-            buffer += availableSpace;
-            bufferSize -= availableSpace;
+            size_t spaceNeeded = (bufferSize - availableSpace);
+            m_currentPage->moveTo(m_currentPage->dataSize() - spaceNeeded, spaceNeeded, *newPage, error);
+            if (error)
+            {
+                return;
+            }
+            m_currentPage->insert(buffer, bufferSize, m_currentOffset, error);
+            if (!error)
+            {
+                m_currentOffset += bufferSize;
+            }
+            m_updatedPages.insert(m_currentPage);
+            m_updatedPages.insert(newPage);
         }
+    }
+    else
+    {
+        // Only part of the new data can fit in the current page. We have to
+        // move any existing data to the next page.
         std::shared_ptr<Page> newPage = m_currentPage->insertNextPage(error);
         if (error)
         {
             return;
         }
-        m_previousPages.push_back(m_currentPage);
-        m_currentPage = newPage;
-        m_currentOffset = 0;
-    }
-    m_currentPage->insert(buffer, bufferSize, m_currentOffset, error);
-    if (!error)
-    {
-        m_currentOffset += bufferSize;
+        size_t spaceInCurrentPage = (m_currentPage->maxDataSize() - m_currentOffset);
+        if (!error)
+        {
+            m_currentPage->moveTo(m_currentOffset, m_currentPage->dataSize() - m_currentOffset, *newPage, error);
+            if (!error)
+            {
+                write(buffer, m_currentPage->availableSpace(), error);
+                if (!error)
+                {
+                    m_currentPage = newPage;
+                    m_currentOffset = 0;
+                    m_updatedPages.insert(m_currentPage);
+                    write(buffer + spaceInCurrentPage, bufferSize - spaceInCurrentPage, error);
+                }
+            }
+        }
     }
 }
 
 void PageRepositoryWriter::save(Ishiko::Error& error)
 {
-    for (std::shared_ptr<Page>& page : m_previousPages)
+    for (const std::shared_ptr<Page>& page : m_updatedPages)
     {
         page->save(error);
     }
-    m_currentPage->save(error);
 }
 
 }
