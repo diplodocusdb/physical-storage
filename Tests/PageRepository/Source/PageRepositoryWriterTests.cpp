@@ -352,12 +352,10 @@ TestResult::EOutcome PageRepositoryWriterWriteTest8(FileComparisonTest& test)
         DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
         if (!error)
         {
-            for (size_t i = 0; i < 407; ++i)
+            for (size_t i = 0; i < 409; ++i)
             {
                 writer.write("0123456789", 10, error);
             }
-            writer.write("0123456789", 10, error);
-            writer.write("0123456789", 10, error);
             if (!error)
             {
                 writer.save(error);

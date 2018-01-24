@@ -40,5 +40,6 @@ TestResult::EOutcome PageEraseTest1(FileComparisonTest& test);
 TestResult::EOutcome PageEraseTest2(FileComparisonTest& test);
 TestResult::EOutcome PageEraseTest3(FileComparisonTest& test);
 TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test);
+TestResult::EOutcome PageMoveToTest2(FileComparisonTest& test);
 
 #endif

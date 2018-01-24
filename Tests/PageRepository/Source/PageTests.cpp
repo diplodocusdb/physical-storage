@@ -46,6 +46,7 @@ void AddPageTests(TestHarness& theTestHarness)
     new FileComparisonTest("erase test 3", PageEraseTest3, pageTestSequence);
 
     new FileComparisonTest("moveTo test 1", PageMoveToTest1, pageTestSequence);
+    new FileComparisonTest("moveTo test 2", PageMoveToTest2, pageTestSequence);
 }
 
 TestResult::EOutcome PageCreationTest1(Test& test)
@@ -405,13 +406,16 @@ TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test)
                 page1->moveTo(0, 6, *page2, error);
                 if (!error)
                 {
-                    page1->save(error);
-                    if (!error)
+                    if ((page1->dataSize() == 0) && (page2->dataSize() == 6))
                     {
-                        page2->save(error);
+                        page1->save(error);
                         if (!error)
                         {
-                            result = TestResult::ePassed;
+                            page2->save(error);
+                            if (!error)
+                            {
+                                result = TestResult::ePassed;
+                            }
                         }
                     }
                 }
@@ -421,6 +425,53 @@ TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageMoveToTest1.dpdb");
+
+    return result;
+}
+
+TestResult::EOutcome PageMoveToTest2(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageMoveToTest2.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageMoveToTest2.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error;
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+    if (!error)
+    {
+        std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+        if (!error)
+        {
+            std::shared_ptr<DiplodocusDB::Page> page2 = repository.page(1, error);
+            if (!error)
+            {
+                page1->moveTo(0, 6, *page2, error);
+                if (!error)
+                {
+                    if ((page1->dataSize() == 0) && (page2->dataSize() == 12))
+                    {
+                        page1->save(error);
+                        if (!error)
+                        {
+                            page2->save(error);
+                            if (!error)
+                            {
+                                result = TestResult::ePassed;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageMoveToTest2.dpdb");
 
     return result;
 }
