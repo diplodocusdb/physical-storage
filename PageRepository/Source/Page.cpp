@@ -47,6 +47,11 @@ size_t Page::dataSize() const
     return m_dataSize;
 }
 
+size_t Page::maxDataSize() const
+{
+    return (sm_size - m_startMarker.size() - m_endMarker.size());
+}
+
 size_t Page::availableSpace() const
 {
     return m_availableSpace;
@@ -96,6 +101,7 @@ void Page::erase(size_t pos,
     memmove(m_buffer + m_startMarker.size() + pos, m_buffer + m_startMarker.size() + pos + n, m_dataSize + m_endMarker.size() - pos - n);
     memset(m_buffer + m_startMarker.size() + m_dataSize + m_endMarker.size() - n, 0, n);
     m_dataSize -= n;
+    m_availableSpace += n;
 }
 
 void Page::moveTo(size_t pos,
@@ -157,6 +163,7 @@ void Page::load(Ishiko::Error& error)
     }
 
     m_dataSize = *((uint16_t*)(m_buffer + 6));
+    m_availableSpace = sm_size - m_startMarker.size() - m_endMarker.size() - m_dataSize;
 
     uint32_t nextPage = *((uint32_t*)(m_buffer + m_startMarker.size() + m_dataSize + 2));
     m_endMarker.setNextPage(nextPage);

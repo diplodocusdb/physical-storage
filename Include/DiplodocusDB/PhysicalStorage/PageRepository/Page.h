@@ -43,6 +43,7 @@ public:
 
     size_t index() const;
     size_t dataSize() const;
+    size_t maxDataSize() const;
     size_t availableSpace() const;
 
     void get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const;

@@ -83,7 +83,7 @@ TestResult::EOutcome PageLoadTest1(Test& test)
         page.load(error);
         if (!error)
         {
-            if (page.dataSize() == 0)
+            if ((page.dataSize() == 0) && (page.availableSpace() == 4080))
             {
                 result = TestResult::ePassed;
             }
@@ -109,7 +109,7 @@ TestResult::EOutcome PageLoadTest2(Test& test)
         page.load(error);
         if (!error)
         {
-            if (page.dataSize() == 6)
+            if ((page.dataSize() == 6) && (page.availableSpace() == 4074))
             {
                 result = TestResult::ePassed;
             }
@@ -283,10 +283,13 @@ TestResult::EOutcome PageEraseTest1(FileComparisonTest& test)
             page.erase(0, 6, error);
             if (!error)
             {
-                page.save(error);
-                if (!error)
+                if ((page.dataSize() == 0) && (page.availableSpace() == 4080))
                 {
-                    result = TestResult::ePassed;
+                    page.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -320,10 +323,13 @@ TestResult::EOutcome PageEraseTest2(FileComparisonTest& test)
             page.erase(5, 1, error);
             if (!error)
             {
-                page.save(error);
-                if (!error)
+                if ((page.dataSize() == 5) && (page.availableSpace() == 4075))
                 {
-                    result = TestResult::ePassed;
+                    page.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -357,10 +363,13 @@ TestResult::EOutcome PageEraseTest3(FileComparisonTest& test)
             page.erase(2, 10, error);
             if (!error)
             {
-                page.save(error);
-                if (!error)
+                if ((page.dataSize() == 2) && (page.availableSpace() == 4078))
                 {
-                    result = TestResult::ePassed;
+                    page.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
