@@ -38,6 +38,11 @@ PageRepositoryWriter::~PageRepositoryWriter()
 {
 }
 
+std::shared_ptr<Page> PageRepositoryWriter::currentPage()
+{
+    return m_currentPage;
+}
+
 size_t PageRepositoryWriter::currentPageOffset() const
 {
     return m_currentOffset;

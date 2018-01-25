@@ -38,6 +38,7 @@ public:
     PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage, size_t startOffset);
     ~PageRepositoryWriter();
 
+    std::shared_ptr<Page> currentPage();
     size_t currentPageOffset() const;
 
     void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
