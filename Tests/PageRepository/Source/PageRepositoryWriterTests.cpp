@@ -57,7 +57,10 @@ TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
         if (!error)
         {
             DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
-            result = TestResult::ePassed;
+            if (writer.currentPageOffset() == 0)
+            {
+                result = TestResult::ePassed;
+            }
         }
     }
 
@@ -83,12 +86,15 @@ TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test)
             if (!error)
             {
                 writer.write("value1", 6, error);
-                if (!error)
+                if (writer.currentPageOffset() == 6)
                 {
-                    writer.save(error);
                     if (!error)
                     {
-                        result = TestResult::ePassed;
+                        writer.save(error);
+                        if (!error)
+                        {
+                            result = TestResult::ePassed;
+                        }
                     }
                 }
             }
@@ -126,10 +132,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test)
                     writer.write("value2", 6, error);
                     if (!error)
                     {
-                        writer.save(error);
-                        if (!error)
+                        if (writer.currentPageOffset() == 12)
                         {
-                            result = TestResult::ePassed;
+                            writer.save(error);
+                            if (!error)
+                            {
+                                result = TestResult::ePassed;
+                            }
                         }
                     }
                 }
@@ -165,10 +174,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest3(FileComparisonTest& test)
             writer.write("value0", 6, error);
             if (!error)
             {
-                writer.save(error);
-                if (!error)
+                if (writer.currentPageOffset() == 6)
                 {
-                    result = TestResult::ePassed;
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -201,10 +213,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest4(FileComparisonTest& test)
             writer.write("value2", 6, error);
             if (!error)
             {
-                writer.save(error);
-                if (!error)
+                if (writer.currentPageOffset() == 12)
                 {
-                    result = TestResult::ePassed;
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -240,10 +255,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest5(FileComparisonTest& test)
             }
             if (!error)
             {
-                writer.save(error);
-                if (!error)
+                if (writer.currentPageOffset() == 10)
                 {
-                    result = TestResult::ePassed;
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -279,10 +297,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest6(FileComparisonTest& test)
             }
             if (!error)
             {
-                writer.save(error);
-                if (!error)
+                if (writer.currentPageOffset() == 20)
                 {
-                    result = TestResult::ePassed;
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -319,10 +340,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest7(FileComparisonTest& test)
             writer.write("01234567890", 11, error);
             if (!error)
             {
-                writer.save(error);
-                if (!error)
+                if (writer.currentPageOffset() == 1)
                 {
-                    result = TestResult::ePassed;
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }
@@ -358,10 +382,13 @@ TestResult::EOutcome PageRepositoryWriterWriteTest8(FileComparisonTest& test)
             }
             if (!error)
             {
-                writer.save(error);
-                if (!error)
+                if (writer.currentPageOffset() == 10)
                 {
-                    result = TestResult::ePassed;
+                    writer.save(error);
+                    if (!error)
+                    {
+                        result = TestResult::ePassed;
+                    }
                 }
             }
         }

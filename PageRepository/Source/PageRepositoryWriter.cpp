@@ -38,6 +38,11 @@ PageRepositoryWriter::~PageRepositoryWriter()
 {
 }
 
+size_t PageRepositoryWriter::currentPageOffset() const
+{
+    return m_currentOffset;
+}
+
 void PageRepositoryWriter::write(const char* buffer,
                                  size_t bufferSize,
                                  Ishiko::Error& error)
