@@ -35,6 +35,11 @@ PageRepositoryReader::~PageRepositoryReader()
 {
 }
 
+PageRepositoryPosition PageRepositoryReader::currentPosition() const
+{
+    return PageRepositoryPosition(m_currentPage->index(), m_currentOffset);
+}
+
 void PageRepositoryReader::read(char* buffer,
                                 size_t n,
                                 Ishiko::Error& error)

@@ -24,6 +24,7 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADER_H_
 
 #include "Page.h"
+#include "PageRepositoryPosition.h"
 #include "Ishiko/Errors/Error.h"
 #include <memory>
 
@@ -35,6 +36,8 @@ class PageRepositoryReader
 public:
     PageRepositoryReader(std::shared_ptr<Page> startPage, size_t startOffset);
     ~PageRepositoryReader();
+
+    PageRepositoryPosition currentPosition() const;
 
     void read(char* buffer, size_t n, Ishiko::Error& error);
 
