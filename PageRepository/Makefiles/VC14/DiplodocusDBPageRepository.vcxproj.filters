@@ -35,6 +35,9 @@
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryPosition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -62,6 +65,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PageRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PageRepositoryPosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PageRepositoryReader.cpp">
