@@ -24,6 +24,7 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORY_H_
 
 #include "Page.h"
+#include "PageRepositoryPosition.h"
 #include "PageRepositoryReader.h"
 #include "PageRepositoryWriter.h"
 #include "Ishiko/Errors/Error.h"
@@ -42,9 +43,11 @@ public:
     virtual std::shared_ptr<Page> allocatePage(Ishiko::Error& error) = 0;
     virtual std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) = 0;
 
+    PageRepositoryReader read(const PageRepositoryPosition& pos, Ishiko::Error& error);
     virtual PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
     virtual PageRepositoryReader read(std::shared_ptr<Page> startPage, size_t offset, Ishiko::Error& error) = 0;
 
+    PageRepositoryWriter insert(const PageRepositoryPosition& pos, Ishiko::Error& error);
     virtual PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
     virtual PageRepositoryWriter insert(std::shared_ptr<Page> startPage, size_t offset, Ishiko::Error& error) = 0;
     virtual void replace() = 0;
@@ -52,5 +55,7 @@ public:
 };
 
 }
+
+#include "linkoptions.h"
 
 #endif

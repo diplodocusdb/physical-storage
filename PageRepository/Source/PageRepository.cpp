@@ -33,4 +33,16 @@ PageRepository::~PageRepository()
 {
 }
 
+PageRepositoryReader PageRepository::read(const PageRepositoryPosition& pos,
+                                          Ishiko::Error& error)
+{
+    return read(pos.page(), pos.offset(), error);
+}
+
+PageRepositoryWriter PageRepository::insert(const PageRepositoryPosition& pos,
+                                            Ishiko::Error& error)
+{
+    return insert(pos.page(), pos.offset(), error);
+}
+
 }

@@ -23,4 +23,25 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYPOSITION_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYPOSITION_H_
 
+namespace DiplodocusDB
+{
+
+class PageRepositoryPosition
+{
+public:
+    PageRepositoryPosition(size_t page, size_t offset);
+    ~PageRepositoryPosition();
+
+    size_t page() const;
+    size_t offset() const;
+
+private:
+    size_t m_page;
+    size_t m_offset;
+};
+
+}
+
+#include "linkoptions.h"
+
 #endif

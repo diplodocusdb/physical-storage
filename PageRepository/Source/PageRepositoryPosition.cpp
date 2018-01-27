@@ -21,3 +21,28 @@
 */
 
 #include "PageRepositoryPosition.h"
+
+namespace DiplodocusDB
+{
+
+PageRepositoryPosition::PageRepositoryPosition(size_t page,
+                                               size_t offset)
+    : m_page(page), m_offset(offset)
+{
+}
+
+PageRepositoryPosition::~PageRepositoryPosition()
+{
+}
+
+size_t PageRepositoryPosition::page() const
+{
+    return m_page;
+}
+
+size_t PageRepositoryPosition::offset() const
+{
+    return m_offset;
+}
+
+}
