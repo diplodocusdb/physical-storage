@@ -11,5 +11,14 @@ setting DIPLODOCUSDB_PHYSICALSTORAGE_ROOT
 template DiplodocusDBPageRepository : IshikoErrors, Boost
 {
     includedirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include;
-    libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib/$(arch);
+
+    if ($(toolset) == gnu)
+    {
+        libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib/$(arch);
+    }
 }

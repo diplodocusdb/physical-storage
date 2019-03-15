@@ -3,8 +3,10 @@ import $(ishikopath)/TestFramework/Include/Ishiko/TestFramework/TestFrameworkCor
 diplodocusdbpath = envvar("DIPLODOCUSDB");
 import $(diplodocusdbpath)/PhysicalStorage/Include/DiplodocusDB/PhysicalStorage/PageRepository.bkl;
 
-toolsets = vs2015 vs2013;
+toolsets = gnu vs2017 vs2015 vs2013;
 
+gnu.makefile = ../GNUmakefile/GNUmakefile;
+vs2017.solutionfile = ../VC15/DiplodocusDBPageRepositoryTests.sln;
 vs2015.solutionfile = ../VC14/DiplodocusDBPageRepositoryTests.sln;
 vs2013.solutionfile = ../VC12/DiplodocusDBPageRepositoryTests.sln;
 

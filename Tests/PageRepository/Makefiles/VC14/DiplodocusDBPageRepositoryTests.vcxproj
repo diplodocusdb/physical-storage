@@ -92,7 +92,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib\$(Platform);$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib;$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,7 +108,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib\$(Platform);$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib;$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,7 +128,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib\$(Platform);$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib;$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,7 +148,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib\$(Platform);$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ISHIKO)/Errors\Lib\$(Platform);$(BOOST)\stage\lib;$(DIPLODOCUSDB)/PhysicalStorage\Lib\$(Platform);$(ISHIKO)/Process\Lib\$(Platform);$(ISHIKO)/TestFramework\Lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
