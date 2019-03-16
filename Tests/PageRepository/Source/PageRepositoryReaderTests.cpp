@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -24,133 +24,111 @@
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryReader.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 
-void AddPageRepositoryReaderTests(TestHarness& theTestHarness)
+using namespace Ishiko::Tests;
+
+PageRepositoryReaderTests::PageRepositoryReaderTests(const TestNumber& number, const TestEnvironment& environment)
+    : TestSequence(number, "PageRepositoryReader tests", environment)
 {
-    TestSequence& readerTestSequence = theTestHarness.appendTestSequence("PageRepositoryReader tests");
-
-    new HeapAllocationErrorsTest("Creation test 1", PageRepositoryReaderCreationTest1, readerTestSequence);
-
-    new HeapAllocationErrorsTest("read test 1", PageRepositoryReaderReadTest1, readerTestSequence);
-    new HeapAllocationErrorsTest("read test 2", PageRepositoryReaderReadTest2, readerTestSequence);
-    new HeapAllocationErrorsTest("read test 3", PageRepositoryReaderReadTest3, readerTestSequence);
+    append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
+    append<HeapAllocationErrorsTest>("read test 1", ReadTest1);
+    append<HeapAllocationErrorsTest>("read test 2", ReadTest2);
+    append<HeapAllocationErrorsTest>("read test 3", ReadTest3);
 }
 
-TestResult::EOutcome PageRepositoryReaderCreationTest1(Test& test)
+void PageRepositoryReaderTests::CreationTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderCreationTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderCreationTest1.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
-        if (!error)
-        {
-            DiplodocusDB::PageRepositoryReader reader(page, 0);
-            result = TestResult::ePassed;
-        }
-    }
 
-    return result;
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    DiplodocusDB::PageRepositoryReader reader(page, 0);
+
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageRepositoryReaderReadTest1(Test& test)
+void PageRepositoryReaderTests::ReadTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderReadTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderReadTest1.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
-        if (!error)
-        {
-            char buffer[6];
-            reader.read(buffer, 6, error);
-            if (!error)
-            {
-                if (strncmp(buffer, "value1", 6) == 0)
-                {
-                    result = TestResult::ePassed;
-                }
-            }
-        }
-    }
+    
+    ISHTF_ABORT_IF((bool)error);
 
-    return result;
+    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    char buffer[6];
+    reader.read(buffer, 6, error);
+    
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(strncmp(buffer, "value1", 6) == 0);
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageRepositoryReaderReadTest2(Test& test)
+void PageRepositoryReaderTests::ReadTest2(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderReadTest2.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderReadTest2.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
-        if (!error)
-        {
-            char buffer[6];
-            reader.read(buffer, 6, error);
-            if (!error)
-            {
-                if (strncmp(buffer, "value1", 6) == 0)
-                {
-                    reader.read(buffer, 6, error);
-                    if (!error)
-                    {
-                        if (strncmp(buffer, "value2", 6) == 0)
-                        {
-                            result = TestResult::ePassed;
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    return result;
+    ISHTF_ABORT_IF((bool)error);
+    
+    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+        
+    char buffer[6];
+    reader.read(buffer, 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(strncmp(buffer, "value1", 6) == 0);
+                
+    reader.read(buffer, 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(strncmp(buffer, "value2", 6) == 0);
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageRepositoryReaderReadTest3(Test& test)
+void PageRepositoryReaderTests::ReadTest3(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryReaderReadTest3.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderReadTest3.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        DiplodocusDB::PageRepositoryReader reader = repository.read(0, 6, error);
-        if (!error)
-        {
-            char buffer[6];
-            reader.read(buffer, 6, error);
-            if (!error)
-            {
-                if (strncmp(buffer, "value2", 6) == 0)
-                {
-                    result = TestResult::ePassed;
-                }
-            }
-        }
-    }
 
-    return result;
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+        
+    char buffer[6];
+    reader.read(buffer, 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(strncmp(buffer, "value2", 6) == 0);
+    ISHTF_PASS();
 }

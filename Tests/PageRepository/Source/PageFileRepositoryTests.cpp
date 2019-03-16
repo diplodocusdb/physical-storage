@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,155 +23,138 @@
 #include "PageFileRepositoryTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 
-void AddPageFileRepositoryTests(TestHarness& theTestHarness)
+using namespace Ishiko::Tests;
+
+PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const TestEnvironment& environment)
+    : TestSequence(number, "PageFileRepository tests", environment)
 {
-    TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("PageFileRepository tests");
-
-    new HeapAllocationErrorsTest("Creation test 1", PageFileRepositoryCreationTest1, repositoryTestSequence);
-
-    new FileComparisonTest("create test 1", PageFileRepositoryCreateTest1, repositoryTestSequence);
-
-    new HeapAllocationErrorsTest("open test 1", PageFileRepositoryOpenTest1, repositoryTestSequence);
-    new HeapAllocationErrorsTest("open test 2", PageFileRepositoryOpenTest2, repositoryTestSequence);
-
-    new FileComparisonTest("allocatePage test 1", PageFileRepositoryAllocatePageTest1, repositoryTestSequence);
-    new FileComparisonTest("allocatePage test 2", PageFileRepositoryAllocatePageTest2, repositoryTestSequence);
+    append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
+    append<FileComparisonTest>("create test 1", CreateTest1);
+    append<HeapAllocationErrorsTest>("open test 1", OpenTest1);
+    append<HeapAllocationErrorsTest>("open test 2", OpenTest2);
+    append<FileComparisonTest>("allocatePage test 1", AllocatePageTest1);
+    append<FileComparisonTest>("allocatePage test 2", AllocatePageTest2);
 }
 
-TestResult::EOutcome PageFileRepositoryCreationTest1()
+void PageFileRepositoryTests::CreationTest1(Test& test)
 {
     DiplodocusDB::PageFileRepository repository;
-    return TestResult::ePassed;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageFileRepositoryCreateTest1(FileComparisonTest& test)
+void PageFileRepositoryTests::CreateTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageFileRepositoryCreateTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageFileRepositoryCreateTest1.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
-    if (!error)
-    {
-        result = TestResult::ePassed;
-    }
+
+    ISHTF_FAIL_IF((bool)error);
+
     repository.close();
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryCreateTest1.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageFileRepositoryOpenTest1(Test& test)
+void PageFileRepositoryTests::OpenTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageFileRepositoryOpenTest1.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        if (repository.pageCount() == 0)
-        {
-            result = TestResult::ePassed;
-        }
-    }
 
-    return result;
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(repository.pageCount() == 0);
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageFileRepositoryOpenTest2(Test& test)
+void PageFileRepositoryTests::OpenTest2(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageFileRepositoryOpenTest2.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        if (repository.pageCount() == 1)
-        {
-            result = TestResult::ePassed;
-        }
-    }
-
-    return result;
+    
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(repository.pageCount() == 1);
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageFileRepositoryAllocatePageTest1(FileComparisonTest& test)
+void PageFileRepositoryTests::AllocatePageTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageFileRepositoryAllocatePageTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageFileRepositoryAllocatePageTest1.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
-        if (!error && page)
-        {
-            page->save(error);
-            if (!error)
-            {
-                result = TestResult::ePassed;
-            }
-        }
-    }
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+
+    page->save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
     repository.close();
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryAllocatePageTest1.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageFileRepositoryAllocatePageTest1.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome PageFileRepositoryAllocatePageTest2(FileComparisonTest& test)
+void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageFileRepositoryAllocatePageTest2.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageFileRepositoryAllocatePageTest2.dpdb");
 
     Ishiko::Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::Page> page1 = repository.allocatePage(error);
-        if (!error && page1)
-        {
-            page1->save(error);
-            if (!error)
-            {
-                std::shared_ptr<DiplodocusDB::Page> page2 = repository.allocatePage(error);
-                if (!error && page2)
-                {
-                    page2->save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
-    }
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page1 = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page1);
+    
+    page1->save(error);
+
+    ISHTF_ABORT_IF((bool)error);
+ 
+    std::shared_ptr<DiplodocusDB::Page> page2 = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page2);
+                
+    page2->save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
     repository.close();
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageFileRepositoryAllocatePageTest2.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageFileRepositoryAllocatePageTest2.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }

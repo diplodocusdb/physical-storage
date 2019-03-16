@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -25,21 +25,24 @@
 
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
 
-using namespace Ishiko::TestFramework;
+class PageTests : public Ishiko::Tests::TestSequence
+{
+public:
+    PageTests(const Ishiko::Tests::TestNumber& number, const Ishiko::Tests::TestEnvironment& environment);
 
-void AddPageTests(TestHarness& theTestHarness);
-
-TestResult::EOutcome PageCreationTest1(Test& test);
-TestResult::EOutcome PageLoadTest1(Test& test);
-TestResult::EOutcome PageLoadTest2(Test& test);
-TestResult::EOutcome PageGetTest1(Test& test);
-TestResult::EOutcome PageInsertNextPageTest1(FileComparisonTest& test);
-TestResult::EOutcome PageInsertTest1(FileComparisonTest& test);
-TestResult::EOutcome PageInsertTest2(FileComparisonTest& test);
-TestResult::EOutcome PageEraseTest1(FileComparisonTest& test);
-TestResult::EOutcome PageEraseTest2(FileComparisonTest& test);
-TestResult::EOutcome PageEraseTest3(FileComparisonTest& test);
-TestResult::EOutcome PageMoveToTest1(FileComparisonTest& test);
-TestResult::EOutcome PageMoveToTest2(FileComparisonTest& test);
+private:
+    static void CreationTest1(Ishiko::Tests::Test& test);
+    static void LoadTest1(Ishiko::Tests::Test& test);
+    static void LoadTest2(Ishiko::Tests::Test& test);
+    static void GetTest1(Ishiko::Tests::Test& test);
+    static void InsertNextPageTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void InsertTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void InsertTest2(Ishiko::Tests::FileComparisonTest& test);
+    static void EraseTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void EraseTest2(Ishiko::Tests::FileComparisonTest& test);
+    static void EraseTest3(Ishiko::Tests::FileComparisonTest& test);
+    static void MoveToTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void MoveToTest2(Ishiko::Tests::FileComparisonTest& test);
+};
 
 #endif

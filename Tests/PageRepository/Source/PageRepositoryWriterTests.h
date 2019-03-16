@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -25,18 +25,22 @@
 
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
 
-using namespace Ishiko::TestFramework;
+class PageRepositoryWriterTests : public Ishiko::Tests::TestSequence
+{
+public:
+    PageRepositoryWriterTests(const Ishiko::Tests::TestNumber& number,
+        const Ishiko::Tests::TestEnvironment& environment);
 
-void AddPageRepositoryWriterTests(TestHarness& theTestHarness);
-
-TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest3(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest4(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest5(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest6(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest7(FileComparisonTest& test);
-TestResult::EOutcome PageRepositoryWriterWriteTest8(FileComparisonTest& test);
+private:
+    static void CreationTest1(Ishiko::Tests::Test& test);
+    static void WriteTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest2(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest3(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest4(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest5(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest6(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest7(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteTest8(Ishiko::Tests::FileComparisonTest& test);
+};
 
 #endif

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -25,23 +25,23 @@
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 #include <boost/filesystem/operations.hpp>
 
-void AddPageRepositoryWriterTests(TestHarness& theTestHarness)
+using namespace Ishiko::Tests;
+
+PageRepositoryWriterTests::PageRepositoryWriterTests(const TestNumber& number, const TestEnvironment& environment)
+    : TestSequence(number, "PageRepositoryWriter tests", environment)
 {
-    TestSequence& writerTestSequence = theTestHarness.appendTestSequence("PageRepositoryWriter tests");
-
-    new HeapAllocationErrorsTest("Creation test 1", PageRepositoryWriterCreationTest1, writerTestSequence);
-
-    new FileComparisonTest("write test 1", PageRepositoryWriterWriteTest1, writerTestSequence);
-    new FileComparisonTest("write test 2", PageRepositoryWriterWriteTest2, writerTestSequence);
-    new FileComparisonTest("write test 3", PageRepositoryWriterWriteTest3, writerTestSequence);
-    new FileComparisonTest("write test 4", PageRepositoryWriterWriteTest4, writerTestSequence);
-    new FileComparisonTest("write test 5", PageRepositoryWriterWriteTest5, writerTestSequence);
-    new FileComparisonTest("write test 6", PageRepositoryWriterWriteTest6, writerTestSequence);
-    new FileComparisonTest("write test 7", PageRepositoryWriterWriteTest7, writerTestSequence);
-    new FileComparisonTest("write test 8", PageRepositoryWriterWriteTest8, writerTestSequence);
+    append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
+    append<FileComparisonTest>("write test 1", WriteTest1);
+    append<FileComparisonTest>("write test 2", WriteTest2);
+    append<FileComparisonTest>("write test 3", WriteTest3);
+    append<FileComparisonTest>("write test 4", WriteTest4);
+    append<FileComparisonTest>("write test 5", WriteTest5);
+    append<FileComparisonTest>("write test 6", WriteTest6);
+    append<FileComparisonTest>("write test 7", WriteTest7);
+    append<FileComparisonTest>("write test 8", WriteTest8);
 }
 
-TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
+void PageRepositoryWriterTests::CreationTest1(Test& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -67,7 +67,7 @@ TestResult::EOutcome PageRepositoryWriterCreationTest1(Test& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest1(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -108,7 +108,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest1(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest2(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -153,7 +153,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest2(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest3(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest3(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -192,7 +192,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest3(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest4(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest4(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -231,7 +231,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest4(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest5(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest5(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -273,7 +273,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest5(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest6(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest6(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -315,7 +315,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest6(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest7(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest7(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
@@ -358,7 +358,7 @@ TestResult::EOutcome PageRepositoryWriterWriteTest7(FileComparisonTest& test)
     return result;
 }
 
-TestResult::EOutcome PageRepositoryWriterWriteTest8(FileComparisonTest& test)
+void PageRepositoryWriterTests::WriteTest8(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 

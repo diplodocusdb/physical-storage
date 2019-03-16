@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -27,19 +27,22 @@
 #include "PageRepositoryWriterTests.h"
 #include <boost/filesystem/operations.hpp>
 
+using namespace Ishiko::Tests;
+
 int main(int argc, char* argv[])
 {
-    Ishiko::TestFramework::TestHarness theTestHarness("DiplodocusDBPageRepository");
+    TestHarness theTestHarness("DiplodocusDBPageRepository");
 
     theTestHarness.environment().setTestDataDirectory("../../TestData");
     theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
     boost::filesystem::create_directories("../../TestOutput");
     theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
 
-    AddPageFileRepositoryTests(theTestHarness);
-    AddPageTests(theTestHarness);
-    AddPageRepositoryReaderTests(theTestHarness);
-    AddPageRepositoryWriterTests(theTestHarness);
+    TestSequence& theTests = theTestHarness.tests();
+    theTests.append<PageFileRepositoryTests>();
+    theTests.append<PageTests>();
+    theTests.append<PageRepositoryReaderTests>();
+    theTests.append<PageRepositoryWriterTests>();
 
     return theTestHarness.run();
 }

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -25,13 +25,17 @@
 
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
 
-using namespace Ishiko::TestFramework;
+class PageRepositoryReaderTests : public Ishiko::Tests::TestSequence
+{
+public:
+    PageRepositoryReaderTests(const Ishiko::Tests::TestNumber& number,
+        const Ishiko::Tests::TestEnvironment& environment);
 
-void AddPageRepositoryReaderTests(TestHarness& theTestHarness);
-
-TestResult::EOutcome PageRepositoryReaderCreationTest1(Test& test);
-TestResult::EOutcome PageRepositoryReaderReadTest1(Test& test);
-TestResult::EOutcome PageRepositoryReaderReadTest2(Test& test);
-TestResult::EOutcome PageRepositoryReaderReadTest3(Test& test);
+private:
+    static void CreationTest1(Ishiko::Tests::Test& test);
+    static void ReadTest1(Ishiko::Tests::Test& test);
+    static void ReadTest2(Ishiko::Tests::Test& test);
+    static void ReadTest3(Ishiko::Tests::Test& test);
+};
 
 #endif
