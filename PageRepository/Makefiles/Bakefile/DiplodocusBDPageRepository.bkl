@@ -1,5 +1,3 @@
-diplodocusdbpath = envvar("DIPLODOCUSDB");
-import $(diplodocusdbpath)/Core/Include/DiplodocusDB/DiplodocusDBCore.bkl;
 ishikopath = envvar("ISHIKO");
 import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/Boost.bkl;
 import $(ishikopath)/Errors/Include/Ishiko/Errors.bkl;
@@ -11,7 +9,7 @@ vs2017.solutionfile = ../VC15/DiplodocusDBPageRepository.sln;
 vs2015.solutionfile = ../VC14/DiplodocusDBPageRepository.sln;
 vs2013.solutionfile = ../VC12/DiplodocusDBPageRepository.sln;
 
-library DiplodocusDBPageRepository : DiplodocusDBCore, IshikoErrors, Boost
+library DiplodocusDBPageRepository : IshikoErrors, Boost
 {
     archs = x86 x86_64;
    

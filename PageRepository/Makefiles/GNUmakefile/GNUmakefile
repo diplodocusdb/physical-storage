@@ -37,9 +37,8 @@ endif
 # Additionally, this makefile is customizable with the following
 # settings:
 #
-#      BOOST_ROOT              Path to the Boost installation
-#      ISHIKO_ERRORS_ROOT      Path to the Ishiko Errors installation
-#      DIPLODOCUSDB_CORE_ROOT  Path to the DiplodocusDB installation
+#      BOOST_ROOT          Path to the Boost installation
+#      ISHIKO_ERRORS_ROOT  Path to the Ishiko Errors installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -70,8 +69,6 @@ endif
 BOOST_ROOT ?= $(BOOST)
 # Path to the Ishiko Errors installation
 ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
-# Path to the DiplodocusDB installation
-DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 
 # ------------
 
@@ -82,31 +79,31 @@ all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusD
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Page.o: ../../Source/Page.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageStartMarker.o: ../../Source/PageStartMarker.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageStartMarker.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageStartMarker.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o: ../../Source/PageEndMarker.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageEndMarker.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageEndMarker.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageCache.o: ../../Source/PageCache.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageCache.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageCache.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageRepository.o: ../../Source/PageRepository.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepository.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageRepositoryPosition.o: ../../Source/PageRepositoryPosition.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepositoryPosition.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepositoryPosition.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageRepositoryReader.o: ../../Source/PageRepositoryReader.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepositoryReader.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepositoryReader.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageRepositoryWriter.o: ../../Source/PageRepositoryWriter.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepositoryWriter.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageRepositoryWriter.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o: ../../Source/PageFileRepository.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT) -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageFileRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageFileRepository.cpp
 
 clean:
 	rm -f $(_builddir)*.o
