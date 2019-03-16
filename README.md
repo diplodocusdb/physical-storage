@@ -10,6 +10,11 @@ the other DiplodocusDB projects.
 # Contents
 
 - Include - Directory containing the public headers for the project.
+- PageRepository - Source code for a repository that stores data as a series
+of fixed size pages. This allows random access to the pages.
+- StreamRepository - Source for a repository that stores data as streams. This
+doesn't allow random access but allows additional features like compression and
+encryption.
 - Tests - The tests for the project.
 
 # Project Status

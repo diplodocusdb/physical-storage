@@ -150,7 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\PageRepository\linkoptions.h" />
+    <ClInclude Include="..\..\..\Include\DiplodocusDB\PhysicalStorage\StreamRepository\linkoptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

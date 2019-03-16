@@ -33,6 +33,6 @@ library DiplodocusDBStreamRepository : IshikoErrors, Boost
 
     headers
     {
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/linkoptions.h
+        ../../../Include/DiplodocusDB/PhysicalStorage/StreamRepository/linkoptions.h
     }
 }
