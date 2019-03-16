@@ -73,7 +73,8 @@ void Page::get(char* buffer,
     }
     else
     {
-        error = -1;
+        // TODO : add page details
+        error.fail(-1, "Failed to get page", __FILE__, __LINE__);
     }
 }
 
@@ -95,7 +96,8 @@ void Page::insert(const char* buffer,
     }
     else
     {
-        error = -1;
+        // TODO : add page details
+        error.fail(-1, "Failed to insert page", __FILE__, __LINE__);
     }
 }
 
@@ -128,7 +130,8 @@ void Page::save(Ishiko::Error& error)
     file.seekp(m_index * sm_size);
     if (!file.good())
     {
-        error = -1;
+        // TODO add details
+        error.fail(-1, "Failed to save page", __FILE__, __LINE__);
         return;
     }
 
@@ -139,7 +142,8 @@ void Page::save(Ishiko::Error& error)
     file.write(m_buffer, sm_size);
     if (!file.good())
     {
-        error = -1;
+        // TODO add details
+        error.fail(-1, "Failed to save page", __FILE__, __LINE__);
         return;
     }
 }
@@ -156,14 +160,16 @@ void Page::load(Ishiko::Error& error)
     file.seekg(m_index * sm_size);
     if (!file.good())
     {
-        error = -1;
+        // TODO add details
+        error.fail(-1, "Failed to load page", __FILE__, __LINE__);
         return;
     }
 
     file.read(m_buffer, sm_size);
     if (!file.good())
     {
-        error = -1;
+        // TODO add details
+        error.fail(-1, "Failed to load page", __FILE__, __LINE__);
         return;
     }
 

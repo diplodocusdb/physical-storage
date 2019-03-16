@@ -40,7 +40,7 @@ void PageRepositoryReaderTests::CreationTest1(Test& test)
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
         / "PageRepositoryReaderCreationTest1.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
@@ -61,7 +61,7 @@ void PageRepositoryReaderTests::ReadTest1(Test& test)
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
         / "PageRepositoryReaderReadTest1.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
@@ -85,7 +85,7 @@ void PageRepositoryReaderTests::ReadTest2(Test& test)
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
         / "PageRepositoryReaderReadTest2.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
@@ -114,7 +114,7 @@ void PageRepositoryReaderTests::ReadTest3(Test& test)
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
         / "PageRepositoryReaderReadTest3.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);

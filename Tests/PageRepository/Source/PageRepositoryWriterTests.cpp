@@ -43,359 +43,316 @@ PageRepositoryWriterTests::PageRepositoryWriterTests(const TestNumber& number, c
 
 void PageRepositoryWriterTests::CreationTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterCreationTest1.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
-        if (!error)
-        {
-            DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
-            if (writer.currentPageOffset() == 0)
-            {
-                result = TestResult::ePassed;
-            }
-        }
-    }
 
-    return result;
+    ISHTF_ABORT_IF((bool)error);
+    
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
+
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 0);
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteTest1.dpdb");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest1.dpdb");
-
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
-        if (!error)
-        {
-            DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
-            if (!error)
-            {
-                writer.write("value1", 6, error);
-                if (writer.currentPageOffset() == 6)
-                {
-                    if (!error)
-                    {
-                        writer.save(error);
-                        if (!error)
-                        {
-                            result = TestResult::ePassed;
-                        }
-                    }
-                }
-            }
-        }
-    }
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+        
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+            
+    writer.write("value1", 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 6);
+    
+    writer.save(error);
+    
+    ISHTF_FAIL_IF((bool)error);
+
     repository.close();
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest1.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest2(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteTest2.dpdb");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest2.dpdb");
-
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
-        if (!error)
-        {
-            DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
-            if (!error)
-            {
-                writer.write("value1", 6, error);
-                if (!error)
-                {
-                    writer.write("value2", 6, error);
-                    if (!error)
-                    {
-                        if (writer.currentPageOffset() == 12)
-                        {
-                            writer.save(error);
-                            if (!error)
-                            {
-                                result = TestResult::ePassed;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+    
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    writer.write("value1", 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    
+    writer.write("value2", 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 12);
+        
+    writer.save(error);
+        
+    ISHTF_FAIL_IF((bool)error);
+
     repository.close();
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest2.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest3(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest3.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest3.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryWriterWriteTest3.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteTest3.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
-    if (!error)
-    {
-        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
-        if (!error)
-        {
-            writer.write("value0", 6, error);
-            if (!error)
-            {
-                if (writer.currentPageOffset() == 6)
-                {
-                    writer.save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
-    }
+
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    writer.write("value0", 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 6);
+    
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest3.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest4(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest4.dpdb");
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest4.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
-    if (!error)
-    {
-        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 6, error);
-        if (!error)
-        {
-            writer.write("value2", 6, error);
-            if (!error)
-            {
-                if (writer.currentPageOffset() == 12)
-                {
-                    writer.save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
-    }
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 6, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    writer.write("value2", 6, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 12);
+    
+    writer.save(error);
+    
+    ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest4.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest5(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest5.dpdb");
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest5.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
-    if (!error)
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    for (size_t i = 0; i < 409; ++i)
     {
-        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
-        if (!error)
-        {
-            for (size_t i = 0; i < 409; ++i)
-            {
-                writer.write("0123456789", 10, error);
-            }
-            if (!error)
-            {
-                if (writer.currentPageOffset() == 10)
-                {
-                    writer.save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
+        writer.write("0123456789", 10, error);
     }
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 10);
+    
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest5.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest6(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
-    if (!error)
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    for (size_t i = 0; i < 409; ++i)
     {
-        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
-        if (!error)
-        {
-            for (size_t i = 0; i < 409; ++i)
-            {
-                writer.write("01234567890123456789", 20, error);
-            }
-            if (!error)
-            {
-                if (writer.currentPageOffset() == 20)
-                {
-                    writer.save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
+        writer.write("01234567890123456789", 20, error);
     }
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 20);
+    
+    writer.save(error);
+    
+    ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest7(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest7.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest7.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() 
+        / "PageRepositoryWriterWriteTest7.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteTest7.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
-    if (!error)
+
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    for (size_t i = 0; i < 407; ++i)
     {
-        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
-        if (!error)
-        {
-            for (size_t i = 0; i < 407; ++i)
-            {
-                writer.write("0123456789", 10, error);
-            }
-            writer.write("01234567890", 11, error);
-            if (!error)
-            {
-                if (writer.currentPageOffset() == 1)
-                {
-                    writer.save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
+        writer.write("0123456789", 10, error);
     }
+    writer.write("01234567890", 11, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+    
+    writer.save(error);
+    
+    ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest7.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest8(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageRepositoryWriterWriteTest8.dpdb");
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageRepositoryWriterWriteTest8.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
-    if (!error)
+
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    
+    for (size_t i = 0; i < 409; ++i)
     {
-        DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
-        if (!error)
-        {
-            for (size_t i = 0; i < 409; ++i)
-            {
-                writer.write("0123456789", 10, error);
-            }
-            if (!error)
-            {
-                if (writer.currentPageOffset() == 10)
-                {
-                    writer.save(error);
-                    if (!error)
-                    {
-                        result = TestResult::ePassed;
-                    }
-                }
-            }
-        }
+        writer.write("0123456789", 10, error);
     }
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 10);
+    
+    writer.save(error);
+    
+    ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest8.dpdb");
 
-    return result;
+    ISHTF_PASS();
 }

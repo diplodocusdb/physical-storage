@@ -41,7 +41,8 @@ void PageFileRepository::create(const boost::filesystem::path& path,
     std::fstream file(path.c_str(), std::fstream::out | std::fstream::binary);
     if (!file.good())
     {
-        error = -1;
+        // TODO add details
+        error.fail(-1, "Failed to create file", __FILE__, __LINE__);
     }
     else
     {
@@ -57,14 +58,16 @@ void PageFileRepository::open(const boost::filesystem::path& path,
     boost::uintmax_t filesize = boost::filesystem::file_size(path, ec);
     if (ec)
     {
-        error = -1;
+        // TODO add details
+        error.fail(-1, "Failed to get file size", __FILE__, __LINE__);
     }
     else
     {
         m_file.open(path.c_str(), std::fstream::in | std::fstream::out | std::fstream::binary);
         if (!m_file.good())
         {
-            error = -1;
+            // TODO add details
+            error.fail(-1, "Failed to open file", __FILE__, __LINE__);
         }
         m_pageCount = (filesize / Page::sm_size);
     }

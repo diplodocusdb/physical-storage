@@ -47,7 +47,7 @@ void PageFileRepositoryTests::CreateTest1(FileComparisonTest& test)
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
         / "PageFileRepositoryCreateTest1.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
@@ -66,7 +66,7 @@ void PageFileRepositoryTests::OpenTest1(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageFileRepositoryOpenTest1.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
@@ -80,7 +80,7 @@ void PageFileRepositoryTests::OpenTest2(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageFileRepositoryOpenTest2.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
@@ -95,7 +95,7 @@ void PageFileRepositoryTests::AllocatePageTest1(FileComparisonTest& test)
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
         / "PageFileRepositoryAllocatePageTest1.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
@@ -125,7 +125,7 @@ void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
         / "PageFileRepositoryAllocatePageTest2.dpdb");
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
 
     DiplodocusDB::PageFileRepository repository;
     repository.create(outputPath, error);
