@@ -7,6 +7,23 @@ For a typical application there should be no need to use the contents of
 this repository directly. They are building blocks meant to be used by 
 the other DiplodocusDB projects.
 
+# Contents
+
+- Include - Directory containing the public headers for the project.
+- Tests - The tests for the project.
+
+# Project Status
+
+This project is intended for use by its author only.
+
+# Usage
+
+No documentation available as of yet.
+
+# Support
+
+None.
+
 ## License
 
 Copyright (c) 2018-2019 Xavier Leclercq
