@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -34,11 +34,11 @@
 namespace DiplodocusDB
 {
 
+/// A file organized in a series of page of fixed size.
 class PageFileRepository : public PageRepository
 {
 public:
     PageFileRepository();
-    ~PageFileRepository() override;
 
     void create(const boost::filesystem::path& path, Ishiko::Error& error);
     void open(const boost::filesystem::path& path, Ishiko::Error& error);
