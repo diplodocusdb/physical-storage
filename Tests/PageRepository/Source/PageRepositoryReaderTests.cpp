@@ -35,6 +35,9 @@ PageRepositoryReaderTests::PageRepositoryReaderTests(const TestNumber& number, c
     append<HeapAllocationErrorsTest>("read test 3", ReadTest3);
     append<HeapAllocationErrorsTest>("readLEB128 test 1", ReadLEB128Test1);
     append<HeapAllocationErrorsTest>("readLEB128 test 2", ReadLEB128Test2);
+    append<HeapAllocationErrorsTest>("readLEB128 test 3", ReadLEB128Test3);
+    append<HeapAllocationErrorsTest>("readLEB128 test 4", ReadLEB128Test4);
+    append<HeapAllocationErrorsTest>("readLEB128 test 5", ReadLEB128Test5);
 }
 
 void PageRepositoryReaderTests::CreationTest1(Test& test)
@@ -178,5 +181,74 @@ void PageRepositoryReaderTests::ReadLEB128Test2(Test& test)
 
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(n == 1);
+    ISHTF_PASS();
+}
+
+void PageRepositoryReaderTests::ReadLEB128Test3(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderReadLEB128Test3.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    size_t n = reader.readLEB128(error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(n == 127);
+    ISHTF_PASS();
+}
+
+void PageRepositoryReaderTests::ReadLEB128Test4(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderReadLEB128Test4.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    size_t n = reader.readLEB128(error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(n == 128);
+    ISHTF_PASS();
+}
+
+void PageRepositoryReaderTests::ReadLEB128Test5(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageRepositoryReaderReadLEB128Test5.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    size_t n = reader.readLEB128(error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(n == 16384);
     ISHTF_PASS();
 }

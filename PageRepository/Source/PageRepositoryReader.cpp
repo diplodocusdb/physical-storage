@@ -60,7 +60,7 @@ size_t PageRepositoryReader::readLEB128(Ishiko::Error& error)
             break;
         }
         result += ((byte & 0x7F) << shift);
-        if (!(byte & 80))
+        if (!(byte & 0x80))
         {
             break;
         }
