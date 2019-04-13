@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -28,10 +28,6 @@ namespace DiplodocusDB
 PageRepositoryReader::PageRepositoryReader(std::shared_ptr<Page> startPage,
                                            size_t startOffset)
     : m_currentPage(startPage), m_currentOffset(startOffset)
-{
-}
-
-PageRepositoryReader::~PageRepositoryReader()
 {
 }
 

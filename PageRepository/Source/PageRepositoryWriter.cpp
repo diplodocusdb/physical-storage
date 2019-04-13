@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -31,10 +31,6 @@ PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository,
                                            size_t startOffset)
     : m_repository(repository), m_currentPage(startPage),
     m_currentOffset(startOffset)
-{
-}
-
-PageRepositoryWriter::~PageRepositoryWriter()
 {
 }
 
@@ -133,6 +129,25 @@ void PageRepositoryWriter::write(const char* buffer,
                     write(buffer + spaceInCurrentPage, bufferSize - spaceInCurrentPage, error);
                 }
             }
+        }
+    }
+}
+
+void PageRepositoryWriter::writeLEB128(size_t value, Ishiko::Error& error)
+{
+    while (true)
+    {
+        char byte = (value & 0x7F);
+        value >>= 7;
+        if (value == 0)
+        {
+            write(&byte, 1, error);
+            break;
+        }
+        else
+        {
+            byte |= 0x80;
+            write(&byte, 1, error);
         }
     }
 }

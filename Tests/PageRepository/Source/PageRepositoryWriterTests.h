@@ -41,6 +41,11 @@ private:
     static void WriteTest6(Ishiko::Tests::FileComparisonTest& test);
     static void WriteTest7(Ishiko::Tests::FileComparisonTest& test);
     static void WriteTest8(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteLEB128Test1(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteLEB128Test2(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteLEB128Test3(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteLEB128Test4(Ishiko::Tests::FileComparisonTest& test);
+    static void WriteLEB128Test5(Ishiko::Tests::FileComparisonTest& test);
 };
 
 #endif

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -36,12 +36,12 @@ class PageRepositoryWriter
 {
 public:
     PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage, size_t startOffset);
-    ~PageRepositoryWriter();
-
+    
     std::shared_ptr<Page> currentPage();
     size_t currentPageOffset() const;
 
     void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
+    void writeLEB128(size_t value, Ishiko::Error& error);
     void save(Ishiko::Error& error);
 
 private:

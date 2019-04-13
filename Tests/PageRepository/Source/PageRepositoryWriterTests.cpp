@@ -39,6 +39,11 @@ PageRepositoryWriterTests::PageRepositoryWriterTests(const TestNumber& number, c
     append<FileComparisonTest>("write test 6", WriteTest6);
     append<FileComparisonTest>("write test 7", WriteTest7);
     append<FileComparisonTest>("write test 8", WriteTest8);
+    append<FileComparisonTest>("writeLEB128 test 1", WriteLEB128Test1);
+    append<FileComparisonTest>("writeLEB128 test 2", WriteLEB128Test2);
+    append<FileComparisonTest>("writeLEB128 test 3", WriteLEB128Test3);
+    append<FileComparisonTest>("writeLEB128 test 4", WriteLEB128Test4);
+    append<FileComparisonTest>("writeLEB128 test 5", WriteLEB128Test5);
 }
 
 void PageRepositoryWriterTests::CreationTest1(Test& test)
@@ -353,6 +358,201 @@ void PageRepositoryWriterTests::WriteTest8(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest8.dpdb");
+
+    ISHTF_PASS();
+}
+
+void PageRepositoryWriterTests::WriteLEB128Test1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteLEB128Test1.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    writer.writeLEB128(0, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageRepositoryWriterWriteLEB128Test1.dpdb");
+
+    ISHTF_PASS();
+}
+
+void PageRepositoryWriterTests::WriteLEB128Test2(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteLEB128Test2.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    writer.writeLEB128(1, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageRepositoryWriterWriteLEB128Test2.dpdb");
+
+    ISHTF_PASS();
+}
+
+void PageRepositoryWriterTests::WriteLEB128Test3(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteLEB128Test3.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    writer.writeLEB128(127, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageRepositoryWriterWriteLEB128Test3.dpdb");
+
+    ISHTF_PASS();
+}
+
+void PageRepositoryWriterTests::WriteLEB128Test4(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteLEB128Test4.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    writer.writeLEB128(128, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 2);
+
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageRepositoryWriterWriteLEB128Test4.dpdb");
+
+    ISHTF_PASS();
+}
+
+void PageRepositoryWriterTests::WriteLEB128Test5(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageRepositoryWriterWriteLEB128Test5.dpdb");
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.create(outputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page);
+
+    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    writer.writeLEB128(16384, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 3);
+
+    writer.save(error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    repository.close();
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageRepositoryWriterWriteLEB128Test5.dpdb");
 
     ISHTF_PASS();
 }
