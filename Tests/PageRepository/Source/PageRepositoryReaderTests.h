@@ -36,6 +36,8 @@ private:
     static void ReadTest1(Ishiko::Tests::Test& test);
     static void ReadTest2(Ishiko::Tests::Test& test);
     static void ReadTest3(Ishiko::Tests::Test& test);
+    static void ReadLEB128Test1(Ishiko::Tests::Test& test);
+    static void ReadLEB128Test2(Ishiko::Tests::Test& test);
 };
 
 #endif

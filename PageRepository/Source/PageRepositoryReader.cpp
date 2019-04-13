@@ -47,4 +47,26 @@ void PageRepositoryReader::read(char* buffer,
     }
 }
 
+size_t PageRepositoryReader::readLEB128(Ishiko::Error& error)
+{
+    size_t result = 0;
+    size_t shift = 0;
+    while (true)
+    {
+        char byte;
+        read(&byte, 1, error);
+        if (error)
+        {
+            break;
+        }
+        result += ((byte & 0x7F) << shift);
+        if (!(byte & 80))
+        {
+            break;
+        }
+        shift += 7;
+    }
+    return result;
+}
+
 }

@@ -39,6 +39,7 @@ public:
     PageRepositoryPosition currentPosition() const;
 
     void read(char* buffer, size_t n, Ishiko::Error& error);
+    size_t readLEB128(Ishiko::Error& error);
 
 private:
     std::shared_ptr<Page> m_currentPage;
