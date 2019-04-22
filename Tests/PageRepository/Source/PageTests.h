@@ -32,8 +32,8 @@ public:
 
 private:
     static void CreationTest1(Ishiko::Tests::Test& test);
-    static void LoadTest1(Ishiko::Tests::Test& test);
-    static void LoadTest2(Ishiko::Tests::Test& test);
+    static void ReadTest1(Ishiko::Tests::Test& test);
+    static void ReadTest2(Ishiko::Tests::Test& test);
     static void GetTest1(Ishiko::Tests::Test& test);
     static void InsertNextPageTest1(Ishiko::Tests::FileComparisonTest& test);
     static void InsertTest1(Ishiko::Tests::FileComparisonTest& test);

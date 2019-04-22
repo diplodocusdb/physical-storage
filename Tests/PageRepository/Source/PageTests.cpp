@@ -31,8 +31,8 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
     : TestSequence(number, "Page tests", environment)
 {
     append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
-    append<HeapAllocationErrorsTest>("load test 1", LoadTest1);
-    append<HeapAllocationErrorsTest>("load test 2", LoadTest2);
+    append<HeapAllocationErrorsTest>("read test 1", ReadTest1);
+    append<HeapAllocationErrorsTest>("read test 2", ReadTest2);
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
     append<FileComparisonTest>("insertNextPage test 1", InsertNextPageTest1);
     append<FileComparisonTest>("insert test 1", InsertTest1);
@@ -60,9 +60,9 @@ void PageTests::CreationTest1(Test& test)
     ISHTF_PASS();
 }
 
-void PageTests::LoadTest1(Test& test)
+void PageTests::ReadTest1(Test& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageLoadTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest1.dpdb");
 
     Ishiko::Error error(0);
 
@@ -72,7 +72,7 @@ void PageTests::LoadTest1(Test& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
     
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(page.dataSize() == 0);
@@ -80,9 +80,9 @@ void PageTests::LoadTest1(Test& test)
     ISHTF_PASS();
 }
 
-void PageTests::LoadTest2(Test& test)
+void PageTests::ReadTest2(Test& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageLoadTest2.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest2.dpdb");
 
     Ishiko::Error error(0);
 
@@ -92,7 +92,7 @@ void PageTests::LoadTest2(Test& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
 
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(page.dataSize() == 6);
@@ -112,7 +112,7 @@ void PageTests::GetTest1(Test& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
 
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(page.dataSize() == 6);
@@ -207,7 +207,7 @@ void PageTests::InsertTest2(FileComparisonTest& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
        
@@ -240,7 +240,7 @@ void PageTests::EraseTest1(FileComparisonTest& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
     
@@ -275,7 +275,7 @@ void PageTests::EraseTest2(FileComparisonTest& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
         
@@ -310,7 +310,7 @@ void PageTests::EraseTest3(FileComparisonTest& test)
     ISHTF_ABORT_IF((bool)error);
     
     DiplodocusDB::Page page(repository, 0);
-    page.load(error);
+    repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
     
