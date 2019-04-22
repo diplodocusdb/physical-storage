@@ -93,7 +93,7 @@ void PageFileRepositoryTests::OpenTest2(Test& test)
 void PageFileRepositoryTests::AllocatePageTest1(FileComparisonTest& test)
 {
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
-        / "PageFileRepositoryAllocatePageTest1.dpdb");
+        / "PageFileRepositoryTests_AllocatePageTest1.dpdb");
 
     Ishiko::Error error(0);
 
@@ -101,13 +101,13 @@ void PageFileRepositoryTests::AllocatePageTest1(FileComparisonTest& test)
     repository.create(outputPath, error);
 
     ISHTF_ABORT_IF((bool)error);
-    
+
     std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
 
     ISHTF_ABORT_IF((bool)error);
     ISHTF_ABORT_UNLESS(page);
 
-    page->save(error);
+    repository.save(*page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -115,7 +115,7 @@ void PageFileRepositoryTests::AllocatePageTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
-        / "PageFileRepositoryAllocatePageTest1.dpdb");
+        / "PageFileRepositoryTests_AllocatePageTest1.dpdb");
 
     ISHTF_PASS();
 }
@@ -123,7 +123,7 @@ void PageFileRepositoryTests::AllocatePageTest1(FileComparisonTest& test)
 void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
 {
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
-        / "PageFileRepositoryAllocatePageTest2.dpdb");
+        / "PageFileRepositoryTests_AllocatePageTest2.dpdb");
 
     Ishiko::Error error(0);
 
@@ -137,7 +137,7 @@ void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
     ISHTF_ABORT_IF((bool)error);
     ISHTF_ABORT_UNLESS(page1);
     
-    page1->save(error);
+    repository.save(*page1, error);
 
     ISHTF_ABORT_IF((bool)error);
  
@@ -146,7 +146,7 @@ void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
     ISHTF_ABORT_IF((bool)error);
     ISHTF_ABORT_UNLESS(page2);
                 
-    page2->save(error);
+    repository.save(*page2, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -154,7 +154,7 @@ void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
-        / "PageFileRepositoryAllocatePageTest2.dpdb");
+        / "PageFileRepositoryTests_AllocatePageTest2.dpdb");
 
     ISHTF_PASS();
 }
