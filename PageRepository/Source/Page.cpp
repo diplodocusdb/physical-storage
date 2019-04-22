@@ -156,18 +156,16 @@ void Page::init()
 
 void Page::read(std::istream& input, Ishiko::Error& error)
 {
-    std::fstream& file = m_file.file();
-
-    file.seekg(m_index * sm_size);
-    if (!file.good())
+    input.seekg(m_index * sm_size);
+    if (!input.good())
     {
         // TODO add details
         error.fail(-1, "Failed to load page", __FILE__, __LINE__);
         return;
     }
 
-    file.read(m_buffer, sm_size);
-    if (!file.good())
+    input.read(m_buffer, sm_size);
+    if (!input.good())
     {
         // TODO add details
         error.fail(-1, "Failed to load page", __FILE__, __LINE__);
