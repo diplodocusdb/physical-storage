@@ -37,7 +37,7 @@ public:
     size_t nextPage() const;
     void setNextPage(size_t nextPage);
 
-    void write(char* buffer);
+    void write(char* buffer) const;
 
 private:
     size_t m_nextPage;

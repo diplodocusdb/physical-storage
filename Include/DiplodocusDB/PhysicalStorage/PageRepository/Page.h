@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -52,7 +52,7 @@ public:
     void erase(size_t pos, size_t n, Ishiko::Error& error);
     void moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error);
 
-    void save(Ishiko::Error& error);
+    void write(std::ostream& output, Ishiko::Error& error) const;
     void init();
     void load(Ishiko::Error& error);
 
@@ -64,10 +64,12 @@ public:
 private:
     PageFileRepository& m_file;
     size_t m_index;
-    char m_buffer[sm_size];
+    // TODO: avoid this mutable thing
+    mutable char m_buffer[sm_size];
     size_t m_dataSize;
     size_t m_availableSpace;
-    PageStartMarker m_startMarker;
+    // TODO: avoid this mutable thing
+    mutable PageStartMarker m_startMarker;
     PageEndMarker m_endMarker;
 };
 

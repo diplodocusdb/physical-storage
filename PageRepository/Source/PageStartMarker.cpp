@@ -46,7 +46,7 @@ void PageStartMarker::setDataSize(size_t size)
     m_dataSize = size;
 }
 
-void PageStartMarker::write(char* buffer)
+void PageStartMarker::write(char* buffer) const
 {
     memcpy(buffer, "\xF0\x06\x00\x00\x00\x00", 6);
     *((uint16_t*)(buffer + 6)) = m_dataSize;

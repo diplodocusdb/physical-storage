@@ -51,7 +51,7 @@ void PageEndMarker::setNextPage(size_t nextPage)
     m_nextPage = nextPage;
 }
 
-void PageEndMarker::write(char* buffer)
+void PageEndMarker::write(char* buffer) const
 {
     memcpy(buffer, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
     *((uint32_t*)(buffer + 2)) = m_nextPage;
