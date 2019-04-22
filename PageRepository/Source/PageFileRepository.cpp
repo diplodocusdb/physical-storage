@@ -107,7 +107,7 @@ PageRepositoryReader PageFileRepository::read(std::shared_ptr<Page> startPage,
                                               size_t offset,
                                               Ishiko::Error& error)
 {
-    return PageRepositoryReader(startPage, offset);
+    return PageRepositoryReader(*this, startPage, offset);
 }
 
 PageRepositoryWriter PageFileRepository::insert(size_t startPage,

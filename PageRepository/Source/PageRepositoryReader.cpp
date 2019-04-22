@@ -21,13 +21,14 @@
 */
 
 #include "PageRepositoryReader.h"
+#include "PageRepository.h"
 
 namespace DiplodocusDB
 {
 
-PageRepositoryReader::PageRepositoryReader(std::shared_ptr<Page> startPage,
-                                           size_t startOffset)
-    : m_currentPage(startPage), m_currentOffset(startOffset)
+PageRepositoryReader::PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page> startPage,
+    size_t startOffset)
+    : m_repository(repository), m_currentPage(startPage), m_currentOffset(startOffset)
 {
 }
 
@@ -40,10 +41,42 @@ void PageRepositoryReader::read(char* buffer,
                                 size_t n,
                                 Ishiko::Error& error)
 {
-    m_currentPage->get(buffer, m_currentOffset, n, error);
-    if (!error)
+    if ((m_currentOffset + n) <= m_currentPage->maxDataSize())
     {
-        m_currentOffset += n;
+        m_currentPage->get(buffer, m_currentOffset, n, error);
+        if (!error)
+        {
+            m_currentOffset += n;
+        }
+    }
+    else
+    {
+        // TODO : only works if the read doesn't cross more than one page boundary
+        size_t n1 = (m_currentPage->maxDataSize() - m_currentOffset);
+        m_currentPage->get(buffer, m_currentOffset, n1, error);
+        if (!error)
+        {
+            size_t nextPageIndex = m_currentPage->nextPage();
+            if (nextPageIndex != 0)
+            {
+                // TODO : if error this would be modified, use a temp?
+                m_currentPage = m_repository.page(nextPageIndex, error);
+                if (!error)
+                {
+                    m_currentOffset = 0;
+                    size_t n2 = (n - n1);
+                    m_currentPage->get((buffer + n1), m_currentOffset, n2, error);
+                    if (!error)
+                    {
+                        m_currentOffset += n2;
+                    }
+                }
+            }
+            else
+            {
+                // TODO : error
+            }
+        }
     }
 }
 

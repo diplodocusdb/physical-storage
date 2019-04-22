@@ -22,6 +22,7 @@
 
 #include "Page.h"
 #include "PageFileRepository.h"
+#include <sstream>
 
 namespace DiplodocusDB
 {
@@ -73,8 +74,10 @@ void Page::get(char* buffer,
     }
     else
     {
-        // TODO : add page details
-        error.fail(-1, "Failed to get page", __FILE__, __LINE__);
+        std::stringstream message;
+        message << "Page::get (m_index: " << m_index << ", pos:" << pos << ", n:" << n
+            << ") exceeds data size (m_datasize: " << m_dataSize << ")";
+        error.fail(-1, message.str(), __FILE__, __LINE__);
     }
 }
 

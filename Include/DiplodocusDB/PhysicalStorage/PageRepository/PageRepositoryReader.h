@@ -31,10 +31,12 @@
 namespace DiplodocusDB
 {
 
+class PageRepository;
+
 class PageRepositoryReader
 {
 public:
-    PageRepositoryReader(std::shared_ptr<Page> startPage, size_t startOffset);
+    PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page> startPage, size_t startOffset);
 
     PageRepositoryPosition currentPosition() const;
 
@@ -42,6 +44,7 @@ public:
     size_t readLEB128(Ishiko::Error& error);
 
 private:
+    PageRepository& m_repository;
     std::shared_ptr<Page> m_currentPage;
     size_t m_currentOffset;
 };
