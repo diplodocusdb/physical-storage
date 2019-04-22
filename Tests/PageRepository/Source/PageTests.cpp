@@ -54,7 +54,7 @@ void PageTests::CreationTest1(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
 
     ISHTF_PASS();
 }
@@ -70,7 +70,7 @@ void PageTests::ReadTest1(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
     
     ISHTF_FAIL_IF((bool)error);
@@ -90,7 +90,7 @@ void PageTests::ReadTest2(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
 
     ISHTF_FAIL_IF((bool)error);
@@ -110,7 +110,7 @@ void PageTests::GetTest1(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
 
     ISHTF_FAIL_IF((bool)error);
@@ -138,7 +138,7 @@ void PageTests::InsertTest1(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
 
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     page.init();
     page.insert("value1", 6, 0, error);
 
@@ -168,7 +168,7 @@ void PageTests::InsertTest2(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
@@ -201,7 +201,7 @@ void PageTests::EraseTest1(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
@@ -236,7 +236,7 @@ void PageTests::EraseTest2(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);
@@ -271,7 +271,7 @@ void PageTests::EraseTest3(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(repository, 0);
+    DiplodocusDB::Page page(0);
     repository.load(page, error);
 
     ISHTF_ABORT_IF((bool)error);

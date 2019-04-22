@@ -27,8 +27,6 @@
 #include "PageEndMarker.h"
 #include "Ishiko/Errors/Error.h"
 #include <fstream>
-#include <set>
-#include <memory>
 
 namespace DiplodocusDB
 {
@@ -38,8 +36,7 @@ class PageFileRepository;
 class Page
 {
 public:
-    Page(PageFileRepository& file, size_t index);
-    ~Page();
+    Page(size_t index);
 
     size_t index() const;
     size_t dataSize() const;
@@ -61,7 +58,6 @@ public:
     static const size_t sm_size = 4096;
 
 private:
-    PageFileRepository& m_file;
     size_t m_index;
     // TODO: avoid this mutable thing
     mutable char m_buffer[sm_size];

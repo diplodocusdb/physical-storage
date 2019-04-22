@@ -27,14 +27,8 @@
 namespace DiplodocusDB
 {
 
-Page::Page(PageFileRepository& file,
-           size_t index)
-    : m_file(file), m_index(index), m_dataSize(0),
-    m_availableSpace(sm_size - m_startMarker.size() - m_endMarker.size())
-{
-}
-
-Page::~Page()
+Page::Page(size_t index)
+    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - m_startMarker.size() - m_endMarker.size())
 {
 }
 
