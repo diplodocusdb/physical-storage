@@ -99,6 +99,18 @@ std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)
     return page;
 }
 
+std::shared_ptr<Page> PageFileRepository::insertPageAfter(Page& page, Ishiko::Error& error)
+{
+    std::shared_ptr<Page> newPage = allocatePage(error);
+    if (!error)
+    {
+        newPage->init();
+        newPage->setNextPage(page.nextPage());
+        page.setNextPage(newPage->index());
+    }
+    return newPage;
+}
+
 std::shared_ptr<Page> PageFileRepository::page(size_t i,
                                                Ishiko::Error& error)
 {

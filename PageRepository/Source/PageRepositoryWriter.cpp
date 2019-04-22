@@ -67,7 +67,7 @@ void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::
             }
             else
             {
-                newPage = m_currentPage->insertNextPage(error);
+                newPage = m_repository.insertPageAfter(*m_currentPage, error);
             }
             if (error)
             {
@@ -100,7 +100,7 @@ void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::
         }
         else
         {
-            newPage = m_currentPage->insertNextPage(error);
+            newPage = m_repository.insertPageAfter(*m_currentPage, error);
         }
         if (error)
         {

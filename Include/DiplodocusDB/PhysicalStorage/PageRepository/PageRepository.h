@@ -44,6 +44,7 @@ public:
 
     virtual size_t pageCount() = 0;
     virtual std::shared_ptr<Page> allocatePage(Ishiko::Error& error) = 0;
+    virtual std::shared_ptr<Page> insertPageAfter(Page& page, Ishiko::Error& error) = 0;
     virtual std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) = 0;
 
     PageRepositoryReader read(const PageRepositoryPosition& pos, Ishiko::Error& error);

@@ -63,6 +63,11 @@ size_t Page::nextPage() const
     return m_endMarker.nextPage();
 }
 
+void Page::setNextPage(size_t index)
+{
+    m_endMarker.setNextPage(index);
+}
+
 void Page::get(char* buffer,
                size_t pos,
                size_t n,
@@ -177,18 +182,6 @@ void Page::read(std::istream& input, Ishiko::Error& error)
 
     uint32_t nextPage = *((uint32_t*)(m_buffer + m_startMarker.size() + m_dataSize + 2));
     m_endMarker.setNextPage(nextPage);
-}
-
-std::shared_ptr<Page> Page::insertNextPage(Ishiko::Error& error)
-{
-    std::shared_ptr<Page> page = m_file.allocatePage(error);
-    if (!error)
-    {
-        page->init();
-        page->m_endMarker.setNextPage(m_endMarker.nextPage());
-        m_endMarker.setNextPage(page->index());
-    }
-    return page;
 }
 
 }
