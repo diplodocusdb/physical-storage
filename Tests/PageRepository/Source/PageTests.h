@@ -31,7 +31,7 @@ public:
     PageTests(const Ishiko::Tests::TestNumber& number, const Ishiko::Tests::TestEnvironment& environment);
 
 private:
-    static void CreationTest1(Ishiko::Tests::Test& test);
+    static void ConstructorTest1(Ishiko::Tests::Test& test);
     static void ReadTest1(Ishiko::Tests::Test& test);
     static void ReadTest2(Ishiko::Tests::Test& test);
     static void GetTest1(Ishiko::Tests::Test& test);

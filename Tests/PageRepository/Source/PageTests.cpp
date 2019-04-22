@@ -30,7 +30,7 @@ using namespace Ishiko::Tests;
 PageTests::PageTests(const TestNumber& number, const TestEnvironment& environment)
     : TestSequence(number, "Page tests", environment)
 {
-    append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
+    append<HeapAllocationErrorsTest>("Creation test 1", ConstructorTest1);
     append<HeapAllocationErrorsTest>("read test 1", ReadTest1);
     append<HeapAllocationErrorsTest>("read test 2", ReadTest2);
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
@@ -43,7 +43,7 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
     append<FileComparisonTest>("moveTo test 2", MoveToTest2);
 }
 
-void PageTests::CreationTest1(Test& test)
+void PageTests::ConstructorTest1(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageCreationTest1.dpdb");
 

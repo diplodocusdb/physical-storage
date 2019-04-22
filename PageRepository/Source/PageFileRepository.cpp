@@ -89,6 +89,11 @@ size_t PageFileRepository::pageCount()
     return m_pageCount;
 }
 
+std::shared_ptr<Page> PageFileRepository::page(size_t i, Ishiko::Error& error)
+{
+    return m_pageCache.page(i, error);
+}
+
 std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)
 {
     std::shared_ptr<Page> page = m_pageCache.allocatePage(m_pageCount, error);
@@ -109,12 +114,6 @@ std::shared_ptr<Page> PageFileRepository::insertPageAfter(Page& page, Ishiko::Er
         page.setNextPage(newPage->index());
     }
     return newPage;
-}
-
-std::shared_ptr<Page> PageFileRepository::page(size_t i,
-                                               Ishiko::Error& error)
-{
-    return m_pageCache.page(i, error);
 }
 
 PageRepositoryReader PageFileRepository::read(size_t startPage,

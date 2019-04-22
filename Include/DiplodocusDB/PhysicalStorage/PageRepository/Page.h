@@ -31,8 +31,7 @@
 namespace DiplodocusDB
 {
 
-class PageFileRepository;
-
+/// A page.
 class Page
 {
 public:

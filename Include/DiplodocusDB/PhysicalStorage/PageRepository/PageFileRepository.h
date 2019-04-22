@@ -34,7 +34,7 @@
 namespace DiplodocusDB
 {
 
-/// A file organized in a series of page of fixed size.
+/// A file organized in a series of pages of fixed size.
 class PageFileRepository : public PageRepository
 {
 public:
@@ -48,9 +48,9 @@ public:
     void save(const Page& page, Ishiko::Error& error) override;
 
     size_t pageCount() override;
+    std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) override;
     std::shared_ptr<Page> allocatePage(Ishiko::Error& error) override;
     std::shared_ptr<Page> insertPageAfter(Page& page, Ishiko::Error& error) override;
-    std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) override;
 
     using PageRepository::read;
     PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) override;
