@@ -74,6 +74,11 @@ void PageFileRepository::close()
     m_file.close();
 }
 
+void PageFileRepository::save(const Page& page, Ishiko::Error& error)
+{
+    page.write(m_file, error);
+}
+
 size_t PageFileRepository::pageCount()
 {
     return m_pageCount;

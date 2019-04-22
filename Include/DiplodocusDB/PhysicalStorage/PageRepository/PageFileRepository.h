@@ -44,6 +44,8 @@ public:
     void open(const boost::filesystem::path& path, Ishiko::Error& error);
     void close();
 
+    void save(const Page& page, Ishiko::Error& error) override;
+
     size_t pageCount() override;
     std::shared_ptr<Page> allocatePage(Ishiko::Error& error) override;
     std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) override;

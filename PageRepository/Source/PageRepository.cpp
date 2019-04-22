@@ -25,14 +25,6 @@
 namespace DiplodocusDB
 {
 
-PageRepository::PageRepository()
-{
-}
-
-PageRepository::~PageRepository()
-{
-}
-
 PageRepositoryReader PageRepository::read(const PageRepositoryPosition& pos,
                                           Ishiko::Error& error)
 {

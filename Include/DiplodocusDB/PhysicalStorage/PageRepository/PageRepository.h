@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -36,8 +36,10 @@ namespace DiplodocusDB
 class PageRepository
 {
 public:
-    PageRepository();
-    virtual ~PageRepository();
+    PageRepository() = default;
+    virtual ~PageRepository() noexcept = default;
+
+    virtual void save(const Page& page, Ishiko::Error& error) = 0;
 
     virtual size_t pageCount() = 0;
     virtual std::shared_ptr<Page> allocatePage(Ishiko::Error& error) = 0;
