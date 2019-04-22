@@ -24,6 +24,8 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYWRITER_H_
 
 #include "Page.h"
+#include "PageRepositoryPosition.h"
+#include "Ishiko/Errors/Error.h"
 #include <set>
 #include <memory>
 
@@ -37,8 +39,7 @@ class PageRepositoryWriter
 public:
     PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage, size_t startOffset);
     
-    std::shared_ptr<Page> currentPage();
-    size_t currentPageOffset() const;
+    PageRepositoryPosition currentPosition() const;
 
     void write(const char* buffer, size_t bufferSize, Ishiko::Error& error);
     void writeLEB128(size_t value, Ishiko::Error& error);

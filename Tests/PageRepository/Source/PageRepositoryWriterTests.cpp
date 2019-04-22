@@ -63,7 +63,8 @@ void PageRepositoryWriterTests::CreationTest1(Test& test)
     
     DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
 
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 0);
     ISHTF_PASS();
 }
 
@@ -91,7 +92,8 @@ void PageRepositoryWriterTests::WriteTest1(FileComparisonTest& test)
     writer.write("value1", 6, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 6);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 6);
     
     writer.save(error);
     
@@ -133,7 +135,8 @@ void PageRepositoryWriterTests::WriteTest2(FileComparisonTest& test)
     writer.write("value2", 6, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 12);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 12);
         
     writer.save(error);
         
@@ -170,7 +173,8 @@ void PageRepositoryWriterTests::WriteTest3(FileComparisonTest& test)
     writer.write("value0", 6, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 6);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 6);
     
     writer.save(error);
 
@@ -203,8 +207,9 @@ void PageRepositoryWriterTests::WriteTest4(FileComparisonTest& test)
     writer.write("value2", 6, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 12);
-    
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 12);
+
     writer.save(error);
     
     ISHTF_FAIL_IF((bool)error);
@@ -239,8 +244,9 @@ void PageRepositoryWriterTests::WriteTest5(FileComparisonTest& test)
     }
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 10);
-    
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 1);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 10);
+
     writer.save(error);
 
     ISHTF_FAIL_IF((bool)error);
@@ -275,8 +281,9 @@ void PageRepositoryWriterTests::WriteTest6(FileComparisonTest& test)
     }
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 20);
-    
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 2);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 20);
+
     writer.save(error);
     
     ISHTF_FAIL_IF((bool)error);
@@ -314,8 +321,9 @@ void PageRepositoryWriterTests::WriteTest7(FileComparisonTest& test)
     writer.write("01234567890", 11, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
-    
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 1);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 1);
+
     writer.save(error);
     
     ISHTF_FAIL_IF((bool)error);
@@ -350,8 +358,9 @@ void PageRepositoryWriterTests::WriteTest8(FileComparisonTest& test)
     }
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 10);
-    
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 1);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 10);
+
     writer.save(error);
     
     ISHTF_FAIL_IF((bool)error);
@@ -386,7 +395,8 @@ void PageRepositoryWriterTests::WriteLEB128Test1(FileComparisonTest& test)
     writer.writeLEB128(0, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 1);
 
     writer.save(error);
 
@@ -425,7 +435,8 @@ void PageRepositoryWriterTests::WriteLEB128Test2(FileComparisonTest& test)
     writer.writeLEB128(1, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 1);
 
     writer.save(error);
 
@@ -464,7 +475,8 @@ void PageRepositoryWriterTests::WriteLEB128Test3(FileComparisonTest& test)
     writer.writeLEB128(127, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 1);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 1);
 
     writer.save(error);
 
@@ -503,7 +515,8 @@ void PageRepositoryWriterTests::WriteLEB128Test4(FileComparisonTest& test)
     writer.writeLEB128(128, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 2);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 2);
 
     writer.save(error);
 
@@ -542,7 +555,8 @@ void PageRepositoryWriterTests::WriteLEB128Test5(FileComparisonTest& test)
     writer.writeLEB128(16384, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPageOffset() == 3);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
+    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 3);
 
     writer.save(error);
 

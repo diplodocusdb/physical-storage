@@ -26,27 +26,19 @@
 namespace DiplodocusDB
 {
 
-PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository,
-                                           std::shared_ptr<Page> startPage,
-                                           size_t startOffset)
+PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage,
+    size_t startOffset)
     : m_repository(repository), m_currentPage(startPage),
     m_currentOffset(startOffset)
 {
 }
 
-std::shared_ptr<Page> PageRepositoryWriter::currentPage()
+PageRepositoryPosition PageRepositoryWriter::currentPosition() const
 {
-    return m_currentPage;
+    return PageRepositoryPosition(m_currentPage->index(), m_currentOffset);
 }
 
-size_t PageRepositoryWriter::currentPageOffset() const
-{
-    return m_currentOffset;
-}
-
-void PageRepositoryWriter::write(const char* buffer,
-                                 size_t bufferSize,
-                                 Ishiko::Error& error)
+void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::Error& error)
 {
     if ((m_currentOffset + bufferSize) <= m_currentPage->maxDataSize())
     {
