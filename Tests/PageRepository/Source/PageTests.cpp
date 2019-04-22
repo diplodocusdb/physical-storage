@@ -34,7 +34,6 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
     append<HeapAllocationErrorsTest>("read test 1", ReadTest1);
     append<HeapAllocationErrorsTest>("read test 2", ReadTest2);
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
-    append<FileComparisonTest>("insertNextPage test 1", InsertNextPageTest1);
     append<FileComparisonTest>("insert test 1", InsertTest1);
     append<FileComparisonTest>("insert test 2", InsertTest2);
     append<FileComparisonTest>("erase test 1", EraseTest1);
@@ -122,43 +121,6 @@ void PageTests::GetTest1(Test& test)
 
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(strncmp(buffer, "value1", 6) == 0);
-    ISHTF_PASS();
-}
-
-void PageTests::InsertNextPageTest1(FileComparisonTest& test)
-{
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageInsertNextPageTest1.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageInsertNextPageTest1.dpdb");
-
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
-
-    Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    ISHTF_ABORT_UNLESS(page1);
-    
-    std::shared_ptr<DiplodocusDB::Page> page2 = page1->insertNextPage(error);
-
-    ISHTF_ABORT_IF((bool)error);
-
-    repository.save(*page1, error);
-
-    ISHTF_FAIL_IF((bool)error);
-
-    repository.save(*page2, error);
-    
-    ISHTF_FAIL_IF((bool)error);
-        
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertNextPageTest1.dpdb");
-
     ISHTF_PASS();
 }
 

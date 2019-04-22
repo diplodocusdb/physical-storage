@@ -38,6 +38,7 @@ private:
     static void OpenTest2(Ishiko::Tests::Test& test);
     static void AllocatePageTest1(Ishiko::Tests::FileComparisonTest& test);
     static void AllocatePageTest2(Ishiko::Tests::FileComparisonTest& test);
+    static void InsertPageAfterTest1(Ishiko::Tests::FileComparisonTest& test);
 };
 
 #endif

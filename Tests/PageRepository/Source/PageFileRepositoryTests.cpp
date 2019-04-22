@@ -22,6 +22,7 @@
 
 #include "PageFileRepositoryTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
+#include <boost/filesystem/operations.hpp>
 
 using namespace Ishiko::Tests;
 
@@ -34,6 +35,7 @@ PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const
     append<HeapAllocationErrorsTest>("open test 2", OpenTest2);
     append<FileComparisonTest>("allocatePage test 1", AllocatePageTest1);
     append<FileComparisonTest>("allocatePage test 2", AllocatePageTest2);
+    append<FileComparisonTest>("insertPageAfter test 1", InsertPageAfterTest1);
 }
 
 void PageFileRepositoryTests::CreationTest1(Test& test)
@@ -155,6 +157,46 @@ void PageFileRepositoryTests::AllocatePageTest2(FileComparisonTest& test)
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
         / "PageFileRepositoryTests_AllocatePageTest2.dpdb");
+
+    ISHTF_PASS();
+}
+
+void PageFileRepositoryTests::InsertPageAfterTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory()
+        / "PageFileRepositoryTests_InsertPageAfterTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory()
+        / "PageFileRepositoryTests_InsertPageAfterTest1.dpdb");
+
+    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+
+    Ishiko::Error error(0);
+
+    DiplodocusDB::PageFileRepository repository;
+    repository.open(outputPath, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+
+    ISHTF_ABORT_IF((bool)error);
+    ISHTF_ABORT_UNLESS(page1);
+
+    std::shared_ptr<DiplodocusDB::Page> page2 = repository.insertPageAfter(*page1, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    repository.save(*page1, error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    repository.save(*page2, error);
+
+    ISHTF_FAIL_IF((bool)error);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "PageFileRepositoryTests_InsertPageAfterTest1.dpdb");
 
     ISHTF_PASS();
 }
