@@ -16,17 +16,19 @@ program DiplodocusDBPageRepositoryTests : DiplodocusDBPageRepository, IshikoTest
 
     headers
     {
-        ../../Source/PageFileRepositoryTests.h
         ../../Source/PageTests.h
+        ../../Source/PageCacheTests.h
+        ../../Source/PageFileRepositoryTests.h
         ../../Source/PageRepositoryWriterTests.h
         ../../Source/PageRepositoryReaderTests.h
     }
 
     sources
     {
+        ../../Source/PageTests.cpp
+        ../../Source/PageCacheTests.cpp
         ../../Source/main.cpp
         ../../Source/PageFileRepositoryTests.cpp
-        ../../Source/PageTests.cpp
         ../../Source/PageRepositoryWriterTests.cpp
         ../../Source/PageRepositoryReaderTests.cpp
     }

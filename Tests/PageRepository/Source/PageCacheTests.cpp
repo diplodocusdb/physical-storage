@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -20,31 +20,18 @@
     IN THE SOFTWARE.
 */
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
-#include "PageTests.h"
 #include "PageCacheTests.h"
-#include "PageFileRepositoryTests.h"
-#include "PageRepositoryReaderTests.h"
-#include "PageRepositoryWriterTests.h"
-#include <boost/filesystem/operations.hpp>
+#include "DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h"
 
 using namespace Ishiko::Tests;
 
-int main(int argc, char* argv[])
+PageCacheTests::PageCacheTests(const TestNumber& number, const TestEnvironment& environment)
+    : TestSequence(number, "PageCache tests", environment)
 {
-    TestHarness theTestHarness("DiplodocusDBPageRepository");
+    append<HeapAllocationErrorsTest>("ConstructorTest1 test 1", ConstructorTest1);
+}
 
-    theTestHarness.environment().setTestDataDirectory("../../TestData");
-    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
-    boost::filesystem::create_directories("../../TestOutput");
-    theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
-
-    TestSequence& theTests = theTestHarness.tests();
-    theTests.append<PageTests>();
-    theTests.append<PageCacheTests>();
-    theTests.append<PageFileRepositoryTests>();
-    theTests.append<PageRepositoryReaderTests>();
-    theTests.append<PageRepositoryWriterTests>();
-
-    return theTestHarness.run();
+void PageCacheTests::ConstructorTest1(Test& test)
+{
+    // TODO
 }

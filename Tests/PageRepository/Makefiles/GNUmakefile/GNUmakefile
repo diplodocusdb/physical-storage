@@ -77,17 +77,20 @@ DIPLODOCUSDB_PHYSICALSTORAGE_ROOT ?= $(DIPLODOCUSDB)/PhysicalStorage
 
 all: $(_builddir)DiplodocusDBPageRepositoryTests
 
-$(_builddir)DiplodocusDBPageRepositoryTests: $(_builddir)DiplodocusDBPageRepositoryTests_main.o $(_builddir)DiplodocusDBPageRepositoryTests_PageFileRepositoryTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryWriterTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryReaderTests.o
-	$(CXX) -o $@ $(LDFLAGS) $(_builddir)DiplodocusDBPageRepositoryTests_main.o $(_builddir)DiplodocusDBPageRepositoryTests_PageFileRepositoryTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryWriterTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryReaderTests.o -L$(ISHIKO_ERRORS_ROOT)/Lib -L$(BOOST_ROOT)/lib -L$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib -L$(ISHIKO_PROCESS_ROOT)/Lib -L$(ISHIKO_TESTFRAMEWORK_ROOT)/Lib -pthread
+$(_builddir)DiplodocusDBPageRepositoryTests: $(_builddir)DiplodocusDBPageRepositoryTests_PageTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageCacheTests.o $(_builddir)DiplodocusDBPageRepositoryTests_main.o $(_builddir)DiplodocusDBPageRepositoryTests_PageFileRepositoryTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryWriterTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryReaderTests.o
+	$(CXX) -o $@ $(LDFLAGS) $(_builddir)DiplodocusDBPageRepositoryTests_PageTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageCacheTests.o $(_builddir)DiplodocusDBPageRepositoryTests_main.o $(_builddir)DiplodocusDBPageRepositoryTests_PageFileRepositoryTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryWriterTests.o $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryReaderTests.o -L$(ISHIKO_ERRORS_ROOT)/Lib -L$(BOOST_ROOT)/lib -L$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib -L$(ISHIKO_PROCESS_ROOT)/Lib -L$(ISHIKO_TESTFRAMEWORK_ROOT)/Lib -pthread
+
+$(_builddir)DiplodocusDBPageRepositoryTests_PageTests.o: ../../Source/PageTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include ../../Source/PageTests.cpp
+
+$(_builddir)DiplodocusDBPageRepositoryTests_PageCacheTests.o: ../../Source/PageCacheTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include ../../Source/PageCacheTests.cpp
 
 $(_builddir)DiplodocusDBPageRepositoryTests_main.o: ../../Source/main.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include ../../Source/main.cpp
 
 $(_builddir)DiplodocusDBPageRepositoryTests_PageFileRepositoryTests.o: ../../Source/PageFileRepositoryTests.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include ../../Source/PageFileRepositoryTests.cpp
-
-$(_builddir)DiplodocusDBPageRepositoryTests_PageTests.o: ../../Source/PageTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include ../../Source/PageTests.cpp
 
 $(_builddir)DiplodocusDBPageRepositoryTests_PageRepositoryWriterTests.o: ../../Source/PageRepositoryWriterTests.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include -I$(ISHIKO_PROCESS_ROOT)/Include -I$(ISHIKO_TESTFRAMEWORK_ROOT)/Include ../../Source/PageRepositoryWriterTests.cpp

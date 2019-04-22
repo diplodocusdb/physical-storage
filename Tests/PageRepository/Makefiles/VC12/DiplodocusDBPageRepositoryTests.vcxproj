@@ -152,15 +152,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\PageTests.cpp" />
+    <ClCompile Include="..\..\Source\PageCacheTests.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
     <ClCompile Include="..\..\Source\PageFileRepositoryTests.cpp" />
-    <ClCompile Include="..\..\Source\PageTests.cpp" />
     <ClCompile Include="..\..\Source\PageRepositoryWriterTests.cpp" />
     <ClCompile Include="..\..\Source\PageRepositoryReaderTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\PageFileRepositoryTests.h" />
     <ClInclude Include="..\..\Source\PageTests.h" />
+    <ClInclude Include="..\..\Source\PageCacheTests.h" />
+    <ClInclude Include="..\..\Source\PageFileRepositoryTests.h" />
     <ClInclude Include="..\..\Source\PageRepositoryWriterTests.h" />
     <ClInclude Include="..\..\Source\PageRepositoryReaderTests.h" />
   </ItemGroup>

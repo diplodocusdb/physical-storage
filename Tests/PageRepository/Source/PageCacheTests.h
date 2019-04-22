@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -20,31 +20,18 @@
     IN THE SOFTWARE.
 */
 
+#ifndef _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGECACHETESTS_H_
+#define _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGECACHETESTS_H_
+
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
-#include "PageTests.h"
-#include "PageCacheTests.h"
-#include "PageFileRepositoryTests.h"
-#include "PageRepositoryReaderTests.h"
-#include "PageRepositoryWriterTests.h"
-#include <boost/filesystem/operations.hpp>
 
-using namespace Ishiko::Tests;
-
-int main(int argc, char* argv[])
+class PageCacheTests : public Ishiko::Tests::TestSequence
 {
-    TestHarness theTestHarness("DiplodocusDBPageRepository");
+public:
+    PageCacheTests(const Ishiko::Tests::TestNumber& number, const Ishiko::Tests::TestEnvironment& environment);
 
-    theTestHarness.environment().setTestDataDirectory("../../TestData");
-    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
-    boost::filesystem::create_directories("../../TestOutput");
-    theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
+private:
+    static void ConstructorTest1(Ishiko::Tests::Test& test);
+};
 
-    TestSequence& theTests = theTestHarness.tests();
-    theTests.append<PageTests>();
-    theTests.append<PageCacheTests>();
-    theTests.append<PageFileRepositoryTests>();
-    theTests.append<PageRepositoryReaderTests>();
-    theTests.append<PageRepositoryWriterTests>();
-
-    return theTestHarness.run();
-}
+#endif
