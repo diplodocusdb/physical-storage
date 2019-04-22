@@ -148,11 +148,11 @@ void PageTests::InsertNextPageTest1(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
 
-    page1->save(error);
+    repository.save(*page1, error);
 
     ISHTF_FAIL_IF((bool)error);
 
-    page2->save(error);
+    repository.save(*page2, error);
     
     ISHTF_FAIL_IF((bool)error);
         
@@ -182,7 +182,7 @@ void PageTests::InsertTest1(FileComparisonTest& test)
 
     ISHTF_FAIL_IF((bool)error);
 
-    page.save(error);
+    repository.save(page, error);
     
     ISHTF_FAIL_IF((bool)error);
 
@@ -215,7 +215,7 @@ void PageTests::InsertTest2(FileComparisonTest& test)
             
     ISHTF_FAIL_IF((bool)error);
     
-    page.save(error);
+    repository.save(page, error);
  
     ISHTF_FAIL_IF((bool)error);
 
@@ -250,7 +250,7 @@ void PageTests::EraseTest1(FileComparisonTest& test)
     ISHTF_FAIL_UNLESS(page.dataSize() == 0);
     ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
         
-    page.save(error);
+    repository.save(page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -285,7 +285,7 @@ void PageTests::EraseTest2(FileComparisonTest& test)
     ISHTF_FAIL_UNLESS(page.dataSize() == 5);
     ISHTF_FAIL_UNLESS(page.availableSpace() == 4075);
                 
-    page.save(error);
+    repository.save(page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -320,7 +320,7 @@ void PageTests::EraseTest3(FileComparisonTest& test)
     ISHTF_FAIL_UNLESS(page.dataSize() == 2);
     ISHTF_FAIL_UNLESS(page.availableSpace() == 4078);
     
-    page.save(error);
+    repository.save(page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -360,11 +360,11 @@ void PageTests::MoveToTest1(FileComparisonTest& test)
     ISHTF_FAIL_UNLESS(page1->dataSize() == 0);
     ISHTF_FAIL_UNLESS(page2->dataSize() == 6);
     
-    page1->save(error);
+    repository.save(*page1, error);
 
     ISHTF_FAIL_IF((bool)error);
     
-    page2->save(error);
+    repository.save(*page2, error);
     
     ISHTF_FAIL_IF((bool)error);
 
@@ -404,11 +404,11 @@ void PageTests::MoveToTest2(FileComparisonTest& test)
     ISHTF_FAIL_UNLESS(page1->dataSize() == 0);
     ISHTF_FAIL_UNLESS(page2->dataSize() == 12);
     
-    page1->save(error);
+    repository.save(*page1, error);
 
     ISHTF_FAIL_IF((bool)error);
             
-    page2->save(error);
+    repository.save(*page2, error);
                 
     ISHTF_FAIL_IF((bool)error);
 
