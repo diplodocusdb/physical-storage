@@ -51,7 +51,7 @@ private:
     // TODO : shared pointer don't work for the cache if I return them to clients as I may remove it from the cache
     // but the client still has a copy and then if I reload the page in the cache I will have 2 instances of Cache 
     // for the same page and they can get out of sync.
-    std::map<size_t, std::shared_ptr<Page> > m_pages;
+    std::map<size_t, std::shared_ptr<Page>> m_pages;
 };
 
 }

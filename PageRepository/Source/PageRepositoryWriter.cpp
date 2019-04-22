@@ -148,7 +148,7 @@ void PageRepositoryWriter::save(Ishiko::Error& error)
 {
     for (const std::shared_ptr<Page>& page : m_updatedPages)
     {
-        page->save(error);
+        m_repository.save(*page, error);
     }
 }
 
