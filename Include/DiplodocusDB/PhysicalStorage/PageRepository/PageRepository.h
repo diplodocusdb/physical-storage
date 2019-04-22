@@ -39,6 +39,7 @@ public:
     PageRepository() = default;
     virtual ~PageRepository() noexcept = default;
 
+    virtual void load(Page& page, Ishiko::Error& error) = 0;
     virtual void save(const Page& page, Ishiko::Error& error) = 0;
 
     virtual size_t pageCount() = 0;

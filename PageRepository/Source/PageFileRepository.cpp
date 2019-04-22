@@ -74,6 +74,11 @@ void PageFileRepository::close()
     m_file.close();
 }
 
+void PageFileRepository::load(Page& page, Ishiko::Error& error)
+{
+    page.read(m_file, error);
+}
+
 void PageFileRepository::save(const Page& page, Ishiko::Error& error)
 {
     page.write(m_file, error);

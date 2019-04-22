@@ -154,7 +154,7 @@ void Page::init()
     memset(m_buffer, 0, sm_size);
 }
 
-void Page::load(Ishiko::Error& error)
+void Page::read(std::istream& input, Ishiko::Error& error)
 {
     std::fstream& file = m_file.file();
 

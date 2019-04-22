@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -21,6 +21,7 @@
 */
 
 #include "PageCache.h"
+#include "PageFileRepository.h"
 
 namespace DiplodocusDB
 {
@@ -63,7 +64,7 @@ std::shared_ptr<Page> PageCache::loadPage(size_t i,
                                           Ishiko::Error& error)
 {
     std::shared_ptr<Page> page = std::make_shared<Page>(m_file, i);
-    page->load(error);
+    m_file.load(*page, error);
     if (error)
     {
         return nullptr;

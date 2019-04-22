@@ -54,7 +54,7 @@ public:
 
     void write(std::ostream& output, Ishiko::Error& error) const;
     void init();
-    void load(Ishiko::Error& error);
+    void read(std::istream& input, Ishiko::Error& error);
 
     std::shared_ptr<Page> insertNextPage(Ishiko::Error& error);
 

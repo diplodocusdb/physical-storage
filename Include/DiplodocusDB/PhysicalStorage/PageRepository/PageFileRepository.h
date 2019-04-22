@@ -44,6 +44,7 @@ public:
     void open(const boost::filesystem::path& path, Ishiko::Error& error);
     void close();
 
+    void load(Page& page, Ishiko::Error& error) override;
     void save(const Page& page, Ishiko::Error& error) override;
 
     size_t pageCount() override;
