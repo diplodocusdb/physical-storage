@@ -91,16 +91,15 @@ size_t PageFileRepository::pageCount()
 
 std::shared_ptr<Page> PageFileRepository::page(size_t i, Ishiko::Error& error)
 {
-    return m_pageCache.page(i, error);
+    return m_pageCache.get(i, error);
 }
 
 std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)
 {
-    std::shared_ptr<Page> page = m_pageCache.allocatePage(m_pageCount, error);
-    if (!error)
-    {
-        ++m_pageCount;
-    }
+    std::shared_ptr<Page> page = std::make_shared<Page>(m_pageCount);
+    page->init();
+    m_pageCache.set(page);
+    ++m_pageCount;
     return page;
 }
 
@@ -152,11 +151,6 @@ void PageFileRepository::replace()
 
 void PageFileRepository::erase()
 {
-}
-
-std::fstream& PageFileRepository::file()
-{
-    return m_file;
 }
 
 }

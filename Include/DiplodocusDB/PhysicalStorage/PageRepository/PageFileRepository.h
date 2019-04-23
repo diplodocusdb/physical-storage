@@ -62,8 +62,6 @@ public:
     void replace() override;
     void erase() override;
 
-    std::fstream& file();
-
 private:
     std::fstream m_file;
     size_t m_pageCount;
