@@ -27,7 +27,7 @@ namespace DiplodocusDB
 {
 
 PageFileRepository::PageFileRepository()
-    : m_pageCount(0), m_pageCache(*this)
+    : m_pageCount(0)
 {
 }
 
@@ -74,11 +74,6 @@ void PageFileRepository::close()
     m_file.close();
 }
 
-void PageFileRepository::save(const Page& page, Ishiko::Error& error)
-{
-    page.write(m_file, error);
-}
-
 size_t PageFileRepository::pageCount()
 {
     return m_pageCount;
@@ -119,6 +114,11 @@ std::shared_ptr<Page> PageFileRepository::insertPageAfter(Page& page, Ishiko::Er
         page.setNextPage(newPage->index());
     }
     return newPage;
+}
+
+void PageFileRepository::save(const Page& page, Ishiko::Error& error)
+{
+    page.write(m_file, error);
 }
 
 PageRepositoryReader PageFileRepository::read(size_t startPage,

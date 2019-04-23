@@ -26,11 +26,6 @@
 namespace DiplodocusDB
 {
 
-PageCache::PageCache(PageFileRepository& file)
-    : m_file(file)
-{
-}
-
 bool PageCache::get(size_t index, std::shared_ptr<Page>& page)
 {
     std::map<size_t, std::shared_ptr<Page>>::iterator it = m_pages.find(index);

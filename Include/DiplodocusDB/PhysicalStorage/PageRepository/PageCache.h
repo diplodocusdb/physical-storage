@@ -24,29 +24,23 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGECACHE_H_
 
 #include "Page.h"
-#include "Ishiko/Errors/Error.h"
-#include <fstream>
 #include <map>
 #include <memory>
 
 namespace DiplodocusDB
 {
 
-class PageFileRepository;
-
+/// An in-memory cache for the pages.
 class PageCache
 {
 public:
-    PageCache(PageFileRepository& file);
+    /// Constructor.
+    PageCache() = default;
 
     bool get(size_t index, std::shared_ptr<Page>& page);
     void set(std::shared_ptr<Page>& page);
 
 private:
-    PageFileRepository& m_file;
-    // TODO : shared pointer don't work for the cache if I return them to clients as I may remove it from the cache
-    // but the client still has a copy and then if I reload the page in the cache I will have 2 instances of Cache 
-    // for the same page and they can get out of sync.
     std::map<size_t, std::shared_ptr<Page>> m_pages;
 };
 

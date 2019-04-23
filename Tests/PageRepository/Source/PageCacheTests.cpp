@@ -33,5 +33,7 @@ PageCacheTests::PageCacheTests(const TestNumber& number, const TestEnvironment& 
 
 void PageCacheTests::ConstructorTest1(Test& test)
 {
-    // TODO
+    DiplodocusDB::PageCache pageCache;
+
+    ISHTF_PASS();
 }
