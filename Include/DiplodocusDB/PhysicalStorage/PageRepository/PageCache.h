@@ -39,11 +39,8 @@ class PageCache
 public:
     PageCache(PageFileRepository& file);
 
-   std::shared_ptr<Page> get(size_t index, Ishiko::Error& error);
+    bool get(size_t index, std::shared_ptr<Page>& page);
     void set(std::shared_ptr<Page>& page);
-
-private:
-    std::shared_ptr<Page> loadPage(size_t i, Ishiko::Error& error);
 
 private:
     PageFileRepository& m_file;

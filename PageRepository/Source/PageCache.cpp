@@ -31,36 +31,23 @@ PageCache::PageCache(PageFileRepository& file)
 {
 }
 
-std::shared_ptr<Page> PageCache::get(size_t index, Ishiko::Error& error)
+bool PageCache::get(size_t index, std::shared_ptr<Page>& page)
 {
-    std::shared_ptr<Page> page;
     std::map<size_t, std::shared_ptr<Page>>::iterator it = m_pages.find(index);
     if (it != m_pages.end())
     {
         page = it->second;
+        return true;
     }
     else
     {
-        page = loadPage(index, error);
+        return false;
     }
-    return page;
 }
 
 void PageCache::set(std::shared_ptr<Page>& page)
 {
     m_pages[page->index()] = page;
-}
-
-std::shared_ptr<Page> PageCache::loadPage(size_t i, Ishiko::Error& error)
-{
-    std::shared_ptr<Page> page = std::make_shared<Page>(i);
-    m_file.load(*page, error);
-    if (error)
-    {
-        return nullptr;
-    }
-    m_pages.emplace(i, page);
-    return page;
 }
 
 }

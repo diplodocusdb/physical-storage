@@ -39,11 +39,10 @@ public:
     PageRepository() = default;
     virtual ~PageRepository() noexcept = default;
 
-    virtual void load(Page& page, Ishiko::Error& error) = 0;
     virtual void save(const Page& page, Ishiko::Error& error) = 0;
 
     virtual size_t pageCount() = 0;
-    virtual std::shared_ptr<Page> page(size_t i, Ishiko::Error& error) = 0;
+    virtual std::shared_ptr<Page> page(size_t index, Ishiko::Error& error) = 0;
     virtual std::shared_ptr<Page> allocatePage(Ishiko::Error& error) = 0;
     virtual std::shared_ptr<Page> insertPageAfter(Page& page, Ishiko::Error& error) = 0;
 

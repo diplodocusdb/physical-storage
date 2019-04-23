@@ -74,11 +74,6 @@ void PageFileRepository::close()
     m_file.close();
 }
 
-void PageFileRepository::load(Page& page, Ishiko::Error& error)
-{
-    page.read(m_file, error);
-}
-
 void PageFileRepository::save(const Page& page, Ishiko::Error& error)
 {
     page.write(m_file, error);
@@ -89,9 +84,20 @@ size_t PageFileRepository::pageCount()
     return m_pageCount;
 }
 
-std::shared_ptr<Page> PageFileRepository::page(size_t i, Ishiko::Error& error)
+std::shared_ptr<Page> PageFileRepository::page(size_t index, Ishiko::Error& error)
 {
-    return m_pageCache.get(i, error);
+    std::shared_ptr<Page> result;
+    bool foundInCache = m_pageCache.get(index, result);
+    if (!foundInCache)
+    {
+        result = std::make_shared<Page>(index);
+        result->read(m_file, error);
+        if (!error)
+        {
+            m_pageCache.set(result);
+        }
+    }
+    return result;
 }
 
 std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)

@@ -70,12 +70,11 @@ void PageTests::ReadTest1(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
     
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
-    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
+    ISHTF_FAIL_UNLESS(page->dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page->availableSpace() == 4080);
     ISHTF_PASS();
 }
 
@@ -90,12 +89,11 @@ void PageTests::ReadTest2(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page.dataSize() == 6);
-    ISHTF_FAIL_UNLESS(page.availableSpace() == 4074);
+    ISHTF_FAIL_UNLESS(page->dataSize() == 6);
+    ISHTF_FAIL_UNLESS(page->availableSpace() == 4074);
     ISHTF_PASS();
 }
 
@@ -110,14 +108,13 @@ void PageTests::GetTest1(Test& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page.dataSize() == 6);
+    ISHTF_FAIL_UNLESS(page->dataSize() == 6);
        
     char buffer[6];
-    page.get(buffer, 0, 6, error);
+    page->get(buffer, 0, 6, error);
 
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(strncmp(buffer, "value1", 6) == 0);
@@ -168,16 +165,15 @@ void PageTests::InsertTest2(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
     ISHTF_ABORT_IF((bool)error);
        
-    page.insert("value0", 6, 0, error);
+    page->insert("value0", 6, 0, error);
             
     ISHTF_FAIL_IF((bool)error);
     
-    repository.save(page, error);
+    repository.save(*page, error);
  
     ISHTF_FAIL_IF((bool)error);
 
@@ -201,18 +197,17 @@ void PageTests::EraseTest1(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
     ISHTF_ABORT_IF((bool)error);
     
-    page.erase(0, 6, error);
+    page->erase(0, 6, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
-    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
+    ISHTF_FAIL_UNLESS(page->dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page->availableSpace() == 4080);
         
-    repository.save(page, error);
+    repository.save(*page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -236,18 +231,17 @@ void PageTests::EraseTest2(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
     ISHTF_ABORT_IF((bool)error);
         
-    page.erase(5, 1, error);
+    page->erase(5, 1, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page.dataSize() == 5);
-    ISHTF_FAIL_UNLESS(page.availableSpace() == 4075);
+    ISHTF_FAIL_UNLESS(page->dataSize() == 5);
+    ISHTF_FAIL_UNLESS(page->availableSpace() == 4075);
                 
-    repository.save(page, error);
+    repository.save(*page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
@@ -271,18 +265,17 @@ void PageTests::EraseTest3(FileComparisonTest& test)
 
     ISHTF_ABORT_IF((bool)error);
     
-    DiplodocusDB::Page page(0);
-    repository.load(page, error);
+    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
     ISHTF_ABORT_IF((bool)error);
     
-    page.erase(2, 10, error);
+    page->erase(2, 10, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page.dataSize() == 2);
-    ISHTF_FAIL_UNLESS(page.availableSpace() == 4078);
+    ISHTF_FAIL_UNLESS(page->dataSize() == 2);
+    ISHTF_FAIL_UNLESS(page->availableSpace() == 4078);
     
-    repository.save(page, error);
+    repository.save(*page, error);
 
     ISHTF_FAIL_IF((bool)error);
 
