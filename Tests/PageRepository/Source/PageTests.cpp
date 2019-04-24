@@ -22,7 +22,6 @@
 
 #include "PageTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/Page.h"
-#include <boost/filesystem/operations.hpp>
 
 using namespace Ishiko::Tests;
 
@@ -131,19 +130,20 @@ void PageTests::InsertTest2(FileComparisonTest& test)
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_InsertTest2.dpdb");
     boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_InsertTest2.dpdb");
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    DiplodocusDB::Page page(0);
 
     Ishiko::Error error(0);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
        
-    page->insert("value0", 6, 0, error);
+    page.insert("value0", 6, 0, error);
             
     ISHTF_FAIL_IF((bool)error);
     
-    repository.save(*page, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page.write(output, error);
  
     ISHTF_FAIL_IF((bool)error);
 
@@ -155,190 +155,164 @@ void PageTests::InsertTest2(FileComparisonTest& test)
 
 void PageTests::EraseTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageEraseTest1.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageEraseTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_EraseTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_EraseTest1.dpdb");
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    DiplodocusDB::Page page(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
     
-    page->erase(0, 6, error);
+    page.erase(0, 6, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page->dataSize() == 0);
-    ISHTF_FAIL_UNLESS(page->availableSpace() == 4080);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
         
-    repository.save(*page, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page.write(output, error);
 
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageEraseTest1.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_EraseTest1.dpdb");
 
     ISHTF_PASS();
 }
 
 void PageTests::EraseTest2(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageEraseTest2.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageEraseTest2.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_EraseTest2.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_EraseTest2.dpdb");
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    DiplodocusDB::Page page(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
         
-    page->erase(5, 1, error);
+    page.erase(5, 1, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page->dataSize() == 5);
-    ISHTF_FAIL_UNLESS(page->availableSpace() == 4075);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 5);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4075);
                 
-    repository.save(*page, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page.write(output, error);
 
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageEraseTest2.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_EraseTest2.dpdb");
 
     ISHTF_PASS();
 }
 
 void PageTests::EraseTest3(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageEraseTest3.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageEraseTest3.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_EraseTest3.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_EraseTest3.dpdb");
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    DiplodocusDB::Page page(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
     
-    page->erase(2, 10, error);
+    page.erase(2, 10, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page->dataSize() == 2);
-    ISHTF_FAIL_UNLESS(page->availableSpace() == 4078);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 2);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4078);
     
-    repository.save(*page, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page.write(output, error);
 
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageEraseTest3.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_EraseTest3.dpdb");
 
     ISHTF_PASS();
 }
 
 void PageTests::MoveToTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageMoveToTest1.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageMoveToTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_MoveToTest1.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_MoveToTest1.dpdb");
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    DiplodocusDB::Page page1(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-
-    std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page1.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
-    ISHTF_ABORT_UNLESS(page1);
     
-    std::shared_ptr<DiplodocusDB::Page> page2 = repository.page(1, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    ISHTF_ABORT_UNLESS(page2);
+    DiplodocusDB::Page page2(1);
+    page2.read(input, error);
     
-    page1->moveTo(0, 6, *page2, error);
+    page1.moveTo(0, 6, page2, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page1->dataSize() == 0);
-    ISHTF_FAIL_UNLESS(page2->dataSize() == 6);
+    ISHTF_FAIL_UNLESS(page1.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page2.dataSize() == 6);
     
-    repository.save(*page1, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page1.write(output, error);
 
     ISHTF_FAIL_IF((bool)error);
     
-    repository.save(*page2, error);
+    page2.write(output, error);
     
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageMoveToTest1.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_MoveToTest1.dpdb");
 
     ISHTF_PASS();
 }
 
 void PageTests::MoveToTest2(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageMoveToTest2.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageMoveToTest2.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_MoveToTest2.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_MoveToTest2.dpdb");
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    DiplodocusDB::Page page1(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page1.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
+
+    DiplodocusDB::Page page2(1);
+    page2.read(input, error);
     
-    std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    ISHTF_ABORT_UNLESS(page1);
-
-    std::shared_ptr<DiplodocusDB::Page> page2 = repository.page(1, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    ISHTF_ABORT_UNLESS(page2);
-    
-    page1->moveTo(0, 6, *page2, error);
+    page1.moveTo(0, 6, page2, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page1->dataSize() == 0);
-    ISHTF_FAIL_UNLESS(page2->dataSize() == 12);
+    ISHTF_FAIL_UNLESS(page1.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page2.dataSize() == 12);
     
-    repository.save(*page1, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page1.write(output, error);
 
     ISHTF_FAIL_IF((bool)error);
             
-    repository.save(*page2, error);
+    page2.write(output, error);
                 
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageMoveToTest2.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_MoveToTest2.dpdb");
 
     ISHTF_PASS();
 }

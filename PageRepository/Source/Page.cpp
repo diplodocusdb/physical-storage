@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018 Xavier Leclercq
+    Copyright (c) 2018-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -80,10 +80,7 @@ void Page::get(char* buffer,
     }
 }
 
-void Page::insert(const char* buffer,
-                  size_t bufferSize,
-                  size_t pos,
-                  Ishiko::Error& error)
+void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Error& error)
 {
     if (bufferSize <= m_availableSpace)
     {
@@ -103,9 +100,7 @@ void Page::insert(const char* buffer,
     }
 }
 
-void Page::erase(size_t pos,
-                 size_t n,
-                 Ishiko::Error& error)
+void Page::erase(size_t pos, size_t n, Ishiko::Error& error)
 {
     memmove(m_buffer + m_startMarker.size() + pos, m_buffer + m_startMarker.size() + pos + n, m_dataSize + m_endMarker.size() - pos - n);
     memset(m_buffer + m_startMarker.size() + m_dataSize + m_endMarker.size() - n, 0, n);
@@ -113,10 +108,7 @@ void Page::erase(size_t pos,
     m_availableSpace += n;
 }
 
-void Page::moveTo(size_t pos,
-                  size_t n,
-                  Page& targetPage,
-                  Ishiko::Error& error)
+void Page::moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error)
 {
     targetPage.insert(m_buffer + m_startMarker.size() + pos, n, 0, error);
     if (!error)
