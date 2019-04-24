@@ -22,7 +22,6 @@
 
 #include "PageTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/Page.h"
-#include "DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h"
 #include <boost/filesystem/operations.hpp>
 
 using namespace Ishiko::Tests;
@@ -30,7 +29,7 @@ using namespace Ishiko::Tests;
 PageTests::PageTests(const TestNumber& number, const TestEnvironment& environment)
     : TestSequence(number, "Page tests", environment)
 {
-    append<HeapAllocationErrorsTest>("Creation test 1", ConstructorTest1);
+    append<HeapAllocationErrorsTest>("ConstructorTest1 test 1", ConstructorTest1);
     append<HeapAllocationErrorsTest>("read test 1", ReadTest1);
     append<HeapAllocationErrorsTest>("read test 2", ReadTest2);
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
@@ -45,15 +44,6 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
 
 void PageTests::ConstructorTest1(Test& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageCreationTest1.dpdb");
-
-    Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(inputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
     DiplodocusDB::Page page(0);
 
     ISHTF_PASS();
@@ -62,19 +52,16 @@ void PageTests::ConstructorTest1(Test& test)
 void PageTests::ReadTest1(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest1.dpdb");
+    
+    DiplodocusDB::Page page(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(inputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
     
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page->dataSize() == 0);
-    ISHTF_FAIL_UNLESS(page->availableSpace() == 4080);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
     ISHTF_PASS();
 }
 
@@ -82,39 +69,34 @@ void PageTests::ReadTest2(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest2.dpdb");
 
+    DiplodocusDB::Page page(0);
+
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(inputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
 
     ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page->dataSize() == 6);
-    ISHTF_FAIL_UNLESS(page->availableSpace() == 4074);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 6);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4074);
     ISHTF_PASS();
 }
 
 void PageTests::GetTest1(Test& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageGetTest1.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_GetTest1.dpdb");
+
+    DiplodocusDB::Page page(0);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(inputPath, error);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
 
     ISHTF_ABORT_IF((bool)error);
-    
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
-
-    ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(page->dataSize() == 6);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 6);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4074);
        
     char buffer[6];
-    page->get(buffer, 0, 6, error);
+    page.get(buffer, 0, 6, error);
 
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(strncmp(buffer, "value1", 6) == 0);
@@ -123,17 +105,9 @@ void PageTests::GetTest1(Test& test)
 
 void PageTests::InsertTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageInsertTest1.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageInsertTest1.dpdb");
-
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_InsertTest1.dpdb");
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
 
     DiplodocusDB::Page page(0);
     page.init();
@@ -141,29 +115,25 @@ void PageTests::InsertTest1(FileComparisonTest& test)
 
     ISHTF_FAIL_IF((bool)error);
 
-    repository.save(page, error);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page.write(output, error);
     
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest1.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_InsertTest1.dpdb");
 
     ISHTF_PASS();
 }
 
 void PageTests::InsertTest2(FileComparisonTest& test)
 {
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageInsertTest2.dpdb");
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageInsertTest2.dpdb");
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_InsertTest2.dpdb");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_InsertTest2.dpdb");
 
     boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
 
     Ishiko::Error error(0);
-
-    DiplodocusDB::PageFileRepository repository;
-    repository.open(outputPath, error);
-
-    ISHTF_ABORT_IF((bool)error);
     
     std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
@@ -178,7 +148,7 @@ void PageTests::InsertTest2(FileComparisonTest& test)
     ISHTF_FAIL_IF((bool)error);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageInsertTest2.dpdb");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_InsertTest2.dpdb");
 
     ISHTF_PASS();
 }
