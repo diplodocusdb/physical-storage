@@ -32,14 +32,45 @@ namespace DiplodocusDB
 {
 
 /// A page.
+/**
+    Each page has an index which is its position in the repository.
+*/
 class Page
 {
 public:
+    /// Constructor.
+    /**
+        @param index The index of the page.
+    */
     Page(size_t index);
+    void init();
 
+    
+    /// Returns the index of the page.
+    /**
+        @returns The index of the page.
+    */
     size_t index() const;
+    /// Returns the amount of data stored in the page.
+    /**
+        @returns The amount of data stored in the page.
+    */
     size_t dataSize() const;
+    /// Returns the maximum amount of data that can be stored in the page.
+    /** 
+        This is less than the page size because a
+        page has a page start marker at the beginning and a page end marker at the end of the data that occupy some
+        space.
+
+        @returns The maximum amount of data that can be store in a page.
+    */
     size_t maxDataSize() const;
+    /// Returns the available space in the page.
+    /**
+        This is equivalent to maxDataSize() - dataSize().
+
+        @returns Yhe available space in the page.
+    */
     size_t availableSpace() const;
     size_t nextPage() const;
     void setNextPage(size_t index);
@@ -50,7 +81,6 @@ public:
     void moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error);
 
     void write(std::ostream& output, Ishiko::Error& error) const;
-    void init();
     void read(std::istream& input, Ishiko::Error& error);
 
 public:

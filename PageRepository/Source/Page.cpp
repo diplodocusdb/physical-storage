@@ -32,6 +32,11 @@ Page::Page(size_t index)
 {
 }
 
+void Page::init()
+{
+    memset(m_buffer, 0, sm_size);
+}
+
 size_t Page::index() const
 {
     return m_index;
@@ -138,11 +143,6 @@ void Page::write(std::ostream& output, Ishiko::Error& error) const
         error.fail(-1, "Failed to save page", __FILE__, __LINE__);
         return;
     }
-}
-
-void Page::init()
-{
-    memset(m_buffer, 0, sm_size);
 }
 
 void Page::read(std::istream& input, Ishiko::Error& error)
