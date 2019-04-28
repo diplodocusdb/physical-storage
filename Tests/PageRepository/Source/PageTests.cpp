@@ -31,6 +31,9 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
     append<HeapAllocationErrorsTest>("ConstructorTest1 test 1", ConstructorTest1);
     append<HeapAllocationErrorsTest>("read test 1", ReadTest1);
     append<HeapAllocationErrorsTest>("read test 2", ReadTest2);
+    append<HeapAllocationErrorsTest>("read test 3", ReadTest3);
+    append<HeapAllocationErrorsTest>("read test 4", ReadTest4);
+    append<HeapAllocationErrorsTest>("read test 5", ReadTest5);
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
     append<FileComparisonTest>("insert test 1", InsertTest1);
     append<FileComparisonTest>("insert test 2", InsertTest2);
@@ -48,6 +51,7 @@ void PageTests::ConstructorTest1(Test& test)
     ISHTF_PASS();
 }
 
+/// Tests reading an empty page.
 void PageTests::ReadTest1(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest1.dpdb");
@@ -64,6 +68,7 @@ void PageTests::ReadTest1(Test& test)
     ISHTF_PASS();
 }
 
+/// Tests reading a page containing 6 bytes of data.
 void PageTests::ReadTest2(Test& test)
 {
     boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest2.dpdb");
@@ -77,6 +82,57 @@ void PageTests::ReadTest2(Test& test)
     ISHTF_FAIL_IF((bool)error);
     ISHTF_FAIL_UNLESS(page.dataSize() == 6);
     ISHTF_FAIL_UNLESS(page.availableSpace() == 4074);
+    ISHTF_PASS();
+}
+
+/// Tests reading the second page.
+void PageTests::ReadTest3(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest3.dpdb");
+
+    DiplodocusDB::Page page(1);
+
+    Ishiko::Error error(0);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 10);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4070);
+    ISHTF_PASS();
+}
+
+/// Tests reading a page that doesn't exist.
+void PageTests::ReadTest4(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest4.dpdb");
+
+    DiplodocusDB::Page page(1);
+
+    Ishiko::Error error(0);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
+
+    ISHTF_FAIL_UNLESS((bool)error);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
+    ISHTF_PASS();
+}
+
+/// Tests reading a page that is incomplete, this should be impossible unless the file has been truncated.
+void PageTests::ReadTest5(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_ReadTest5.dpdb");
+
+    DiplodocusDB::Page page(0);
+
+    Ishiko::Error error(0);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
+
+    ISHTF_FAIL_UNLESS((bool)error);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
     ISHTF_PASS();
 }
 

@@ -40,9 +40,13 @@ class Page
 public:
     /// Constructor.
     /**
+        Note that the page contents are not initialized by this constructor. Use the init() function to initialize the
+        page to all zeroes.
+
         @param index The index of the page.
     */
     Page(size_t index);
+    /// Fills the contents of the page with zeroes.
     void init();
 
     
@@ -58,9 +62,8 @@ public:
     size_t dataSize() const;
     /// Returns the maximum amount of data that can be stored in the page.
     /** 
-        This is less than the page size because a
-        page has a page start marker at the beginning and a page end marker at the end of the data that occupy some
-        space.
+        This is less than the page size because a page has a page start marker at the beginning and a page end marker
+        at the end of the data that occupy some space.
 
         @returns The maximum amount of data that can be store in a page.
     */
@@ -81,6 +84,16 @@ public:
     void moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error);
 
     void write(std::ostream& output, Ishiko::Error& error) const;
+    /// Reads the contents of the page from a stream.
+    /**
+        The index of the page is used to find the start position of the page data in the stream. After this operation
+        completes successfully the stream's position will be the byte past the end of the page.
+
+        The index of the page needs to be set to the correct value before calling this function.
+
+        @param input The stream from which the page will be read.
+        @param error The result of the operation.
+    */
     void read(std::istream& input, Ishiko::Error& error);
 
 public:

@@ -34,6 +34,9 @@ private:
     static void ConstructorTest1(Ishiko::Tests::Test& test);
     static void ReadTest1(Ishiko::Tests::Test& test);
     static void ReadTest2(Ishiko::Tests::Test& test);
+    static void ReadTest3(Ishiko::Tests::Test& test);
+    static void ReadTest4(Ishiko::Tests::Test& test);
+    static void ReadTest5(Ishiko::Tests::Test& test);
     static void GetTest1(Ishiko::Tests::Test& test);
     static void InsertTest1(Ishiko::Tests::FileComparisonTest& test);
     static void InsertTest2(Ishiko::Tests::FileComparisonTest& test);

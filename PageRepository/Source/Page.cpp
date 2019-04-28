@@ -22,6 +22,7 @@
 
 #include "Page.h"
 #include "PageFileRepository.h"
+#include "Ishiko/Errors/IOErrorExtension.h"
 #include <sstream>
 
 namespace DiplodocusDB
@@ -148,26 +149,20 @@ void Page::write(std::ostream& output, Ishiko::Error& error) const
 void Page::read(std::istream& input, Ishiko::Error& error)
 {
     input.seekg(m_index * sm_size);
-    if (!input.good())
+    Ishiko::IOErrorExtension::Fail(error, input, __FILE__, __LINE__);
+    if (!error)
     {
-        // TODO add details
-        error.fail(-1, "Failed to load page", __FILE__, __LINE__);
-        return;
+        input.read(m_buffer, sm_size);
+        Ishiko::IOErrorExtension::Fail(error, input, __FILE__, __LINE__);
+        if (!error)
+        {
+            m_dataSize = *((uint16_t*)(m_buffer + 6));
+            m_availableSpace = sm_size - m_startMarker.size() - m_endMarker.size() - m_dataSize;
+
+            uint32_t nextPage = *((uint32_t*)(m_buffer + m_startMarker.size() + m_dataSize + 2));
+            m_endMarker.setNextPage(nextPage);
+        }
     }
-
-    input.read(m_buffer, sm_size);
-    if (!input.good())
-    {
-        // TODO add details
-        error.fail(-1, "Failed to load page", __FILE__, __LINE__);
-        return;
-    }
-
-    m_dataSize = *((uint16_t*)(m_buffer + 6));
-    m_availableSpace = sm_size - m_startMarker.size() - m_endMarker.size() - m_dataSize;
-
-    uint32_t nextPage = *((uint32_t*)(m_buffer + m_startMarker.size() + m_dataSize + 2));
-    m_endMarker.setNextPage(nextPage);
 }
 
 }
