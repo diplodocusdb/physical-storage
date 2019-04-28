@@ -38,6 +38,7 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
     append<FileComparisonTest>("insert test 1", InsertTest1);
     append<FileComparisonTest>("insert test 2", InsertTest2);
+    append<HeapAllocationErrorsTest>("insert test 3", InsertTest3);
     append<FileComparisonTest>("erase test 1", EraseTest1);
     append<FileComparisonTest>("erase test 2", EraseTest2);
     append<FileComparisonTest>("erase test 3", EraseTest3);
@@ -228,6 +229,25 @@ void PageTests::InsertTest2(FileComparisonTest& test)
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_InsertTest2.dpdb");
 
+    ISHTF_PASS();
+}
+
+/// Tests an insertion that doesn't fit in the current page.
+void PageTests::InsertTest3(Test& test)
+{
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "PageTests_InsertTest3.dpdb");
+
+    DiplodocusDB::Page page(0);
+
+    Ishiko::Error error(0);
+    std::ifstream input(inputPath.c_str(), std::fstream::binary);
+    page.read(input, error);
+
+    ISHTF_ABORT_IF((bool)error);
+
+    page.insert("", 4075, 0, error);
+
+    ISHTF_FAIL_UNLESS((bool)error);
     ISHTF_PASS();
 }
 

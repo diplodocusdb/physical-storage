@@ -126,23 +126,15 @@ void Page::moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error)
 void Page::write(std::ostream& output, Ishiko::Error& error) const
 {
     output.seekp(m_index * sm_size);
-    if (!output.good())
+    Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
+    if (!error)
     {
-        // TODO add details
-        error.fail(-1, "Failed to save page", __FILE__, __LINE__);
-        return;
-    }
+        m_startMarker.setDataSize(m_dataSize);
+        m_startMarker.write(m_buffer);
+        m_endMarker.write(m_buffer + m_startMarker.size() + m_dataSize);
 
-    m_startMarker.setDataSize(m_dataSize);
-    m_startMarker.write(m_buffer);
-    m_endMarker.write(m_buffer + m_startMarker.size() + m_dataSize);
-    
-    output.write(m_buffer, sm_size);
-    if (!output.good())
-    {
-        // TODO add details
-        error.fail(-1, "Failed to save page", __FILE__, __LINE__);
-        return;
+        output.write(m_buffer, sm_size);
+        Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
     }
 }
 

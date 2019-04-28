@@ -41,6 +41,7 @@ private:
     static void GetTest1(Ishiko::Tests::Test& test);
     static void InsertTest1(Ishiko::Tests::FileComparisonTest& test);
     static void InsertTest2(Ishiko::Tests::FileComparisonTest& test);
+    static void InsertTest3(Ishiko::Tests::Test& test);
     static void EraseTest1(Ishiko::Tests::FileComparisonTest& test);
     static void EraseTest2(Ishiko::Tests::FileComparisonTest& test);
     static void EraseTest3(Ishiko::Tests::FileComparisonTest& test);

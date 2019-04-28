@@ -84,6 +84,10 @@ public:
     void moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error);
 
     /// Write the contents of the page to a stream.
+    /**
+        @param output The stream to which the page will be written.
+        @param error The result of the operation.
+    */
     void write(std::ostream& output, Ishiko::Error& error) const;
     /// Reads the contents of the page from a stream.
     /**
