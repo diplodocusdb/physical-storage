@@ -83,6 +83,7 @@ public:
     void erase(size_t pos, size_t n, Ishiko::Error& error);
     void moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error);
 
+    /// Write the contents of the page to a stream.
     void write(std::ostream& output, Ishiko::Error& error) const;
     /// Reads the contents of the page from a stream.
     /**

@@ -34,6 +34,7 @@ PageTests::PageTests(const TestNumber& number, const TestEnvironment& environmen
     append<HeapAllocationErrorsTest>("read test 3", ReadTest3);
     append<HeapAllocationErrorsTest>("read test 4", ReadTest4);
     append<HeapAllocationErrorsTest>("read test 5", ReadTest5);
+    append<FileComparisonTest>("write test 1", WriteTest1);
     append<HeapAllocationErrorsTest>("get test 1", GetTest1);
     append<FileComparisonTest>("insert test 1", InsertTest1);
     append<FileComparisonTest>("insert test 2", InsertTest2);
@@ -133,6 +134,27 @@ void PageTests::ReadTest5(Test& test)
     ISHTF_FAIL_UNLESS((bool)error);
     ISHTF_FAIL_UNLESS(page.dataSize() == 0);
     ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
+    ISHTF_PASS();
+}
+
+void PageTests::WriteTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "PageTests_WriteTest1.dpdb");
+
+    DiplodocusDB::Page page(0);
+    page.init();
+
+    Ishiko::Error error(0);
+    std::ofstream output(outputPath.c_str(), std::fstream::binary);
+    page.write(output, error);
+
+    ISHTF_FAIL_IF((bool)error);
+    ISHTF_FAIL_UNLESS(page.dataSize() == 0);
+    ISHTF_FAIL_UNLESS(page.availableSpace() == 4080);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageTests_WriteTest1.dpdb");
+
     ISHTF_PASS();
 }
 
