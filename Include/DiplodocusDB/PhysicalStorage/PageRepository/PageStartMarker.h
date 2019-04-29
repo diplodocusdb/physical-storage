@@ -30,9 +30,6 @@ class PageStartMarker
 {
 public:
     PageStartMarker();
-    ~PageStartMarker();
-
-    size_t size() const;
 
     void setDataSize(size_t size);
 

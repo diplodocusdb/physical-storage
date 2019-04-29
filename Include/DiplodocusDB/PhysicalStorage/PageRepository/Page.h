@@ -103,6 +103,7 @@ public:
 
 public:
     static const size_t sm_size = 4096;
+    static const size_t sm_startMarkerSize = 8;
 
 private:
     size_t m_index;

@@ -32,15 +32,6 @@ PageStartMarker::PageStartMarker()
 {
 }
 
-PageStartMarker::~PageStartMarker()
-{
-}
-
-size_t PageStartMarker::size() const
-{
-    return 8;
-}
-
 void PageStartMarker::setDataSize(size_t size)
 {
     m_dataSize = size;

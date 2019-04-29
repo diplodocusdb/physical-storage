@@ -29,7 +29,7 @@ namespace DiplodocusDB
 {
 
 Page::Page(size_t index)
-    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - m_startMarker.size() - m_endMarker.size())
+    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - sm_startMarkerSize - m_endMarker.size())
 {
 }
 
@@ -50,7 +50,7 @@ size_t Page::dataSize() const
 
 size_t Page::maxDataSize() const
 {
-    return (sm_size - m_startMarker.size() - m_endMarker.size());
+    return (sm_size - sm_startMarkerSize - m_endMarker.size());
 }
 
 size_t Page::availableSpace() const
@@ -75,7 +75,7 @@ void Page::get(char* buffer,
 {
     if ((pos + n) <= m_dataSize)
     {
-        memcpy(buffer, m_buffer + m_startMarker.size() + pos, n);
+        memcpy(buffer, m_buffer + sm_startMarkerSize + pos, n);
     }
     else
     {
@@ -90,7 +90,7 @@ void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Err
 {
     if (bufferSize <= m_availableSpace)
     {
-        char* p = (m_buffer + m_startMarker.size());
+        char* p = (m_buffer + sm_startMarkerSize);
         if (pos != m_dataSize)
         {
             memmove(p + pos + bufferSize, p + pos, (m_dataSize - pos));
@@ -108,15 +108,16 @@ void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Err
 
 void Page::erase(size_t pos, size_t n, Ishiko::Error& error)
 {
-    memmove(m_buffer + m_startMarker.size() + pos, m_buffer + m_startMarker.size() + pos + n, m_dataSize + m_endMarker.size() - pos - n);
-    memset(m_buffer + m_startMarker.size() + m_dataSize + m_endMarker.size() - n, 0, n);
+    memmove(m_buffer + sm_startMarkerSize + pos, m_buffer + sm_startMarkerSize + pos + n,
+        m_dataSize + m_endMarker.size() - pos - n);
+    memset(m_buffer + sm_startMarkerSize + m_dataSize + m_endMarker.size() - n, 0, n);
     m_dataSize -= n;
     m_availableSpace += n;
 }
 
 void Page::moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error)
 {
-    targetPage.insert(m_buffer + m_startMarker.size() + pos, n, 0, error);
+    targetPage.insert(m_buffer + sm_startMarkerSize + pos, n, 0, error);
     if (!error)
     {
         erase(pos, n, error);
@@ -131,7 +132,7 @@ void Page::write(std::ostream& output, Ishiko::Error& error) const
     {
         m_startMarker.setDataSize(m_dataSize);
         m_startMarker.write(m_buffer);
-        m_endMarker.write(m_buffer + m_startMarker.size() + m_dataSize);
+        m_endMarker.write(m_buffer + sm_startMarkerSize + m_dataSize);
 
         output.write(m_buffer, sm_size);
         Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
@@ -149,9 +150,9 @@ void Page::read(std::istream& input, Ishiko::Error& error)
         if (!error)
         {
             m_dataSize = *((uint16_t*)(m_buffer + 6));
-            m_availableSpace = sm_size - m_startMarker.size() - m_endMarker.size() - m_dataSize;
+            m_availableSpace = sm_size - sm_startMarkerSize - m_endMarker.size() - m_dataSize;
 
-            uint32_t nextPage = *((uint32_t*)(m_buffer + m_startMarker.size() + m_dataSize + 2));
+            uint32_t nextPage = *((uint32_t*)(m_buffer + sm_startMarkerSize + m_dataSize + 2));
             m_endMarker.setNextPage(nextPage);
         }
     }
