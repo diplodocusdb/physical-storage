@@ -74,15 +74,12 @@ ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
 
 all: ../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a
 
-../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageRepository.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryPosition.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryReader.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryWriter.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
-	$(AR) rc $@ $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageEndMarker.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageRepository.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryPosition.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryReader.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryWriter.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
+../Bakefile/../../../Lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPageRepository).a: $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageRepository.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryPosition.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryReader.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryWriter.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
+	$(AR) rc $@ $(_builddir)DiplodocusDBPageRepository_Page.o $(_builddir)DiplodocusDBPageRepository_PageCache.o $(_builddir)DiplodocusDBPageRepository_PageRepository.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryPosition.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryReader.o $(_builddir)DiplodocusDBPageRepository_PageRepositoryWriter.o $(_builddir)DiplodocusDBPageRepository_PageFileRepository.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPageRepository_Page.o: ../../Source/Page.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/Page.cpp
-
-$(_builddir)DiplodocusDBPageRepository_PageEndMarker.o: ../../Source/PageEndMarker.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageEndMarker.cpp
 
 $(_builddir)DiplodocusDBPageRepository_PageCache.o: ../../Source/PageCache.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I$(BOOST_ROOT)/include -I../../../Include/DiplodocusDB/PhysicalStorage/PageRepository -std=c++11 ../../Source/PageCache.cpp
