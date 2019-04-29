@@ -29,7 +29,7 @@ namespace DiplodocusDB
 {
 
 Page::Page(size_t index)
-    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - sm_startMarkerSize - sm_endMarkerSize)
+    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - sm_startMarkerSize - sm_endMarkerSize), m_nextPage(0)
 {
 }
 
@@ -60,12 +60,12 @@ size_t Page::availableSpace() const
 
 size_t Page::nextPage() const
 {
-    return m_endMarker.nextPage();
+    return m_nextPage;
 }
 
 void Page::setNextPage(size_t index)
 {
-    m_endMarker.setNextPage(index);
+    m_nextPage = index;
 }
 
 void Page::get(char* buffer,
@@ -132,8 +132,9 @@ void Page::write(std::ostream& output, Ishiko::Error& error) const
     {
         memcpy(m_buffer, "\xF0\x06\x00\x00\x00\x00", 6);
         *((uint16_t*)(m_buffer + 6)) = (uint16_t)m_dataSize;
-        m_endMarker.write(m_buffer + sm_startMarkerSize + m_dataSize);
-
+        memcpy(m_buffer + sm_startMarkerSize + m_dataSize, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
+        *((uint32_t*)(m_buffer + sm_startMarkerSize + m_dataSize + 2)) = m_nextPage;
+        
         output.write(m_buffer, sm_size);
         Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
     }
@@ -153,7 +154,7 @@ void Page::read(std::istream& input, Ishiko::Error& error)
             m_availableSpace = sm_size - sm_startMarkerSize - sm_endMarkerSize - m_dataSize;
 
             uint32_t nextPage = *((uint32_t*)(m_buffer + sm_startMarkerSize + m_dataSize + 2));
-            m_endMarker.setNextPage(nextPage);
+            m_nextPage = nextPage;
         }
     }
 }

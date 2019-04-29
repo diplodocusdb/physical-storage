@@ -23,7 +23,6 @@
 #ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGE_H_
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_PAGE_H_
 
-#include "PageEndMarker.h"
 #include "Ishiko/Errors/Error.h"
 #include <fstream>
 
@@ -111,7 +110,7 @@ private:
     mutable char m_buffer[sm_size];
     size_t m_dataSize;
     size_t m_availableSpace;
-    PageEndMarker m_endMarker;
+    size_t m_nextPage;
 };
 
 }
