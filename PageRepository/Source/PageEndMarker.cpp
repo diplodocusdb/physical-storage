@@ -36,11 +36,6 @@ PageEndMarker::~PageEndMarker()
 {
 }
 
-size_t PageEndMarker::size() const
-{
-    return 8;
-}
-
 size_t PageEndMarker::nextPage() const
 {
     return m_nextPage;

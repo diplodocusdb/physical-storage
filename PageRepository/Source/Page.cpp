@@ -29,7 +29,7 @@ namespace DiplodocusDB
 {
 
 Page::Page(size_t index)
-    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - sm_startMarkerSize - m_endMarker.size())
+    : m_index(index), m_dataSize(0), m_availableSpace(sm_size - sm_startMarkerSize - sm_endMarkerSize)
 {
 }
 
@@ -50,7 +50,7 @@ size_t Page::dataSize() const
 
 size_t Page::maxDataSize() const
 {
-    return (sm_size - sm_startMarkerSize - m_endMarker.size());
+    return (sm_size - sm_startMarkerSize - sm_endMarkerSize);
 }
 
 size_t Page::availableSpace() const
@@ -109,8 +109,8 @@ void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Err
 void Page::erase(size_t pos, size_t n, Ishiko::Error& error)
 {
     memmove(m_buffer + sm_startMarkerSize + pos, m_buffer + sm_startMarkerSize + pos + n,
-        m_dataSize + m_endMarker.size() - pos - n);
-    memset(m_buffer + sm_startMarkerSize + m_dataSize + m_endMarker.size() - n, 0, n);
+        m_dataSize + sm_endMarkerSize - pos - n);
+    memset(m_buffer + sm_startMarkerSize + m_dataSize + sm_endMarkerSize - n, 0, n);
     m_dataSize -= n;
     m_availableSpace += n;
 }
@@ -150,7 +150,7 @@ void Page::read(std::istream& input, Ishiko::Error& error)
         if (!error)
         {
             m_dataSize = *((uint16_t*)(m_buffer + 6));
-            m_availableSpace = sm_size - sm_startMarkerSize - m_endMarker.size() - m_dataSize;
+            m_availableSpace = sm_size - sm_startMarkerSize - sm_endMarkerSize - m_dataSize;
 
             uint32_t nextPage = *((uint32_t*)(m_buffer + sm_startMarkerSize + m_dataSize + 2));
             m_endMarker.setNextPage(nextPage);

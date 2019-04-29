@@ -32,8 +32,6 @@ public:
     PageEndMarker();
     ~PageEndMarker();
 
-    size_t size() const;
-
     size_t nextPage() const;
     void setNextPage(size_t nextPage);
 
