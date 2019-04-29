@@ -36,7 +36,6 @@ public:
     void write(char* buffer) const;
 
 private:
-    size_t m_previousPage;
     size_t m_dataSize;
 };
 

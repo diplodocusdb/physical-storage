@@ -28,7 +28,7 @@ namespace DiplodocusDB
 {
 
 PageStartMarker::PageStartMarker()
-    : m_previousPage(0), m_dataSize(0)
+    : m_dataSize(0)
 {
 }
 

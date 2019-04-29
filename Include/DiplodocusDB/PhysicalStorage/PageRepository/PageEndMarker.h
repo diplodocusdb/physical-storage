@@ -30,7 +30,6 @@ class PageEndMarker
 {
 public:
     PageEndMarker();
-    ~PageEndMarker();
 
     size_t nextPage() const;
     void setNextPage(size_t nextPage);

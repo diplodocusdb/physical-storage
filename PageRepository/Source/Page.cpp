@@ -130,8 +130,8 @@ void Page::write(std::ostream& output, Ishiko::Error& error) const
     Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
     if (!error)
     {
-        m_startMarker.setDataSize(m_dataSize);
-        m_startMarker.write(m_buffer);
+        memcpy(m_buffer, "\xF0\x06\x00\x00\x00\x00", 6);
+        *((uint16_t*)(m_buffer + 6)) = (uint16_t)m_dataSize;
         m_endMarker.write(m_buffer + sm_startMarkerSize + m_dataSize);
 
         output.write(m_buffer, sm_size);

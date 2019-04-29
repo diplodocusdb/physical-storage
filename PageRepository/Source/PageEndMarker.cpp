@@ -32,10 +32,6 @@ PageEndMarker::PageEndMarker()
 {
 }
 
-PageEndMarker::~PageEndMarker()
-{
-}
-
 size_t PageEndMarker::nextPage() const
 {
     return m_nextPage;
