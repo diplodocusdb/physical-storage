@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ishiko/gcc-ishiko-cpp:0.31.0
+    steps:
+      - run: 
+          name: "Set DIPLODOCUSDB environment variable and create workspace directory"
+          command: mkdir -p /projects/diplodocusdb && echo 'export DIPLODOCUSDB="/projects/diplodocusdb"' >> $BASH_ENV
+      - checkout:
+          path: /projects/diplodocusdb/physical-storage
+workflows:
+  version: 2
+  continuous_build:
+    jobs:
+      - build
+  weekly_build:
+    jobs:
+      - build
+    triggers:
+      - schedule:
+          cron: "0 8 * * 0"
+          filters:
+            branches:
+              only:
+                 - main
