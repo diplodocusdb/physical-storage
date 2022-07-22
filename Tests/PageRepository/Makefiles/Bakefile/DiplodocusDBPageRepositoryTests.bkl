@@ -1,11 +1,12 @@
-ishikopath = envvar("ISHIKO");
-import $(ishikopath)/TestFramework/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/test-framework/include/Ishiko/TestFramework/Core.bkl;
 diplodocusdbpath = envvar("DIPLODOCUSDB");
-import $(diplodocusdbpath)/PhysicalStorage/Include/DiplodocusDB/PhysicalStorage/PageRepository.bkl;
+import $(diplodocusdbpath)/physical-storage/Include/DiplodocusDB/PhysicalStorage/PageRepository.bkl;
 
-toolsets = gnu vs2017 vs2015 vs2013;
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
 gnu.makefile = ../GNUmakefile/GNUmakefile;
+vs2019.solutionfile = ../vc16/DiplodocusDBPageRepositoryTests.sln;
 vs2017.solutionfile = ../VC15/DiplodocusDBPageRepositoryTests.sln;
 vs2015.solutionfile = ../VC14/DiplodocusDBPageRepositoryTests.sln;
 vs2013.solutionfile = ../VC12/DiplodocusDBPageRepositoryTests.sln;
