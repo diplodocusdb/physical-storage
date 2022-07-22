@@ -9,6 +9,9 @@ jobs:
           command: mkdir -p /projects/diplodocusdb && echo 'export DIPLODOCUSDB="/projects/diplodocusdb"' >> $BASH_ENV
       - checkout:
           path: /projects/diplodocusdb/physical-storage
+      - run:
+          name: Build 
+          command: cd /projects/diplodocusdb/physical-storage/PageRepository/Makefiles/GNUmakefile && make
 workflows:
   version: 2
   continuous_build:

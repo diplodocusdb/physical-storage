@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -21,6 +21,7 @@
 */
 
 #include "PageFileRepository.h"
+#include "PageRepositoryErrorCategory.hpp"
 #include <boost/filesystem/operations.hpp>
 
 namespace DiplodocusDB
@@ -38,7 +39,7 @@ void PageFileRepository::create(const boost::filesystem::path& path,
     if (!file.good())
     {
         // TODO add details
-        error.fail(-1, "Failed to create file", __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to create file", __FILE__, __LINE__);
     }
     else
     {
@@ -55,7 +56,7 @@ void PageFileRepository::open(const boost::filesystem::path& path,
     if (ec)
     {
         // TODO add details
-        error.fail(-1, "Failed to get file size", __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to get file size", __FILE__, __LINE__);
     }
     else
     {
@@ -63,7 +64,7 @@ void PageFileRepository::open(const boost::filesystem::path& path,
         if (!m_file.good())
         {
             // TODO add details
-            error.fail(-1, "Failed to open file", __FILE__, __LINE__);
+            Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to open file", __FILE__, __LINE__);
         }
         m_pageCount = (filesize / Page::sm_size);
     }
