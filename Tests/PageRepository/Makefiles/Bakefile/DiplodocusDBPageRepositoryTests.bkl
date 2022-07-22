@@ -18,7 +18,7 @@ program DiplodocusDBPageRepositoryTests : DiplodocusDBPageRepository, IshikoTest
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += IshikoTestFramework IshikoErrors;
+        libs += IshikoTestFramework IshikoTestFrameworkCore IshikoErrors;
     }
 
     headers
