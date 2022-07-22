@@ -55,16 +55,16 @@ void PageRepositoryWriterTests::CreationTest1(Test& test)
     DiplodocusDB::PageFileRepository repository;
     repository.open(inputPath, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
     
     std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
     
     DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
 
-    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().page(), 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().offset(), 0);
     ISHIKO_TEST_PASS();
 }
 
@@ -146,12 +146,11 @@ void PageRepositoryWriterTests::WriteTest2(Test& test)
 
 void PageRepositoryWriterTests::WriteTest3(Test& test)
 {
-    boost::filesystem::path inputPath(test.context().getTestDataDirectory()
-        / "PageRepositoryWriterWriteTest3.dpdb");
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory()
-        / "PageRepositoryWriterWriteTest3.dpdb");
-
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    const char* outputName = "PageRepositoryWriterWriteTest3.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
+    
+    boost::filesystem::copy_file(test.context().getDataPath("PageRepositoryWriterWriteTest3.dpdb"), outputPath,
+        boost::filesystem::copy_option::overwrite_if_exists);
 
     Error error;
 
@@ -173,53 +172,49 @@ void PageRepositoryWriterTests::WriteTest3(Test& test)
     writer.save(error);
 
     ISHIKO_TEST_FAIL_IF(error);
-
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest3.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest4(Test& test)
 {
-    boost::filesystem::path inputPath(test.context().getTestDataDirectory() / "PageRepositoryWriterWriteTest4.dpdb");
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory() / "PageRepositoryWriterWriteTest4.dpdb");
+    const char* outputName = "PageRepositoryWriterWriteTest4.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    boost::filesystem::copy_file(test.context().getDataPath("PageRepositoryWriterWriteTest4.dpdb"), outputPath,
+        boost::filesystem::copy_option::overwrite_if_exists);
 
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
     
     DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 6, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
     
     writer.write("value2", 6, error);
 
-    ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 12);
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().page(), 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().offset(), 12);
 
     writer.save(error);
     
-    ISHTF_FAIL_IF((bool)error);
-
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.context().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest4.dpdb");
-
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest5(Test& test)
 {
-    boost::filesystem::path inputPath(test.context().getTestDataDirectory() / "PageRepositoryWriterWriteTest5.dpdb");
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory() / "PageRepositoryWriterWriteTest5.dpdb");
+    const char* outputName = "PageRepositoryWriterWriteTest5.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    boost::filesystem::copy_file(test.context().getDataPath("PageRepositoryWriterWriteTest5.dpdb"), outputPath,
+        boost::filesystem::copy_option::overwrite_if_exists);
 
     Error error;
 
@@ -244,19 +239,17 @@ void PageRepositoryWriterTests::WriteTest5(Test& test)
     writer.save(error);
 
     ISHIKO_TEST_FAIL_IF(error);
-
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.context().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest5.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest6(Test& test)
 {
-    boost::filesystem::path inputPath(test.context().getTestDataDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
+    const char* outputName = "PageRepositoryWriterWriteTest6.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    boost::filesystem::copy_file(test.context().getDataPath("PageRepositoryWriterWriteTest6.dpdb"), outputPath,
+        boost::filesystem::copy_option::overwrite_if_exists);
 
     Error error;
 
@@ -281,16 +274,14 @@ void PageRepositoryWriterTests::WriteTest6(Test& test)
     writer.save(error);
     
     ISHIKO_TEST_FAIL_IF(error);
-
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "PageRepositoryWriterWriteTest6.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteTest7(Test& test)
 {
     const char* outputName = "PageRepositoryWriterWriteTest7.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
 
     boost::filesystem::copy_file(test.context().getDataPath("PageRepositoryWriterWriteTest7.dpdb"), outputPath,
         boost::filesystem::copy_option::overwrite_if_exists);
@@ -298,7 +289,7 @@ void PageRepositoryWriterTests::WriteTest7(Test& test)
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
-    repository.open(test.context().getOutputPath(outputName), error);
+    repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -326,6 +317,7 @@ void PageRepositoryWriterTests::WriteTest7(Test& test)
 void PageRepositoryWriterTests::WriteTest8(Test& test)
 {
     const char* outputName = "PageRepositoryWriterWriteTest8.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
 
     boost::filesystem::copy_file(test.context().getDataPath("PageRepositoryWriterWriteTest8.dpdb"), outputPath,
         boost::filesystem::copy_option::overwrite_if_exists);
@@ -333,7 +325,7 @@ void PageRepositoryWriterTests::WriteTest8(Test& test)
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
-    repository.open(test.context().getOutputPath(outputName), error);
+    repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -395,13 +387,12 @@ void PageRepositoryWriterTests::WriteLEB128Test1(Test& test)
 
 void PageRepositoryWriterTests::WriteLEB128Test2(Test& test)
 {
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory()
-        / "PageRepositoryWriterWriteLEB128Test2.dpdb");
-
+    const char* outputName = "PageRepositoryWriterWriteLEB128Test2.dpdb";
+    
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
-    repository.create(outputPath, error);
+    repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -426,22 +417,18 @@ void PageRepositoryWriterTests::WriteLEB128Test2(Test& test)
 
     repository.close();
 
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.context().getReferenceDataDirectory()
-        / "PageRepositoryWriterWriteLEB128Test2.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteLEB128Test3(Test& test)
 {
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory()
-        / "PageRepositoryWriterWriteLEB128Test3.dpdb");
-
+    const char* outputName = "PageRepositoryWriterWriteLEB128Test3.dpdb";
+   
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
-    repository.create(outputPath, error);
+    repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -462,26 +449,22 @@ void PageRepositoryWriterTests::WriteLEB128Test3(Test& test)
 
     writer.save(error);
 
-    ISHTF_FAIL_IF((bool)error);
+    ISHIKO_TEST_FAIL_IF((bool)error);
 
     repository.close();
 
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
-        / "PageRepositoryWriterWriteLEB128Test3.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteLEB128Test4(Test& test)
 {
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory()
-        / "PageRepositoryWriterWriteLEB128Test4.dpdb");
-
+    const char* outputName = "PageRepositoryWriterWriteLEB128Test4.dpdb";
+    
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
-    repository.create(outputPath, error);
+    repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -492,63 +475,56 @@ void PageRepositoryWriterTests::WriteLEB128Test4(Test& test)
 
     DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
 
     writer.writeLEB128(128, error);
 
-    ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 2);
+    ISHIKO_TEST_FAIL_IF((bool)error);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().page(), 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().offset(), 2);
 
     writer.save(error);
 
-    ISHTF_FAIL_IF((bool)error);
+    ISHIKO_TEST_FAIL_IF((bool)error);
 
     repository.close();
 
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
-        / "PageRepositoryWriterWriteLEB128Test4.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
 
 void PageRepositoryWriterTests::WriteLEB128Test5(Test& test)
 {
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory()
-        / "PageRepositoryWriterWriteLEB128Test5.dpdb");
-
+    const char* outputName = "PageRepositoryWriterWriteLEB128Test5.dpdb";
+   
     Error error;
 
     DiplodocusDB::PageFileRepository repository;
-    repository.create(outputPath, error);
+    repository.create(test.context().getOutputPath(outputName), error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
 
     std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
 
-    ISHTF_ABORT_IF((bool)error);
-    ISHTF_ABORT_UNLESS(page);
+    ISHIKO_TEST_ABORT_IF(error);
+    ISHIKO_TEST_ABORT_IF_NOT(page);
 
     DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
 
     writer.writeLEB128(16384, error);
 
-    ISHTF_FAIL_IF((bool)error);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().page() == 0);
-    ISHTF_FAIL_UNLESS(writer.currentPosition().offset() == 3);
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().page(), 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().offset(), 3);
 
     writer.save(error);
 
-    ISHTF_FAIL_IF((bool)error);
+    ISHIKO_TEST_FAIL_IF(error);
 
     repository.close();
 
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
-        / "PageRepositoryWriterWriteLEB128Test5.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }

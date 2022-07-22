@@ -153,14 +153,13 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
 
 void PageFileRepositoryTests::InsertPageAfterTest1(Test& test)
 {
-    boost::filesystem::path inputPath(test.context().getTestDataDirectory()
-        / "PageFileRepositoryTests_InsertPageAfterTest1.dpdb");
-    boost::filesystem::path outputPath(test.context().getTestOutputDirectory()
-        / "PageFileRepositoryTests_InsertPageAfterTest1.dpdb");
+    const char* outputName = "PageFileRepositoryTests_InsertPageAfterTest1.dpdb";
+    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
 
-    boost::filesystem::copy_file(inputPath, outputPath, boost::filesystem::copy_option::overwrite_if_exists);
+    boost::filesystem::copy_file(test.context().getDataPath("PageFileRepositoryTests_InsertPageAfterTest1.dpdb"), outputPath,
+        boost::filesystem::copy_option::overwrite_if_exists);
 
-    Ishiko::Error error(0);
+    Error error;
 
     DiplodocusDB::PageFileRepository repository;
     repository.open(outputPath, error);
@@ -183,10 +182,6 @@ void PageFileRepositoryTests::InsertPageAfterTest1(Test& test)
     repository.save(*page2, error);
 
     ISHIKO_TEST_FAIL_IF(error);
-
-    test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.context().getReferenceDataDirectory()
-        / "PageFileRepositoryTests_InsertPageAfterTest1.dpdb");
-
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
