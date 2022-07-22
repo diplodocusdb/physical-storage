@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,29 +23,28 @@
 #ifndef _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYWRITERTESTS_H_
 #define _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYWRITERTESTS_H_
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
+#include <Ishiko/TestFramework.hpp>
 
-class PageRepositoryWriterTests : public Ishiko::Tests::TestSequence
+class PageRepositoryWriterTests : public Ishiko::TestSequence
 {
 public:
-    PageRepositoryWriterTests(const Ishiko::Tests::TestNumber& number,
-        const Ishiko::Tests::TestEnvironment& environment);
+    PageRepositoryWriterTests(const Ishiko::TestNumber& number, const Ishiko::TestContext& context);
 
 private:
-    static void CreationTest1(Ishiko::Tests::Test& test);
-    static void WriteTest1(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest2(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest3(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest4(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest5(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest6(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest7(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteTest8(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteLEB128Test1(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteLEB128Test2(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteLEB128Test3(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteLEB128Test4(Ishiko::Tests::FileComparisonTest& test);
-    static void WriteLEB128Test5(Ishiko::Tests::FileComparisonTest& test);
+    static void CreationTest1(Ishiko::Test& test);
+    static void WriteTest1(Ishiko::Test& test);
+    static void WriteTest2(Ishiko::Test& test);
+    static void WriteTest3(Ishiko::Test& test);
+    static void WriteTest4(Ishiko::Test& test);
+    static void WriteTest5(Ishiko::Test& test);
+    static void WriteTest6(Ishiko::Test& test);
+    static void WriteTest7(Ishiko::Test& test);
+    static void WriteTest8(Ishiko::Test& test);
+    static void WriteLEB128Test1(Ishiko::Test& test);
+    static void WriteLEB128Test2(Ishiko::Test& test);
+    static void WriteLEB128Test3(Ishiko::Test& test);
+    static void WriteLEB128Test4(Ishiko::Test& test);
+    static void WriteLEB128Test5(Ishiko::Test& test);
 };
 
 #endif

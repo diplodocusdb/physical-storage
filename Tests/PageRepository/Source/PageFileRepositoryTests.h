@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,22 +23,21 @@
 #ifndef _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEFILEREPOSITORYTESTS_H_
 #define _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEFILEREPOSITORYTESTS_H_
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
+#include <Ishiko/TestFramework.hpp>
 
-class PageFileRepositoryTests : public Ishiko::Tests::TestSequence
+class PageFileRepositoryTests : public Ishiko::TestSequence
 {
 public:
-    PageFileRepositoryTests(const Ishiko::Tests::TestNumber& number,
-        const Ishiko::Tests::TestEnvironment& environment);
+    PageFileRepositoryTests(const Ishiko::TestNumber& number, const Ishiko::TestContext& context);
 
 private:
-    static void CreationTest1(Ishiko::Tests::Test& test);
-    static void CreateTest1(Ishiko::Tests::FileComparisonTest& test);
-    static void OpenTest1(Ishiko::Tests::Test& test);
-    static void OpenTest2(Ishiko::Tests::Test& test);
-    static void AllocatePageTest1(Ishiko::Tests::FileComparisonTest& test);
-    static void AllocatePageTest2(Ishiko::Tests::FileComparisonTest& test);
-    static void InsertPageAfterTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void CreationTest1(Ishiko::Test& test);
+    static void CreateTest1(Ishiko::Test& test);
+    static void OpenTest1(Ishiko::Test& test);
+    static void OpenTest2(Ishiko::Test& test);
+    static void AllocatePageTest1(Ishiko::Test& test);
+    static void AllocatePageTest2(Ishiko::Test& test);
+    static void InsertPageAfterTest1(Ishiko::Test& test);
 };
 
 #endif
