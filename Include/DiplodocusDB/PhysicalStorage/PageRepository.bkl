@@ -1,11 +1,11 @@
-ishikopath = envvar("ISHIKO");
-import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/Boost.bkl;
-import $(ishikopath)/Errors/Include/Ishiko/Errors.bkl;
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
+import $(ishikopath)/errors/include/Ishiko/Errors.bkl;
 
 setting DIPLODOCUSDB_PHYSICALSTORAGE_ROOT
 {
     help = "Path to the DiplodocusDB installation";
-    default = '$(DIPLODOCUSDB)/PhysicalStorage';
+    default = '$(DIPLODOCUSDB)/physical-storage';
 }
 
 template DiplodocusDBPageRepository : IshikoErrors, Boost

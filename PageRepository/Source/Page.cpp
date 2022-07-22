@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -22,7 +22,8 @@
 
 #include "Page.h"
 #include "PageFileRepository.h"
-#include "Ishiko/Errors/IOErrorExtension.h"
+#include "PageRepositoryErrorCategory.hpp"
+#include <Ishiko/Errors.hpp>
 #include <sstream>
 
 namespace DiplodocusDB
@@ -82,7 +83,7 @@ void Page::get(char* buffer,
         std::stringstream message;
         message << "Page::get (m_index: " << m_index << ", pos:" << pos << ", n:" << n
             << ") exceeds data size (m_datasize: " << m_dataSize << ")";
-        error.fail(-1, message.str(), __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::eGeneric, message.str(), __FILE__, __LINE__);
     }
 }
 
@@ -102,7 +103,7 @@ void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Err
     else
     {
         // TODO : add page details
-        error.fail(-1, "Failed to insert page", __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to insert page", __FILE__, __LINE__);
     }
 }
 

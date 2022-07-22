@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -26,8 +26,8 @@
 #include "PageRepository.h"
 #include "Page.h"
 #include "PageCache.h"
-#include "Ishiko/Errors/Error.h"
 #include <boost/filesystem/path.hpp>
+#include <Ishiko/Errors.hpp>
 #include <fstream>
 #include <memory>
 
