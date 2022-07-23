@@ -235,7 +235,7 @@ void PageTests::InsertTest3(Test& test)
 
     page.insert("", 4075, 0, error);
 
-    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_NOT(error);
     ISHIKO_TEST_PASS();
 }
 
