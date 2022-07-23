@@ -231,7 +231,7 @@ void PageTests::InsertTest3(Test& test)
     std::ifstream input(test.context().getDataPath("PageTests_InsertTest3.dpdb").c_str(), std::fstream::binary);
     page.read(input, error);
 
-    ISHIKO_TEST_ABORT_IF((bool)error);
+    ISHIKO_TEST_ABORT_IF(error);
 
     page.insert("", 4075, 0, error);
 
