@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -20,24 +20,24 @@
     IN THE SOFTWARE.
 */
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
 #include "PageTests.h"
 #include "PageCacheTests.h"
 #include "PageFileRepositoryTests.h"
 #include "PageRepositoryReaderTests.h"
 #include "PageRepositoryWriterTests.h"
 #include <boost/filesystem/operations.hpp>
+#include <Ishiko/TestFramework.hpp>
 
-using namespace Ishiko::Tests;
+using namespace Ishiko;
 
 int main(int argc, char* argv[])
 {
     TestHarness theTestHarness("DiplodocusDBPageRepository");
 
-    theTestHarness.environment().setTestDataDirectory("../../TestData");
-    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
+    theTestHarness.context().setDataDirectory("../../TestData");
+    theTestHarness.context().setOutputDirectory("../../TestOutput");
     boost::filesystem::create_directories("../../TestOutput");
-    theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
+    theTestHarness.context().setReferenceDirectory("../../ReferenceData");
 
     TestSequence& theTests = theTestHarness.tests();
     theTests.append<PageTests>();

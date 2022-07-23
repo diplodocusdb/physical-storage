@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2018-2019 Xavier Leclercq
+    Copyright (c) 2018-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,26 +23,25 @@
 #ifndef _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADERTESTS_H_
 #define _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEREPOSITORYREADERTESTS_H_
 
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
+#include <Ishiko/TestFramework.hpp>
 
-class PageRepositoryReaderTests : public Ishiko::Tests::TestSequence
+class PageRepositoryReaderTests : public Ishiko::TestSequence
 {
 public:
-    PageRepositoryReaderTests(const Ishiko::Tests::TestNumber& number,
-        const Ishiko::Tests::TestEnvironment& environment);
+    PageRepositoryReaderTests(const Ishiko::TestNumber& number, const Ishiko::TestContext& context);
 
 private:
-    static void CreationTest1(Ishiko::Tests::Test& test);
-    static void ReadTest1(Ishiko::Tests::Test& test);
-    static void ReadTest2(Ishiko::Tests::Test& test);
-    static void ReadTest3(Ishiko::Tests::Test& test);
-    static void ReadTest4(Ishiko::Tests::Test& test);
-    static void ReadTest5(Ishiko::Tests::Test& test);
-    static void ReadLEB128Test1(Ishiko::Tests::Test& test);
-    static void ReadLEB128Test2(Ishiko::Tests::Test& test);
-    static void ReadLEB128Test3(Ishiko::Tests::Test& test);
-    static void ReadLEB128Test4(Ishiko::Tests::Test& test);
-    static void ReadLEB128Test5(Ishiko::Tests::Test& test);
+    static void CreationTest1(Ishiko::Test& test);
+    static void ReadTest1(Ishiko::Test& test);
+    static void ReadTest2(Ishiko::Test& test);
+    static void ReadTest3(Ishiko::Test& test);
+    static void ReadTest4(Ishiko::Test& test);
+    static void ReadTest5(Ishiko::Test& test);
+    static void ReadLEB128Test1(Ishiko::Test& test);
+    static void ReadLEB128Test2(Ishiko::Test& test);
+    static void ReadLEB128Test3(Ishiko::Test& test);
+    static void ReadLEB128Test4(Ishiko::Test& test);
+    static void ReadLEB128Test5(Ishiko::Test& test);
 };
 
 #endif

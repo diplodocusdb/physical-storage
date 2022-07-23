@@ -19,13 +19,13 @@ const char* PageRepositoryErrorCategory::name() const noexcept
     return "DiplodocusDB::PageRepositoryErrorCategory";
 }
 
-void Fail(Ishiko::Error& error, PageRepositoryErrorCategory::EErrorValues value) noexcept
+void DiplodocusDB::Fail(Ishiko::Error& error, PageRepositoryErrorCategory::EErrorValues value) noexcept
 {
     error.fail(value, PageRepositoryErrorCategory::Get());
 }
 
-void Fail(Ishiko::Error& error, PageRepositoryErrorCategory::EErrorValues value, const std::string& message,
-    const char* file, int line) noexcept
+void DiplodocusDB::Fail(Ishiko::Error& error, PageRepositoryErrorCategory::EErrorValues value,
+    const std::string& message, const char* file, int line) noexcept
 {
     error.fail(value, PageRepositoryErrorCategory::Get(), message, file, line);
 }

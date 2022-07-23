@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2019 Xavier Leclercq
+    Copyright (c) 2019-2022 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,10 +23,10 @@
 #include "PageCacheTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h"
 
-using namespace Ishiko::Tests;
+using namespace Ishiko;
 
-PageCacheTests::PageCacheTests(const TestNumber& number, const TestEnvironment& environment)
-    : TestSequence(number, "PageCache tests", environment)
+PageCacheTests::PageCacheTests(const TestNumber& number, const TestContext& context)
+    : TestSequence(number, "PageCache tests", context)
 {
     append<HeapAllocationErrorsTest>("ConstructorTest1 test 1", ConstructorTest1);
 }
@@ -35,5 +35,5 @@ void PageCacheTests::ConstructorTest1(Test& test)
 {
     DiplodocusDB::PageCache pageCache;
 
-    ISHTF_PASS();
+    ISHIKO_TEST_PASS();
 }
