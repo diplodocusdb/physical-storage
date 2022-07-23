@@ -12,6 +12,12 @@ jobs:
       - run:
           name: Build 
           command: cd /projects/diplodocusdb/physical-storage/PageRepository/Makefiles/GNUmakefile && make
+      - run:
+          name: Build tests
+          command: cd /projects/diplodocusdb/physical-storage/Tests/PageRepository/Makefiles/GNUmakefile && make
+      - run:
+          name: Run tests
+          command: cd /projects/diplodocusdb/physical-storage/Tests/PageRepository/Makefiles/GNUmakefile && ./DiplodocusDBPageRepositoryTests
 workflows:
   version: 2
   continuous_build:
