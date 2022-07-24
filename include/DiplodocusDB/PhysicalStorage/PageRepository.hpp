@@ -8,6 +8,13 @@
 #define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_HPP_
 
 #include "PageRepository/linkoptions.h"
-#include "PageRepository/Record.h"
+#include "PageRepository/Page.h"
+#include "PageRepository/PageCache.h"
+#include "PageRepository/PageFileRepository.h"
+#include "PageRepository/PageRepository.h"
+#include "PageRepository/PageRepositoryErrorCategory.hpp"
+#include "PageRepository/PageRepositoryPosition.h"
+#include "PageRepository/PageRepositoryReader.h"
+#include "PageRepository/PageRepositoryWriter.h"
 
 #endif
