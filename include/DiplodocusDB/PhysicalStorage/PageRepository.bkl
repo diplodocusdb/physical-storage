@@ -1,6 +1,6 @@
 ishikopath = envvar("ISHIKO_CPP");
-import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 import $(ishikopath)/errors/include/Ishiko/Errors.bkl;
+import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 
 setting DIPLODOCUSDB_PHYSICALSTORAGE_ROOT
 {
@@ -10,15 +10,15 @@ setting DIPLODOCUSDB_PHYSICALSTORAGE_ROOT
 
 template DiplodocusDBPageRepository : IshikoErrors, Boost
 {
-    includedirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Include;
+    includedirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/include;
 
     if ($(toolset) == gnu)
     {
-        libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib;
+        libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/lib;
     }
 
     if ($(toolset) != gnu)
     {
-        libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/Lib/$(arch);
+        libdirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/lib/$(arch);
     }
 }
