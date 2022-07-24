@@ -4,7 +4,7 @@ import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
-gnu.makefile = ../GNUmakefile/GNUmakefile;
+gnu.makefile = ../gnumake/GNUmakefile;
 vs2019.solutionfile = ../vc16/DiplodocusDBPageRepository.sln;
 vs2017.solutionfile = ../vc15/DiplodocusDBPageRepository.sln;
 vs2015.solutionfile = ../vc14/DiplodocusDBPageRepository.sln;
@@ -14,17 +14,17 @@ library DiplodocusDBPageRepository : IshikoErrors, Boost
 {
     archs = x86 x86_64;
    
-    includedirs += ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository;
+    includedirs += ../../../include/DiplodocusDB/PhysicalStorage/PageRepository;
 
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        outputdir = ../../../Lib;
+        outputdir = ../../../lib;
     }
 
     if ($(toolset) != gnu)
     {
-        outputdir = ../../../Lib/$(arch);
+        outputdir = ../../../lib/$(arch);
     }
 
     if ($(config) == Debug)
@@ -34,17 +34,16 @@ library DiplodocusDBPageRepository : IshikoErrors, Boost
 
     headers
     {
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository.h
-
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepository.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryErrorCategory.hpp
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryPosition.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryReader.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryWriter.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
-        ../../../Include/DiplodocusDB/PhysicalStorage/PageRepository/linkoptions.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository.hpp
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepository.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryErrorCategory.hpp
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryPosition.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryReader.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryWriter.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/linkoptions.h
     }
 
     sources
