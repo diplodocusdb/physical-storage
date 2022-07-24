@@ -34,8 +34,7 @@ library DiplodocusDBPageRepository : IshikoErrors, Boost
 
     headers
     {
-        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository.h
-
+        ../../../include/DiplodocusDB/PhysicalStorage/PageRepository.hpp
         ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
         ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
         ../../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepository.h

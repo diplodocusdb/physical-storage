@@ -17,7 +17,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h">
+    <ClInclude Include="..\..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\Page.h">
