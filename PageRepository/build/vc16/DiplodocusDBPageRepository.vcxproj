@@ -21,7 +21,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D53B95FC-C6A9-5B52-B895-7CDDB8BB0F03}</ProjectGuid>
+    <ProjectGuid>{70BFCF61-307C-5CD3-8AEC-0E127E0D4063}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DiplodocusDBPageRepository</RootNamespace>
     <ProjectName>DiplodocusDBPageRepository</ProjectName>
