@@ -11,7 +11,7 @@ jobs:
           path: /projects/diplodocusdb/physical-storage
       - run:
           name: Build 
-          command: cd /projects/diplodocusdb/physical-storage/PageRepository/build/gnumake && make
+          command: cd /projects/diplodocusdb/physical-storage/build/gnumake && make
       - run:
           name: Build tests
           command: cd /projects/diplodocusdb/physical-storage/Tests/PageRepository/Makefiles/GNUmakefile && make
