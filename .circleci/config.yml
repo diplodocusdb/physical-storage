@@ -14,10 +14,10 @@ jobs:
           command: cd /projects/diplodocusdb/physical-storage/build/gnumake && make
       - run:
           name: Build tests
-          command: cd /projects/diplodocusdb/physical-storage/Tests/PageRepository/Makefiles/GNUmakefile && make
+          command: cd /projects/diplodocusdb/physical-storage/tests/build/gnumake && make
       - run:
           name: Run tests
-          command: cd /projects/diplodocusdb/physical-storage/Tests/PageRepository/Makefiles/GNUmakefile && ./DiplodocusDBPageRepositoryTests
+          command: cd /projects/diplodocusdb/physical-storage/tests/build/gnumake && ./DiplodocusDBPhysicalStorageTests
 workflows:
   version: 2
   continuous_build:

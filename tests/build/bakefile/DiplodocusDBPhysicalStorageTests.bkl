@@ -5,13 +5,13 @@ import $(diplodocusdbpath)/physical-storage/Include/DiplodocusDB/PhysicalStorage
 
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
-gnu.makefile = ../GNUmakefile/GNUmakefile;
-vs2019.solutionfile = ../vc16/DiplodocusDBPageRepositoryTests.sln;
-vs2017.solutionfile = ../VC15/DiplodocusDBPageRepositoryTests.sln;
-vs2015.solutionfile = ../VC14/DiplodocusDBPageRepositoryTests.sln;
-vs2013.solutionfile = ../VC12/DiplodocusDBPageRepositoryTests.sln;
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/DiplodocusDBPhysicalStorageTests.sln;
+vs2017.solutionfile = ../vc15/DiplodocusDBPhysicalStorageTests.sln;
+vs2015.solutionfile = ../vc14/DiplodocusDBPhysicalStorageTests.sln;
+vs2013.solutionfile = ../vc12/DiplodocusDBPhysicalStorageTests.sln;
 
-program DiplodocusDBPageRepositoryTests : DiplodocusDBPageRepository, IshikoTestFramework
+program DiplodocusDBPhysicalStorageTests : DiplodocusDBPageRepository, IshikoTestFramework
 {
     archs = x86 x86_64;
 

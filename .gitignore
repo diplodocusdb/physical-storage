@@ -12,4 +12,4 @@ Release/
 !/Lib/README.md
 Documentation/Doxygen/html
 Documentation/Doxygen/latex
-Tests/PageRepository/TestOutput
+tests/TestOutput
