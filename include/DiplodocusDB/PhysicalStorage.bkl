@@ -9,7 +9,7 @@ setting DIPLODOCUSDB_PHYSICALSTORAGE_ROOT
     default = '$(DIPLODOCUSDB)/physical-storage';
 }
 
-template DiplodocusDBPageRepository : IshikoIO, IshikoErrors, Boost
+template DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
 {
     includedirs += $(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/include;
 
