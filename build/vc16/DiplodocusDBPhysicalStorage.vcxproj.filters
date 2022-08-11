@@ -49,28 +49,28 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\Page.cpp">
+    <ClCompile Include="..\..\src\Page.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageCache.cpp">
+    <ClCompile Include="..\..\src\PageCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageRepository.cpp">
+    <ClCompile Include="..\..\src\PageRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageRepositoryErrorCategory.cpp">
+    <ClCompile Include="..\..\src\PageRepositoryErrorCategory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageRepositoryPosition.cpp">
+    <ClCompile Include="..\..\src\PageRepositoryPosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageRepositoryReader.cpp">
+    <ClCompile Include="..\..\src\PageRepositoryReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageRepositoryWriter.cpp">
+    <ClCompile Include="..\..\src\PageRepositoryWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PageFileRepository.cpp">
+    <ClCompile Include="..\..\src\PageFileRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
