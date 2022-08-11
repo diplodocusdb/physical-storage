@@ -67,7 +67,7 @@ void Page::get(char* buffer,
         std::stringstream message;
         message << "Page::get (m_index: " << m_index << ", pos:" << pos << ", n:" << n
             << ") exceeds data size (m_datasize: " << m_dataSize << ")";
-        Fail(error, PageRepositoryErrorCategory::eGeneric, message.str(), __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::Value::generic_error, message.str(), __FILE__, __LINE__);
     }
 }
 
@@ -87,7 +87,7 @@ void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Err
     else
     {
         // TODO : add page details
-        Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to insert page", __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::Value::generic_error, "Failed to insert page", __FILE__, __LINE__);
     }
 }
 
@@ -112,7 +112,7 @@ void Page::moveTo(size_t pos, size_t n, Page& targetPage, Ishiko::Error& error)
 void Page::write(std::ostream& output, Ishiko::Error& error) const
 {
     output.seekp(m_index * sm_size);
-    Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
+    Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
     if (!error)
     {
         memcpy(m_buffer, "\xF0\x06\x00\x00\x00\x00", 6);
@@ -121,18 +121,18 @@ void Page::write(std::ostream& output, Ishiko::Error& error) const
         *((uint32_t*)(m_buffer + sm_startMarkerSize + m_dataSize + 2)) = m_nextPage;
         
         output.write(m_buffer, sm_size);
-        Ishiko::IOErrorExtension::Fail(error, output, __FILE__, __LINE__);
+        Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
     }
 }
 
 void Page::read(std::istream& input, Ishiko::Error& error)
 {
     input.seekg(m_index * sm_size);
-    Ishiko::IOErrorExtension::Fail(error, input, __FILE__, __LINE__);
+    Ishiko::IOErrorExtension::Fail(input, __FILE__, __LINE__, error);
     if (!error)
     {
         input.read(m_buffer, sm_size);
-        Ishiko::IOErrorExtension::Fail(error, input, __FILE__, __LINE__);
+        Ishiko::IOErrorExtension::Fail(input, __FILE__, __LINE__, error);
         if (!error)
         {
             m_dataSize = *((uint16_t*)(m_buffer + 6));
