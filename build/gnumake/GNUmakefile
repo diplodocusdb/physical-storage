@@ -78,9 +78,9 @@ ISHIKO_CPP_BOOST_ROOT ?= $(ISHIKO_CPP_THIRD_PARTY_BOOST)
 
 # ------------
 
-all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPhysicalStorage).a
+all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a
 
-../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPhysicalStorage).a: $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryErrorCategory.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o
+../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a: $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryErrorCategory.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o
 	$(AR) rc $@ $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryErrorCategory.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o
 	$(RANLIB) $@
 
@@ -111,7 +111,7 @@ $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o: ../../Source/PageF
 clean:
 	rm -f $(_builddir)*.o
 	rm -f $(_builddir)*.d
-	rm -f ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPageRepository-d,DiplodocusDBPhysicalStorage).a
+	rm -f ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a
 
 .PHONY: all clean
 

@@ -30,21 +30,21 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
 
     if ($(config) == Debug)
     {
-        basename = DiplodocusDBPageRepository-d;
+        basename = DiplodocusDBPhysicalStorage-d;
     }
 
     headers
     {
         ../../include/DiplodocusDB/PhysicalStorage/PageRepository.hpp
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/Page.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageCache.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepository.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryErrorCategory.hpp
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryPosition.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryReader.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageRepositoryWriter.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/PageFileRepository.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepository/linkoptions.h
+        ../../include/DiplodocusDB/PhysicalStorage/Page.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageCache.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepository.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryErrorCategory.hpp
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryPosition.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryReader.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryWriter.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageFileRepository.h
+        ../../include/DiplodocusDB/PhysicalStorage/linkoptions.h
     }
 
     sources
