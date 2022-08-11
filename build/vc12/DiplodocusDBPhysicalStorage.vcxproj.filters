@@ -20,31 +20,31 @@
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\Page.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageCache.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepository.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryErrorCategory.hpp">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryErrorCategory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryPosition.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryPosition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryReader.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryWriter.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageFileRepository.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFileRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\linkoptions.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
