@@ -15,7 +15,7 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
 {
     archs = x86 x86_64;
    
-    includedirs += ../../include/DiplodocusDB/PhysicalStorage/PageRepository;
+    includedirs += ../../include/DiplodocusDB/PhysicalStorage;
 
     if ($(toolset) == gnu)
     {
