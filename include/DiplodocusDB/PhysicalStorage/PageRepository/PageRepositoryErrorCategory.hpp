@@ -4,8 +4,8 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#ifndef _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORYERRORCATEGORY_HPP_
-#define _DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORYERRORCATEGORY_HPP_
+#ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORYERRORCATEGORY_HPP
+#define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORYERRORCATEGORY_HPP
 
 #include <Ishiko/Errors.hpp>
 
@@ -15,12 +15,13 @@ namespace DiplodocusDB
 class PageRepositoryErrorCategory : public Ishiko::ErrorCategory
 {
 public:
-    enum EErrorValues
+    enum class Value
     {
-        eGeneric = -1
+        generic_error = -1
     };
 
     static const PageRepositoryErrorCategory& Get() noexcept;
+    std::ostream& streamOut(int value, std::ostream& os) const override;
 
     const char* name() const noexcept override;
 
@@ -28,8 +29,8 @@ private:
     PageRepositoryErrorCategory() noexcept = default;
 };
 
-void Fail(Ishiko::Error& error, PageRepositoryErrorCategory::EErrorValues value) noexcept;
-void Fail(Ishiko::Error& error, PageRepositoryErrorCategory::EErrorValues value, const std::string& message,
+void Fail(Ishiko::Error& error, PageRepositoryErrorCategory::Value value) noexcept;
+void Fail(Ishiko::Error& error, PageRepositoryErrorCategory::Value value, const std::string& message,
     const char* file, int line) noexcept;
 
 }

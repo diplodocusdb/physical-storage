@@ -39,7 +39,7 @@ void PageFileRepository::create(const boost::filesystem::path& path,
     if (!file.good())
     {
         // TODO add details
-        Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to create file", __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::Value::generic_error, "Failed to create file", __FILE__, __LINE__);
     }
     else
     {
@@ -56,7 +56,7 @@ void PageFileRepository::open(const boost::filesystem::path& path,
     if (ec)
     {
         // TODO add details
-        Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to get file size", __FILE__, __LINE__);
+        Fail(error, PageRepositoryErrorCategory::Value::generic_error, "Failed to get file size", __FILE__, __LINE__);
     }
     else
     {
@@ -64,7 +64,7 @@ void PageFileRepository::open(const boost::filesystem::path& path,
         if (!m_file.good())
         {
             // TODO add details
-            Fail(error, PageRepositoryErrorCategory::eGeneric, "Failed to open file", __FILE__, __LINE__);
+            Fail(error, PageRepositoryErrorCategory::Value::generic_error, "Failed to open file", __FILE__, __LINE__);
         }
         m_pageCount = (filesize / Page::sm_size);
     }
