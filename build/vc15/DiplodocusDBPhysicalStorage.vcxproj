@@ -21,10 +21,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{70BFCF61-307C-5CD3-8AEC-0E127E0D4063}</ProjectGuid>
+    <ProjectGuid>{4B5ECE02-9B21-5014-9083-795C92FDE8E5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DiplodocusDBPageRepository</RootNamespace>
-    <ProjectName>DiplodocusDBPageRepository</ProjectName>
+    <RootNamespace>DiplodocusDBPhysicalStorage</RootNamespace>
+    <ProjectName>DiplodocusDBPhysicalStorage</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

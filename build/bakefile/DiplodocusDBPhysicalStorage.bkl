@@ -6,12 +6,12 @@ import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
 gnu.makefile = ../gnumake/GNUmakefile;
-vs2019.solutionfile = ../vc16/DiplodocusDBPageRepository.sln;
-vs2017.solutionfile = ../vc15/DiplodocusDBPageRepository.sln;
-vs2015.solutionfile = ../vc14/DiplodocusDBPageRepository.sln;
-vs2013.solutionfile = ../vc12/DiplodocusDBPageRepository.sln;
+vs2019.solutionfile = ../vc16/DiplodocusDBPhysicalStorage.sln;
+vs2017.solutionfile = ../vc15/DiplodocusDBPhysicalStorage.sln;
+vs2015.solutionfile = ../vc14/DiplodocusDBPhysicalStorage.sln;
+vs2013.solutionfile = ../vc12/DiplodocusDBPhysicalStorage.sln;
 
-library DiplodocusDBPageRepository : IshikoIO, IshikoErrors, Boost
+library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
 {
     archs = x86 x86_64;
    
