@@ -21,10 +21,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{70BFCF61-307C-5CD3-8AEC-0E127E0D4063}</ProjectGuid>
+    <ProjectGuid>{4B5ECE02-9B21-5014-9083-795C92FDE8E5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DiplodocusDBPageRepository</RootNamespace>
-    <ProjectName>DiplodocusDBPageRepository</ProjectName>
+    <RootNamespace>DiplodocusDBPhysicalStorage</RootNamespace>
+    <ProjectName>DiplodocusDBPhysicalStorage</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -68,11 +68,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>DiplodocusDBPageRepository-d</TargetName>
+    <TargetName>DiplodocusDBPhysicalStorage-d</TargetName>
     <OutDir>..\bakefile\..\..\lib\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>DiplodocusDBPageRepository-d</TargetName>
+    <TargetName>DiplodocusDBPhysicalStorage-d</TargetName>
     <OutDir>..\bakefile\..\..\lib\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +88,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage\PageRepository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -103,7 +103,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage\PageRepository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -120,7 +120,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage\PageRepository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -139,7 +139,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage\PageRepository;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ISHIKO_CPP)/base-platform\include;$(ISHIKO_CPP)/errors\include;$(ISHIKO_CPP)/io\include;$(ISHIKO_CPP_THIRD_PARTY_BOOST);..\..\include\DiplodocusDB\PhysicalStorage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -161,15 +161,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.hpp" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\Page.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageCache.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepository.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryErrorCategory.hpp" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryPosition.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryReader.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageRepositoryWriter.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\PageFileRepository.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository\linkoptions.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryErrorCategory.hpp" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryPosition.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryReader.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryWriter.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFileRepository.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

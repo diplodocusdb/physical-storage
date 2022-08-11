@@ -1,0 +1,61 @@
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/errors/include/Ishiko/Errors.bkl;
+import $(ishikopath)/io/include/Ishiko/IO.bkl;
+import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
+
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/DiplodocusDBPhysicalStorage.sln;
+vs2017.solutionfile = ../vc15/DiplodocusDBPhysicalStorage.sln;
+vs2015.solutionfile = ../vc14/DiplodocusDBPhysicalStorage.sln;
+vs2013.solutionfile = ../vc12/DiplodocusDBPhysicalStorage.sln;
+
+library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
+{
+    archs = x86 x86_64;
+   
+    includedirs += ../../include/DiplodocusDB/PhysicalStorage;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+        outputdir = ../../lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        outputdir = ../../lib/$(arch);
+    }
+
+    if ($(config) == Debug)
+    {
+        basename = DiplodocusDBPhysicalStorage-d;
+    }
+
+    headers
+    {
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepository.hpp
+        ../../include/DiplodocusDB/PhysicalStorage/Page.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageCache.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepository.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryErrorCategory.hpp
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryPosition.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryReader.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryWriter.h
+        ../../include/DiplodocusDB/PhysicalStorage/PageFileRepository.h
+        ../../include/DiplodocusDB/PhysicalStorage/linkoptions.h
+    }
+
+    sources
+    {
+        ../../Source/Page.cpp
+        ../../Source/PageCache.cpp
+        ../../Source/PageRepository.cpp
+        ../../Source/PageRepositoryErrorCategory.cpp
+        ../../Source/PageRepositoryPosition.cpp
+        ../../Source/PageRepositoryReader.cpp
+        ../../Source/PageRepositoryWriter.cpp
+        ../../Source/PageFileRepository.cpp
+    }
+}
