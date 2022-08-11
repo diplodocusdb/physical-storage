@@ -51,6 +51,4 @@ private:
 
 }
 
-#include "linkoptions.h"
-
 #endif
