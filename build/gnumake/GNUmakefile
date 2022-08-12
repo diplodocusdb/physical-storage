@@ -80,8 +80,8 @@ ISHIKO_CPP_BOOST_ROOT ?= $(ISHIKO_CPP_THIRD_PARTY_BOOST)
 
 all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a
 
-../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a: $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_Page2.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
-	$(AR) rc $@ $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_Page2.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
+../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a: $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_Page2.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository2.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
+	$(AR) rc $@ $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_Page2.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryReader.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository2.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPhysicalStorage_Page.o: ../../src/Page.cpp
@@ -107,6 +107,9 @@ $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryWriter.o: ../../src/PageRe
 
 $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o: ../../src/PageFileRepository.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/PageFileRepository.cpp
+
+$(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository2.o: ../../src/PageFileRepository2.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/PageFileRepository2.cpp
 
 $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o: ../../src/PhysicalStorageErrorCategory.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/PhysicalStorageErrorCategory.cpp
