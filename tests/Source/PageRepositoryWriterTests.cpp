@@ -69,7 +69,7 @@ void PageRepositoryWriterTests::WriteTest1(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
         
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
             
@@ -105,7 +105,7 @@ void PageRepositoryWriterTests::WriteTest2(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
     
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -350,7 +350,7 @@ void PageRepositoryWriterTests::WriteLEB128Test1(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -386,7 +386,7 @@ void PageRepositoryWriterTests::WriteLEB128Test2(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -422,7 +422,7 @@ void PageRepositoryWriterTests::WriteLEB128Test3(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -458,7 +458,7 @@ void PageRepositoryWriterTests::WriteLEB128Test4(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -494,7 +494,7 @@ void PageRepositoryWriterTests::WriteLEB128Test5(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->number(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
