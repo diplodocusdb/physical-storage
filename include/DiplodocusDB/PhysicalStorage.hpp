@@ -8,13 +8,13 @@
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_HPP
 
 #include "PhysicalStorage/linkoptions.hpp"
-#include "PhysicalStorage/Page.h"
+#include "PhysicalStorage/Page.hpp"
 #include "PhysicalStorage/PageCache.h"
 #include "PhysicalStorage/PageFileRepository.h"
 #include "PhysicalStorage/PageRepository.h"
-#include "PhysicalStorage/PageRepositoryErrorCategory.hpp"
 #include "PhysicalStorage/PageRepositoryPosition.h"
 #include "PhysicalStorage/PageRepositoryReader.h"
 #include "PhysicalStorage/PageRepositoryWriter.h"
+#include "PhysicalStorage/PhysicalStorageErrorCategory.hpp"
 
 #endif

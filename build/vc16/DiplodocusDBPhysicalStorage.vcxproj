@@ -153,11 +153,11 @@
     <ClCompile Include="..\..\src\Page.cpp" />
     <ClCompile Include="..\..\src\PageCache.cpp" />
     <ClCompile Include="..\..\src\PageRepository.cpp" />
-    <ClCompile Include="..\..\src\PageRepositoryErrorCategory.cpp" />
     <ClCompile Include="..\..\src\PageRepositoryPosition.cpp" />
     <ClCompile Include="..\..\src\PageRepositoryReader.cpp" />
     <ClCompile Include="..\..\src\PageRepositoryWriter.cpp" />
     <ClCompile Include="..\..\src\PageFileRepository.cpp" />
+    <ClCompile Include="..\..\src\PhysicalStorageErrorCategory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage.hpp" />
@@ -165,11 +165,11 @@
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryErrorCategory.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryPosition.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryReader.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryWriter.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFileRepository.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PhysicalStorageErrorCategory.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
