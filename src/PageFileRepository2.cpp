@@ -8,10 +8,29 @@
 
 using namespace DiplodocusDB::PhysicalStorage;
 
+void PageFileRepository2::create(const boost::filesystem::path& path, Ishiko::Error& error)
+{
+    m_page_file_repository.create(path, error);
+}
+
+void PageFileRepository2::open(const boost::filesystem::path& path, Ishiko::Error& error)
+{
+    m_page_file_repository.open(path, error);
+}
+
+void PageFileRepository2::close()
+{
+    m_page_file_repository.close();
+}
 
 std::shared_ptr<Page2> PageFileRepository2::page(size_t index, Ishiko::Error& error)
 {
     return m_page_file_repository.page(index, error);
+}
+
+std::shared_ptr<Page2> PageFileRepository2::allocatePage(Ishiko::Error& error)
+{
+    return m_page_file_repository.allocatePage(error);
 }
 
 std::shared_ptr<Page2> PageFileRepository2::insertPageAfter(Page2& page, Ishiko::Error& error)

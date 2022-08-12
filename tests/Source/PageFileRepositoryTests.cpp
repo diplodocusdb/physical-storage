@@ -6,6 +6,7 @@
 
 #include "PageFileRepositoryTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
+#include "DiplodocusDB/PhysicalStorage/PageFileRepository2.hpp"
 #include <boost/filesystem/operations.hpp>
 
 using namespace DiplodocusDB::PhysicalStorage;
@@ -91,7 +92,7 @@ void PageFileRepositoryTests::AllocatePageTest1(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    repository.save(*page, error);
+    repository.store(*page, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
@@ -117,7 +118,7 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page1);
     
-    repository.save(*page1, error);
+    repository.store(*page1, error);
 
     ISHIKO_TEST_ABORT_IF(error);
  
@@ -126,7 +127,7 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page2);
                 
-    repository.save(*page2, error);
+    repository.store(*page2, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
@@ -146,7 +147,7 @@ void PageFileRepositoryTests::InsertPageAfterTest1(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -160,11 +161,11 @@ void PageFileRepositoryTests::InsertPageAfterTest1(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    repository.save(*page1, error);
+    repository.store(*page1, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
-    repository.save(*page2, error);
+    repository.store(*page2, error);
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);

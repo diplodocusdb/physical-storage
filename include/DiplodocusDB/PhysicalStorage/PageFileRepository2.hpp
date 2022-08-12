@@ -20,7 +20,12 @@ namespace PhysicalStorage
 class PageFileRepository2
 {
 public:
+    void create(const boost::filesystem::path& path, Ishiko::Error& error);
+    void open(const boost::filesystem::path& path, Ishiko::Error& error);
+    void close();
+
     std::shared_ptr<Page2> page(size_t index, Ishiko::Error& error);
+    std::shared_ptr<Page2> allocatePage(Ishiko::Error& error);
     std::shared_ptr<Page2> insertPageAfter(Page2& page, Ishiko::Error& error);
     void store(const Page2& page, Ishiko::Error& error);
 
