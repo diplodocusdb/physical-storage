@@ -17,7 +17,7 @@ PageRepositoryReader::PageRepositoryReader(PageRepository& repository, std::shar
 
 PageRepositoryPosition PageRepositoryReader::currentPosition() const
 {
-    return PageRepositoryPosition(m_currentPage->index(), m_currentOffset);
+    return PageRepositoryPosition(m_currentPage->number(), m_currentOffset);
 }
 
 void PageRepositoryReader::read(char* buffer,

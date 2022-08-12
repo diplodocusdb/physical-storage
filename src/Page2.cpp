@@ -13,20 +13,20 @@
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-Page2::Page2(size_t index)
-    : m_page(index), m_dataSize(0), m_availableSpace(Page::sm_size - sm_startMarkerSize - sm_endMarkerSize),
+Page2::Page2(size_t number)
+    : m_page(number), m_dataSize(0), m_availableSpace(Page::sm_size - sm_startMarkerSize - sm_endMarkerSize),
     m_nextPage(0)
 {
 }
 
 void Page2::init()
 {
-    memset(m_page.m_buffer, 0, Page::sm_size);
+    m_page.init();
 }
 
-size_t Page2::index() const
+size_t Page2::number() const
 {
-    return m_page.m_index;
+    return m_page.number();
 }
 
 size_t Page2::dataSize() const
@@ -63,7 +63,7 @@ void Page2::get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const
     else
     {
         std::stringstream message;
-        message << "Page::get (m_index: " << m_page.m_index << ", pos:" << pos << ", n:" << n
+        message << "Page::get (m_index: " << m_page.number() << ", pos:" << pos << ", n:" << n
             << ") exceeds data size (m_datasize: " << m_dataSize << ")";
         Fail(error, PhysicalStorageErrorCategory::Value::generic_error, message.str(), __FILE__, __LINE__);
     }
@@ -109,7 +109,7 @@ void Page2::moveTo(size_t pos, size_t n, Page2& targetPage, Ishiko::Error& error
 
 void Page2::write(std::ostream& output, Ishiko::Error& error) const
 {
-    output.seekp(m_page.m_index * Page::sm_size);
+    output.seekp(m_page.number() * Page::sm_size);
     Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
     if (!error)
     {
@@ -125,7 +125,7 @@ void Page2::write(std::ostream& output, Ishiko::Error& error) const
 
 void Page2::read(std::istream& input, Ishiko::Error& error)
 {
-    input.seekg(m_page.m_index * Page::sm_size);
+    input.seekg(m_page.number() * Page::sm_size);
     Ishiko::IOErrorExtension::Fail(input, __FILE__, __LINE__, error);
     if (!error)
     {

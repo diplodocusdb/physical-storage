@@ -24,12 +24,24 @@ public:
 
         @param index The index of the page.
     */
-    Page(size_t index);
+    Page(size_t number);
+
+    /// Fills the contents of the page with zeroes.
+    void init();
+
+    /// Returns the number of the page.
+    /**
+        @returns The number of the page.
+    */
+    size_t number() const;
 
     static const size_t sm_size = 4096;
 
-    size_t m_index;
-    // TODO: avoid this mutable thing
+private:
+    size_t m_number;
+
+public:
+    // TODO: avoid this mutable thing and public
     mutable char m_buffer[sm_size];
 };
 

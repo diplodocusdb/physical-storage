@@ -18,7 +18,7 @@ PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shar
 
 PageRepositoryPosition PageRepositoryWriter::currentPosition() const
 {
-    return PageRepositoryPosition(m_currentPage->index(), m_currentOffset);
+    return PageRepositoryPosition(m_currentPage->number(), m_currentOffset);
 }
 
 void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::Error& error)

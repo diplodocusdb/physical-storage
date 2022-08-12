@@ -5,10 +5,21 @@
 */
 
 #include "Page.hpp"
+#include <cstring>
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-Page::Page(size_t index)
-    : m_index(index)
+Page::Page(size_t number)
+    : m_number(number)
 {
+}
+
+void Page::init()
+{
+    memset(m_buffer, 0, sm_size);
+}
+
+size_t Page::number() const
+{
+    return m_number;
 }

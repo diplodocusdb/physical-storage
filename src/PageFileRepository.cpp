@@ -95,7 +95,7 @@ std::shared_ptr<Page2> PageFileRepository::insertPageAfter(Page2& page, Ishiko::
     {
         newPage->init();
         newPage->setNextPage(page.nextPage());
-        page.setNextPage(newPage->index());
+        page.setNextPage(newPage->number());
     }
     return newPage;
 }

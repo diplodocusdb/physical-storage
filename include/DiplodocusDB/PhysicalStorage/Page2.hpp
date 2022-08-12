@@ -30,16 +30,11 @@ public:
 
         @param index The index of the page.
     */
-    Page2(size_t index);
+    Page2(size_t number);
     /// Fills the contents of the page with zeroes.
     void init();
 
-    
-    /// Returns the index of the page.
-    /**
-        @returns The index of the page.
-    */
-    size_t index() const;
+    size_t number() const;
     /// Returns the amount of data stored in the page.
     /**
         @returns The amount of data stored in the page.

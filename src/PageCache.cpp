@@ -25,5 +25,5 @@ bool PageCache::get(size_t index, std::shared_ptr<Page2>& page)
 
 void PageCache::set(std::shared_ptr<Page2>& page)
 {
-    m_pages[page->index()] = page;
+    m_pages[page->number()] = page;
 }
