@@ -9,7 +9,7 @@
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-PageRepositoryReader::PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page> startPage,
+PageRepositoryReader::PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page2> startPage,
     size_t startOffset)
     : m_repository(repository), m_currentPage(startPage), m_currentOffset(startOffset)
 {

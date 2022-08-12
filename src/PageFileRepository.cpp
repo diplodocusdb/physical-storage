@@ -49,7 +49,7 @@ void PageFileRepository::open(const boost::filesystem::path& path,
             // TODO add details
             Fail(error, PhysicalStorageErrorCategory::Value::generic_error, "Failed to open file", __FILE__, __LINE__);
         }
-        m_pageCount = (filesize / Page::sm_size);
+        m_pageCount = (filesize / Page2::sm_size);
     }
 }
 
@@ -63,13 +63,13 @@ size_t PageFileRepository::pageCount()
     return m_pageCount;
 }
 
-std::shared_ptr<Page> PageFileRepository::page(size_t index, Ishiko::Error& error)
+std::shared_ptr<Page2> PageFileRepository::page(size_t index, Ishiko::Error& error)
 {
-    std::shared_ptr<Page> result;
+    std::shared_ptr<Page2> result;
     bool foundInCache = m_pageCache.get(index, result);
     if (!foundInCache)
     {
-        result = std::make_shared<Page>(index);
+        result = std::make_shared<Page2>(index);
         result->read(m_file, error);
         if (!error)
         {
@@ -79,18 +79,18 @@ std::shared_ptr<Page> PageFileRepository::page(size_t index, Ishiko::Error& erro
     return result;
 }
 
-std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)
+std::shared_ptr<Page2> PageFileRepository::allocatePage(Ishiko::Error& error)
 {
-    std::shared_ptr<Page> page = std::make_shared<Page>(m_pageCount);
+    std::shared_ptr<Page2> page = std::make_shared<Page2>(m_pageCount);
     page->init();
     m_pageCache.set(page);
     ++m_pageCount;
     return page;
 }
 
-std::shared_ptr<Page> PageFileRepository::insertPageAfter(Page& page, Ishiko::Error& error)
+std::shared_ptr<Page2> PageFileRepository::insertPageAfter(Page2& page, Ishiko::Error& error)
 {
-    std::shared_ptr<Page> newPage = allocatePage(error);
+    std::shared_ptr<Page2> newPage = allocatePage(error);
     if (!error)
     {
         newPage->init();
@@ -100,7 +100,7 @@ std::shared_ptr<Page> PageFileRepository::insertPageAfter(Page& page, Ishiko::Er
     return newPage;
 }
 
-void PageFileRepository::save(const Page& page, Ishiko::Error& error)
+void PageFileRepository::save(const Page2& page, Ishiko::Error& error)
 {
     page.write(m_file, error);
 }
@@ -109,11 +109,11 @@ PageRepositoryReader PageFileRepository::read(size_t startPage,
                                               size_t offset,
                                               Ishiko::Error& error)
 {
-    std::shared_ptr<Page> p = page(startPage, error);
+    std::shared_ptr<Page2> p = page(startPage, error);
     return read(p, offset, error);
 }
 
-PageRepositoryReader PageFileRepository::read(std::shared_ptr<Page> startPage,
+PageRepositoryReader PageFileRepository::read(std::shared_ptr<Page2> startPage,
                                               size_t offset,
                                               Ishiko::Error& error)
 {
@@ -124,11 +124,11 @@ PageRepositoryWriter PageFileRepository::insert(size_t startPage,
                                                 size_t offset,
                                                 Ishiko::Error& error)
 {
-    std::shared_ptr<Page> p = page(startPage, error);
+    std::shared_ptr<Page2> p = page(startPage, error);
     return insert(p, offset, error);
 }
 
-PageRepositoryWriter PageFileRepository::insert(std::shared_ptr<Page> startPage,
+PageRepositoryWriter PageFileRepository::insert(std::shared_ptr<Page2> startPage,
                                                 size_t offset,
                                                 Ishiko::Error& error)
 {
