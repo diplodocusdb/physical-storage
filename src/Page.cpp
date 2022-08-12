@@ -6,7 +6,7 @@
 
 #include "Page.hpp"
 #include "PageFileRepository.h"
-#include "PageRepositoryErrorCategory.hpp"
+#include "PhysicalStorageErrorCategory.hpp"
 #include <Ishiko/Errors.hpp>
 #include <Ishiko/IO.hpp>
 #include <sstream>
@@ -67,7 +67,7 @@ void Page::get(char* buffer,
         std::stringstream message;
         message << "Page::get (m_index: " << m_index << ", pos:" << pos << ", n:" << n
             << ") exceeds data size (m_datasize: " << m_dataSize << ")";
-        Fail(error, PageRepositoryErrorCategory::Value::generic_error, message.str(), __FILE__, __LINE__);
+        Fail(error, PhysicalStorageErrorCategory::Value::generic_error, message.str(), __FILE__, __LINE__);
     }
 }
 
@@ -87,7 +87,7 @@ void Page::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Err
     else
     {
         // TODO : add page details
-        Fail(error, PageRepositoryErrorCategory::Value::generic_error, "Failed to insert page", __FILE__, __LINE__);
+        Fail(error, PhysicalStorageErrorCategory::Value::generic_error, "Failed to insert page", __FILE__, __LINE__);
     }
 }
 
