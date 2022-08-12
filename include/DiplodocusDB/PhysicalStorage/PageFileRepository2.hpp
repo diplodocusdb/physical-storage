@@ -24,10 +24,15 @@ public:
     void open(const boost::filesystem::path& path, Ishiko::Error& error);
     void close();
 
+    size_t pageCount();
     std::shared_ptr<Page2> page(size_t index, Ishiko::Error& error);
     std::shared_ptr<Page2> allocatePage(Ishiko::Error& error);
     std::shared_ptr<Page2> insertPageAfter(Page2& page, Ishiko::Error& error);
     void store(const Page2& page, Ishiko::Error& error);
+
+    PageRepositoryReader read(const PageRepositoryPosition& pos, Ishiko::Error& error);
+    PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error);
+    PageRepositoryReader read(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error);
 
     PageRepositoryWriter insert(const PageRepositoryPosition& pos, Ishiko::Error& error);
     PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error);

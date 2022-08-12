@@ -5,11 +5,11 @@
 */
 
 #include "PageRepositoryReader.h"
-#include "PageRepository.h"
+#include "PageFileRepository2.hpp"
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-PageRepositoryReader::PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page2> startPage,
+PageRepositoryReader::PageRepositoryReader(PageFileRepository2& repository, std::shared_ptr<Page2> startPage,
     size_t startOffset)
     : m_repository(repository), m_currentPage(startPage), m_currentOffset(startOffset)
 {

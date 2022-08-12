@@ -93,21 +93,6 @@ void PageFileRepository::store(const Page2& page, Ishiko::Error& error)
     page.write(m_file, error);
 }
 
-PageRepositoryReader PageFileRepository::read(size_t startPage,
-                                              size_t offset,
-                                              Ishiko::Error& error)
-{
-    std::shared_ptr<Page2> p = page(startPage, error);
-    return read(p, offset, error);
-}
-
-PageRepositoryReader PageFileRepository::read(std::shared_ptr<Page2> startPage,
-                                              size_t offset,
-                                              Ishiko::Error& error)
-{
-    return PageRepositoryReader(*this, startPage, offset);
-}
-
 void PageFileRepository::replace()
 {
 }

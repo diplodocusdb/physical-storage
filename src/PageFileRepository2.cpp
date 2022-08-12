@@ -23,6 +23,11 @@ void PageFileRepository2::close()
     m_page_file_repository.close();
 }
 
+size_t PageFileRepository2::pageCount()
+{
+    return m_page_file_repository.pageCount();
+}
+
 std::shared_ptr<Page2> PageFileRepository2::page(size_t index, Ishiko::Error& error)
 {
     return m_page_file_repository.page(index, error);
@@ -48,6 +53,22 @@ std::shared_ptr<Page2> PageFileRepository2::insertPageAfter(Page2& page, Ishiko:
 void PageFileRepository2::store(const Page2& page, Ishiko::Error& error)
 {
     m_page_file_repository.store(page, error);
+}
+
+PageRepositoryReader PageFileRepository2::read(const PageRepositoryPosition& pos, Ishiko::Error& error)
+{
+    return read(pos.page(), pos.offset(), error);
+}
+
+PageRepositoryReader PageFileRepository2::read(size_t startPage, size_t offset, Ishiko::Error& error)
+{
+    std::shared_ptr<Page2> p = page(startPage, error);
+    return read(p, offset, error);
+}
+
+PageRepositoryReader PageFileRepository2::read(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error)
+{
+    return PageRepositoryReader(*this, startPage, offset);
 }
 
 PageRepositoryWriter PageFileRepository2::insert(const PageRepositoryPosition& pos, Ishiko::Error& error)

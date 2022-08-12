@@ -7,9 +7,3 @@
 #include "PageRepository.h"
 
 using namespace DiplodocusDB::PhysicalStorage;
-
-PageRepositoryReader PageRepository::read(const PageRepositoryPosition& pos,
-                                          Ishiko::Error& error)
-{
-    return read(pos.page(), pos.offset(), error);
-}

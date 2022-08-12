@@ -35,10 +35,6 @@ public:
     std::shared_ptr<Page2> allocatePage(Ishiko::Error& error) override;
     void store(const Page2& page, Ishiko::Error& error) override;
 
-    using PageRepository::read;
-    PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) override;
-    PageRepositoryReader read(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error) override;
-
     void replace() override;
     void erase() override;
 

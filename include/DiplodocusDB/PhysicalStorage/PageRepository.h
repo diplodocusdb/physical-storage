@@ -31,10 +31,6 @@ public:
     virtual std::shared_ptr<Page2> allocatePage(Ishiko::Error& error) = 0;
     virtual void store(const Page2& page, Ishiko::Error& error) = 0;
 
-    PageRepositoryReader read(const PageRepositoryPosition& pos, Ishiko::Error& error);
-    virtual PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
-    virtual PageRepositoryReader read(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error) = 0;
-
     virtual void replace() = 0;
     virtual void erase() = 0;
 };
