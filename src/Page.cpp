@@ -4,7 +4,7 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#include "Page.h"
+#include "Page.hpp"
 #include "PageFileRepository.h"
 #include "PageRepositoryErrorCategory.hpp"
 #include <Ishiko/Errors.hpp>

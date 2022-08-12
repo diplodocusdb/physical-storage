@@ -8,7 +8,7 @@
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILEREPOSITORY_H
 
 #include "PageRepository.h"
-#include "Page.h"
+#include "Page.hpp"
 #include "PageCache.h"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>

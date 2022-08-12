@@ -36,7 +36,8 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
     headers
     {
         ../../include/DiplodocusDB/PhysicalStorage.hpp
-        ../../include/DiplodocusDB/PhysicalStorage/Page.h
+        ../../include/DiplodocusDB/PhysicalStorage/linkoptions.hpp
+        ../../include/DiplodocusDB/PhysicalStorage/Page.hpp
         ../../include/DiplodocusDB/PhysicalStorage/PageCache.h
         ../../include/DiplodocusDB/PhysicalStorage/PageRepository.h
         ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryErrorCategory.hpp
@@ -44,7 +45,6 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
         ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryReader.h
         ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryWriter.h
         ../../include/DiplodocusDB/PhysicalStorage/PageFileRepository.h
-        ../../include/DiplodocusDB/PhysicalStorage/linkoptions.hpp
     }
 
     sources
