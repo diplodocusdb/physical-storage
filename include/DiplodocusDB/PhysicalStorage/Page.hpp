@@ -12,6 +12,25 @@ namespace DiplodocusDB
 namespace PhysicalStorage
 {
 
+class Page
+{
+public:
+    /// Constructor.
+    /**
+        Note that the page contents are not initialized by this constructor. Use the init() function to initialize the
+        page to all zeroes.
+
+        @param index The index of the page.
+    */
+    Page(size_t index);
+
+    static const size_t sm_size = 4096;
+
+    size_t m_index;
+    // TODO: avoid this mutable thing
+    mutable char m_buffer[sm_size];
+};
+
 }
 }
 

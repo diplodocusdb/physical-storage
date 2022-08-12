@@ -49,7 +49,7 @@ void PageFileRepository::open(const boost::filesystem::path& path,
             // TODO add details
             Fail(error, PhysicalStorageErrorCategory::Value::generic_error, "Failed to open file", __FILE__, __LINE__);
         }
-        m_pageCount = (filesize / Page2::sm_size);
+        m_pageCount = (filesize / Page::sm_size);
     }
 }
 

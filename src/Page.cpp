@@ -5,3 +5,10 @@
 */
 
 #include "Page.hpp"
+
+using namespace DiplodocusDB::PhysicalStorage;
+
+Page::Page(size_t index)
+    : m_index(index)
+{
+}

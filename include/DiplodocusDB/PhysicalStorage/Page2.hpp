@@ -7,6 +7,7 @@
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE2_HPP
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE2_HPP
 
+#include "Page.hpp"
 #include <Ishiko/Errors.hpp>
 #include <fstream>
 
@@ -86,14 +87,11 @@ public:
     void read(std::istream& input, Ishiko::Error& error);
 
 public:
-    static const size_t sm_size = 4096;
     static const size_t sm_startMarkerSize = 8;
     static const size_t sm_endMarkerSize = 8;
 
 private:
-    size_t m_index;
-    // TODO: avoid this mutable thing
-    mutable char m_buffer[sm_size];
+    Page m_page;
     size_t m_dataSize;
     size_t m_availableSpace;
     size_t m_nextPage;
