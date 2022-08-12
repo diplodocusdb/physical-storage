@@ -6,7 +6,7 @@
 
 #include "PageRepositoryWriterTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepositoryWriter.h"
-#include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
+#include "DiplodocusDB/PhysicalStorage/PageFileRepository2.hpp"
 #include <boost/filesystem/operations.hpp>
 
 using namespace DiplodocusDB::PhysicalStorage;
@@ -37,7 +37,7 @@ void PageRepositoryWriterTests::CreationTest1(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(inputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -59,7 +59,7 @@ void PageRepositoryWriterTests::WriteTest1(Test& test)
     
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -95,7 +95,7 @@ void PageRepositoryWriterTests::WriteTest2(Test& test)
     
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -139,7 +139,7 @@ void PageRepositoryWriterTests::WriteTest3(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -171,7 +171,7 @@ void PageRepositoryWriterTests::WriteTest4(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -203,7 +203,7 @@ void PageRepositoryWriterTests::WriteTest5(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -238,7 +238,7 @@ void PageRepositoryWriterTests::WriteTest6(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -273,7 +273,7 @@ void PageRepositoryWriterTests::WriteTest7(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -309,7 +309,7 @@ void PageRepositoryWriterTests::WriteTest8(Test& test)
 
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -340,7 +340,7 @@ void PageRepositoryWriterTests::WriteLEB128Test1(Test& test)
    
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -376,7 +376,7 @@ void PageRepositoryWriterTests::WriteLEB128Test2(Test& test)
     
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -412,7 +412,7 @@ void PageRepositoryWriterTests::WriteLEB128Test3(Test& test)
    
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -448,7 +448,7 @@ void PageRepositoryWriterTests::WriteLEB128Test4(Test& test)
     
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -484,7 +484,7 @@ void PageRepositoryWriterTests::WriteLEB128Test5(Test& test)
    
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);

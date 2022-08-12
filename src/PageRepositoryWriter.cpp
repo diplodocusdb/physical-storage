@@ -5,14 +5,13 @@
 */
 
 #include "PageRepositoryWriter.h"
-#include "PageRepository.h"
+#include "PageFileRepository2.hpp"
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page2> startPage,
+PageRepositoryWriter::PageRepositoryWriter(PageFileRepository2& repository, std::shared_ptr<Page2> startPage,
     size_t startOffset)
-    : m_repository(repository), m_currentPage(startPage),
-    m_currentOffset(startOffset)
+    : m_repository(repository), m_currentPage(startPage), m_currentOffset(startOffset)
 {
 }
 
@@ -131,6 +130,6 @@ void PageRepositoryWriter::save(Ishiko::Error& error)
 {
     for (const std::shared_ptr<Page2>& page : m_updatedPages)
     {
-        m_repository.save(*page, error);
+        m_repository.store(*page, error);
     }
 }

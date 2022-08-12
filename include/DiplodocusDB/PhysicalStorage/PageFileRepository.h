@@ -33,16 +33,8 @@ public:
     size_t pageCount() override;
     std::shared_ptr<Page2> page(size_t index, Ishiko::Error& error) override;
     std::shared_ptr<Page2> allocatePage(Ishiko::Error& error) override;
-    std::shared_ptr<Page2> insertPageAfter(Page2& page, Ishiko::Error& error) override;
-    void save(const Page2& page, Ishiko::Error& error) override;
+    void store(const Page2& page, Ishiko::Error& error) override;
 
-    using PageRepository::read;
-    PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) override;
-    PageRepositoryReader read(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error) override;
-
-    using PageRepository::insert;
-    PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) override;
-    PageRepositoryWriter insert(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error) override;
     void replace() override;
     void erase() override;
 
