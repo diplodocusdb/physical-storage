@@ -5,7 +5,7 @@
 */
 
 #include "PageTests.h"
-#include "DiplodocusDB/PhysicalStorage/Page.h"
+#include "DiplodocusDB/PhysicalStorage/Page.hpp"
 
 using namespace Ishiko;
 
