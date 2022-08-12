@@ -7,10 +7,12 @@
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 
-#include "Ishiko/Errors.hpp"
+#include <Ishiko/Errors.hpp>
 #include <fstream>
 
 namespace DiplodocusDB
+{
+namespace PhysicalStorage
 {
 
 /// A page.
@@ -97,6 +99,7 @@ private:
     size_t m_nextPage;
 };
 
+}
 }
 
 #endif

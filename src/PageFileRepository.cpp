@@ -8,8 +8,7 @@
 #include "PageRepositoryErrorCategory.hpp"
 #include <boost/filesystem/operations.hpp>
 
-namespace DiplodocusDB
-{
+using namespace DiplodocusDB::PhysicalStorage;
 
 PageFileRepository::PageFileRepository()
     : m_pageCount(0)
@@ -142,6 +141,4 @@ void PageFileRepository::replace()
 
 void PageFileRepository::erase()
 {
-}
-
 }

@@ -17,6 +17,8 @@
 
 namespace DiplodocusDB
 {
+namespace PhysicalStorage
+{
 
 /// A file organized in a series of pages of fixed size.
 class PageFileRepository : public PageRepository
@@ -50,6 +52,7 @@ private:
     PageCache m_pageCache;
 };
 
+}
 }
 
 #endif

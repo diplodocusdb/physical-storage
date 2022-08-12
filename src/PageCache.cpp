@@ -7,8 +7,7 @@
 #include "PageCache.h"
 #include "PageFileRepository.h"
 
-namespace DiplodocusDB
-{
+using namespace DiplodocusDB::PhysicalStorage;
 
 bool PageCache::get(size_t index, std::shared_ptr<Page>& page)
 {
@@ -27,6 +26,4 @@ bool PageCache::get(size_t index, std::shared_ptr<Page>& page)
 void PageCache::set(std::shared_ptr<Page>& page)
 {
     m_pages[page->index()] = page;
-}
-
 }

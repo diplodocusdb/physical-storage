@@ -7,8 +7,7 @@
 #include "PageRepositoryWriter.h"
 #include "PageRepository.h"
 
-namespace DiplodocusDB
-{
+using namespace DiplodocusDB::PhysicalStorage;
 
 PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage,
     size_t startOffset)
@@ -134,6 +133,4 @@ void PageRepositoryWriter::save(Ishiko::Error& error)
     {
         m_repository.save(*page, error);
     }
-}
-
 }

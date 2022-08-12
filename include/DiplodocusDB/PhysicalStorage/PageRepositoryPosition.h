@@ -11,6 +11,8 @@
 
 namespace DiplodocusDB
 {
+namespace PhysicalStorage
+{
 
 class PageRepositoryPosition
 {
@@ -26,6 +28,7 @@ private:
     size_t m_offset;
 };
 
+}
 }
 
 #endif

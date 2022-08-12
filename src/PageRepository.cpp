@@ -6,8 +6,7 @@
 
 #include "PageRepository.h"
 
-namespace DiplodocusDB
-{
+using namespace DiplodocusDB::PhysicalStorage;
 
 PageRepositoryReader PageRepository::read(const PageRepositoryPosition& pos,
                                           Ishiko::Error& error)
@@ -19,6 +18,4 @@ PageRepositoryWriter PageRepository::insert(const PageRepositoryPosition& pos,
                                             Ishiko::Error& error)
 {
     return insert(pos.page(), pos.offset(), error);
-}
-
 }

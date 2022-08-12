@@ -13,6 +13,8 @@
 
 namespace DiplodocusDB
 {
+namespace PhysicalStorage
+{
 
 /// An in-memory cache for the pages.
 class PageCache
@@ -28,6 +30,7 @@ private:
     std::map<size_t, std::shared_ptr<Page>> m_pages;
 };
 
+}
 }
 
 #endif

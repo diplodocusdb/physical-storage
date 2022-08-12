@@ -6,8 +6,7 @@
 
 #include "PageRepositoryPosition.h"
 
-namespace DiplodocusDB
-{
+using namespace DiplodocusDB::PhysicalStorage;
 
 PageRepositoryPosition::PageRepositoryPosition(size_t page,
                                                size_t offset)
@@ -27,6 +26,4 @@ size_t PageRepositoryPosition::page() const
 size_t PageRepositoryPosition::offset() const
 {
     return m_offset;
-}
-
 }

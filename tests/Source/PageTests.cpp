@@ -7,6 +7,7 @@
 #include "PageTests.h"
 #include "DiplodocusDB/PhysicalStorage/Page.hpp"
 
+using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
 
 PageTests::PageTests(const TestNumber& number, const TestContext& context)
@@ -32,7 +33,7 @@ PageTests::PageTests(const TestNumber& number, const TestContext& context)
 
 void PageTests::ConstructorTest1(Test& test)
 {
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     ISHIKO_TEST_PASS();
 }
@@ -42,7 +43,7 @@ void PageTests::ReadTest1(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest1.dpdb");
     
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(inputPath.c_str(), std::fstream::binary);
@@ -59,7 +60,7 @@ void PageTests::ReadTest2(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest2.dpdb");
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(inputPath.c_str(), std::fstream::binary);
@@ -76,7 +77,7 @@ void PageTests::ReadTest3(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest3.dpdb");
 
-    DiplodocusDB::Page page(1);
+    Page page{1};
 
     Error error;
     std::ifstream input(inputPath.c_str(), std::fstream::binary);
@@ -93,7 +94,7 @@ void PageTests::ReadTest4(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest4.dpdb");
 
-    DiplodocusDB::Page page(1);
+    Page page{1};
 
     Error error;
     std::ifstream input(inputPath.c_str(), std::fstream::binary);
@@ -110,7 +111,7 @@ void PageTests::ReadTest5(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest5.dpdb");
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(inputPath.c_str(), std::fstream::binary);
@@ -126,7 +127,7 @@ void PageTests::WriteTest1(Test& test)
 {
     const char* outputName = "PageTests_WriteTest1.dpdb";
     
-    DiplodocusDB::Page page(0);
+    Page page{0};
     page.init();
 
     Error error;
@@ -144,7 +145,7 @@ void PageTests::GetTest1(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_GetTest1.dpdb");
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(inputPath.c_str(), std::fstream::binary);
@@ -168,7 +169,7 @@ void PageTests::InsertTest1(Test& test)
     
     Error error;
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
     page.init();
     page.insert("value1", 6, 0, error);
 
@@ -186,7 +187,7 @@ void PageTests::InsertTest2(Test& test)
 {
     const char* outputName = "PageTests_InsertTest2.dpdb";
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_InsertTest2.dpdb").c_str(), std::fstream::binary);
@@ -209,7 +210,7 @@ void PageTests::InsertTest2(Test& test)
 /// Tests an insertion that doesn't fit in the current page.
 void PageTests::InsertTest3(Test& test)
 {
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_InsertTest3.dpdb").c_str(), std::fstream::binary);
@@ -227,7 +228,7 @@ void PageTests::EraseTest1(Test& test)
 {
     const char* outputName = "PageTests_EraseTest1.dpdb";
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_EraseTest1.dpdb").c_str(), std::fstream::binary);
@@ -253,7 +254,7 @@ void PageTests::EraseTest2(Test& test)
 {
     const char* ouputName = "PageTests_EraseTest2.dpdb";
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_EraseTest2.dpdb").c_str(), std::fstream::binary);
@@ -279,7 +280,7 @@ void PageTests::EraseTest3(Test& test)
 {
     const char* outputName = "PageTests_EraseTest3.dpdb";
 
-    DiplodocusDB::Page page(0);
+    Page page{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_EraseTest3.dpdb").c_str(), std::fstream::binary);
@@ -305,7 +306,7 @@ void PageTests::MoveToTest1(Test& test)
 {
     const char* outputName = "PageTests_MoveToTest1.dpdb";
 
-    DiplodocusDB::Page page1(0);
+    Page page1{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_MoveToTest1.dpdb").c_str(), std::fstream::binary);
@@ -313,7 +314,7 @@ void PageTests::MoveToTest1(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::Page page2(1);
+    Page page2{1};
     page2.read(input, error);
     
     page1.moveTo(0, 6, page2, error);
@@ -338,7 +339,7 @@ void PageTests::MoveToTest2(Test& test)
 {
     const char* outputName = "PageTests_MoveToTest2.dpdb";
 
-    DiplodocusDB::Page page1(0);
+    Page page1{0};
 
     Error error;
     std::ifstream input(test.context().getDataPath("PageTests_MoveToTest2.dpdb").c_str(), std::fstream::binary);
@@ -346,7 +347,7 @@ void PageTests::MoveToTest2(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::Page page2(1);
+    Page page2{1};
     page2.read(input, error);
     
     page1.moveTo(0, 6, page2, error);

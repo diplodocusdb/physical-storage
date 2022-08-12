@@ -7,8 +7,7 @@
 #include "PageRepositoryReader.h"
 #include "PageRepository.h"
 
-namespace DiplodocusDB
-{
+using namespace DiplodocusDB::PhysicalStorage;
 
 PageRepositoryReader::PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page> startPage,
     size_t startOffset)
@@ -84,6 +83,4 @@ size_t PageRepositoryReader::readLEB128(Ishiko::Error& error)
         shift += 7;
     }
     return result;
-}
-
 }

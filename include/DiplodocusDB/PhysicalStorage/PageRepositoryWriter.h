@@ -15,6 +15,8 @@
 
 namespace DiplodocusDB
 {
+namespace PhysicalStorage
+{
 
 class PageRepository;
 
@@ -36,6 +38,7 @@ private:
     std::set<std::shared_ptr<Page> > m_updatedPages;
 };
 
+}
 }
 
 #endif

@@ -16,6 +16,8 @@
 
 namespace DiplodocusDB
 {
+namespace PhysicalStorage
+{
 
 /// Abstract base class for repositories that store a series of consecutive pages of fixed size.
 class PageRepository
@@ -41,6 +43,7 @@ public:
     virtual void erase() = 0;
 };
 
+}
 }
 
 #endif

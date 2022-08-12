@@ -11,7 +11,7 @@
 #include <Ishiko/IO.hpp>
 #include <sstream>
 
-using namespace DiplodocusDB;
+using namespace DiplodocusDB::PhysicalStorage;
 
 Page::Page(size_t index)
     : m_index(index), m_dataSize(0), m_availableSpace(sm_size - sm_startMarkerSize - sm_endMarkerSize), m_nextPage(0)
