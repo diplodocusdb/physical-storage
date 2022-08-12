@@ -9,9 +9,9 @@
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-bool PageCache::get(size_t index, std::shared_ptr<Page>& page)
+bool PageCache::get(size_t index, std::shared_ptr<Page2>& page)
 {
-    std::map<size_t, std::shared_ptr<Page>>::iterator it = m_pages.find(index);
+    std::map<size_t, std::shared_ptr<Page2>>::iterator it = m_pages.find(index);
     if (it != m_pages.end())
     {
         page = it->second;
@@ -23,7 +23,7 @@ bool PageCache::get(size_t index, std::shared_ptr<Page>& page)
     }
 }
 
-void PageCache::set(std::shared_ptr<Page>& page)
+void PageCache::set(std::shared_ptr<Page2>& page)
 {
-    m_pages[page->index()] = page;
+    m_pages[page->number()] = page;
 }

@@ -26,6 +26,9 @@
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Page.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Page2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PageCache.cpp">

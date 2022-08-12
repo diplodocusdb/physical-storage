@@ -9,7 +9,7 @@
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page> startPage,
+PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shared_ptr<Page2> startPage,
     size_t startOffset)
     : m_repository(repository), m_currentPage(startPage),
     m_currentOffset(startOffset)
@@ -18,7 +18,7 @@ PageRepositoryWriter::PageRepositoryWriter(PageRepository& repository, std::shar
 
 PageRepositoryPosition PageRepositoryWriter::currentPosition() const
 {
-    return PageRepositoryPosition(m_currentPage->index(), m_currentOffset);
+    return PageRepositoryPosition(m_currentPage->number(), m_currentOffset);
 }
 
 void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::Error& error)
@@ -43,7 +43,7 @@ void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::
         {
             // We need to move some data to a new page
             size_t nextPageIndex = m_currentPage->nextPage();
-            std::shared_ptr<Page> newPage;
+            std::shared_ptr<Page2> newPage;
             if (nextPageIndex != 0)
             {
                 newPage = m_repository.page(nextPageIndex, error);
@@ -76,7 +76,7 @@ void PageRepositoryWriter::write(const char* buffer, size_t bufferSize, Ishiko::
         // Only part of the new data can fit in the current page. We have to
         // move any existing data to the next page.
         size_t nextPageIndex = m_currentPage->nextPage();
-        std::shared_ptr<Page> newPage;
+        std::shared_ptr<Page2> newPage;
         if (nextPageIndex != 0)
         {
             newPage = m_repository.page(nextPageIndex, error);
@@ -129,7 +129,7 @@ void PageRepositoryWriter::writeLEB128(size_t value, Ishiko::Error& error)
 
 void PageRepositoryWriter::save(Ishiko::Error& error)
 {
-    for (const std::shared_ptr<Page>& page : m_updatedPages)
+    for (const std::shared_ptr<Page2>& page : m_updatedPages)
     {
         m_repository.save(*page, error);
     }
