@@ -9,6 +9,7 @@
 
 #include "PhysicalStorage/linkoptions.hpp"
 #include "PhysicalStorage/Page.hpp"
+#include "PhysicalStorage/Page2.hpp"
 #include "PhysicalStorage/PageCache.h"
 #include "PhysicalStorage/PageFileRepository.h"
 #include "PhysicalStorage/PageRepository.h"
