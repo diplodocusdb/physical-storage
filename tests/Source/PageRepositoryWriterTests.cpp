@@ -9,6 +9,7 @@
 #include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
 #include <boost/filesystem/operations.hpp>
 
+using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
 
 PageRepositoryWriterTests::PageRepositoryWriterTests(const TestNumber& number, const TestContext& context)
@@ -36,16 +37,16 @@ void PageRepositoryWriterTests::CreationTest1(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(inputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::shared_ptr<Page> page = repository.page(0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::PageRepositoryWriter writer(repository, page, 0);
+    PageRepositoryWriter writer(repository, page, 0);
 
     ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().page(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(writer.currentPosition().offset(), 0);
@@ -58,17 +59,17 @@ void PageRepositoryWriterTests::WriteTest1(Test& test)
     
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
         
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
             
@@ -94,17 +95,17 @@ void PageRepositoryWriterTests::WriteTest2(Test& test)
     
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
     
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -138,12 +139,12 @@ void PageRepositoryWriterTests::WriteTest3(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+    PageRepositoryWriter writer = repository.insert(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -170,12 +171,12 @@ void PageRepositoryWriterTests::WriteTest4(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 6, error);
+    PageRepositoryWriter writer = repository.insert(0, 6, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -202,12 +203,12 @@ void PageRepositoryWriterTests::WriteTest5(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+    PageRepositoryWriter writer = repository.insert(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -237,12 +238,12 @@ void PageRepositoryWriterTests::WriteTest6(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+    PageRepositoryWriter writer = repository.insert(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -272,12 +273,12 @@ void PageRepositoryWriterTests::WriteTest7(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+    PageRepositoryWriter writer = repository.insert(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -308,12 +309,12 @@ void PageRepositoryWriterTests::WriteTest8(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(0, 0, error);
+    PageRepositoryWriter writer = repository.insert(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -339,17 +340,17 @@ void PageRepositoryWriterTests::WriteLEB128Test1(Test& test)
    
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -375,17 +376,17 @@ void PageRepositoryWriterTests::WriteLEB128Test2(Test& test)
     
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -411,17 +412,17 @@ void PageRepositoryWriterTests::WriteLEB128Test3(Test& test)
    
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -447,17 +448,17 @@ void PageRepositoryWriterTests::WriteLEB128Test4(Test& test)
     
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -483,17 +484,17 @@ void PageRepositoryWriterTests::WriteLEB128Test5(Test& test)
    
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
 
-    DiplodocusDB::PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
+    PageRepositoryWriter writer = repository.insert(page->index(), 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 

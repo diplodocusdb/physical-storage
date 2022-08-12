@@ -7,6 +7,7 @@
 #include "PageCacheTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageCache.h"
 
+using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
 
 PageCacheTests::PageCacheTests(const TestNumber& number, const TestContext& context)
@@ -17,7 +18,7 @@ PageCacheTests::PageCacheTests(const TestNumber& number, const TestContext& cont
 
 void PageCacheTests::ConstructorTest1(Test& test)
 {
-    DiplodocusDB::PageCache pageCache;
+    PageCache pageCache;
 
     ISHIKO_TEST_PASS();
 }

@@ -8,7 +8,7 @@
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILEREPOSITORY_H
 
 #include "PageRepository.h"
-#include "Page.h"
+#include "Page.hpp"
 #include "PageCache.h"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>
@@ -16,6 +16,8 @@
 #include <memory>
 
 namespace DiplodocusDB
+{
+namespace PhysicalStorage
 {
 
 /// A file organized in a series of pages of fixed size.
@@ -50,6 +52,7 @@ private:
     PageCache m_pageCache;
 };
 
+}
 }
 
 #endif
