@@ -161,7 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage.hpp" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.hpp" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryErrorCategory.hpp" />
@@ -169,7 +170,6 @@
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryReader.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryWriter.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFileRepository.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

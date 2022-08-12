@@ -8,6 +8,7 @@
 #include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
 #include <boost/filesystem/operations.hpp>
 
+using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
 
 PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const TestContext& context)
@@ -24,7 +25,7 @@ PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const
 
 void PageFileRepositoryTests::CreationTest1(Test& test)
 {
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
 
     ISHIKO_TEST_PASS();
 }
@@ -35,7 +36,7 @@ void PageFileRepositoryTests::CreateTest1(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_FAIL_IF(error);
@@ -52,7 +53,7 @@ void PageFileRepositoryTests::OpenTest1(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(inputPath, error);
 
     ISHIKO_TEST_FAIL_IF(error);
@@ -66,7 +67,7 @@ void PageFileRepositoryTests::OpenTest2(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(inputPath, error);
     
     ISHIKO_TEST_FAIL_IF(error);
@@ -80,12 +81,12 @@ void PageFileRepositoryTests::AllocatePageTest1(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.allocatePage(error);
+    std::shared_ptr<Page> page = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page);
@@ -106,12 +107,12 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.create(test.context().getOutputPath(outputName), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page1 = repository.allocatePage(error);
+    std::shared_ptr<Page> page1 = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page1);
@@ -120,7 +121,7 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
  
-    std::shared_ptr<DiplodocusDB::Page> page2 = repository.allocatePage(error);
+    std::shared_ptr<Page> page2 = repository.allocatePage(error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page2);
@@ -145,17 +146,17 @@ void PageFileRepositoryTests::InsertPageAfterTest1(Test& test)
 
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(outputPath, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page1 = repository.page(0, error);
+    std::shared_ptr<Page> page1 = repository.page(0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_ABORT_IF_NOT(page1);
 
-    std::shared_ptr<DiplodocusDB::Page> page2 = repository.insertPageAfter(*page1, error);
+    std::shared_ptr<Page> page2 = repository.insertPageAfter(*page1, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 

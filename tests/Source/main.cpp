@@ -9,6 +9,7 @@
 #include "PageFileRepositoryTests.h"
 #include "PageRepositoryReaderTests.h"
 #include "PageRepositoryWriterTests.h"
+#include "DiplodocusDB/PhysicalStorage/linkoptions.hpp"
 #include <boost/filesystem/operations.hpp>
 #include <Ishiko/TestFramework.hpp>
 

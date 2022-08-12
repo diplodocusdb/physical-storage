@@ -20,7 +20,10 @@
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.h">
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h">
@@ -42,9 +45,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFileRepository.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

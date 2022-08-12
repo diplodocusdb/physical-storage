@@ -8,6 +8,7 @@
 #include "DiplodocusDB/PhysicalStorage/PageRepositoryReader.h"
 #include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
 
+using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
 
 PageRepositoryReaderTests::PageRepositoryReaderTests(const TestNumber& number, const TestContext& context)
@@ -30,16 +31,16 @@ void PageRepositoryReaderTests::CreationTest1(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderCreationTest1.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<DiplodocusDB::Page> page = repository.page(0, error);
+    std::shared_ptr<Page> page = repository.page(0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::PageRepositoryReader reader(repository, page, 0);
+    PageRepositoryReader reader(repository, page, 0);
 
     ISHIKO_TEST_FAIL_IF_NEQ(reader.currentPosition().page(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(reader.currentPosition().offset(), 0);
@@ -50,12 +51,12 @@ void PageRepositoryReaderTests::ReadTest1(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest1.dpdb"), error);
     
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -73,12 +74,12 @@ void PageRepositoryReaderTests::ReadTest2(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest2.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
         
@@ -101,12 +102,12 @@ void PageRepositoryReaderTests::ReadTest3(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest3.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 6, error);
+    PageRepositoryReader reader = repository.read(0, 6, error);
 
     ISHIKO_TEST_ABORT_IF(error);
         
@@ -126,12 +127,12 @@ void PageRepositoryReaderTests::ReadTest4(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest4.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -156,12 +157,12 @@ void PageRepositoryReaderTests::ReadTest5(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest5.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 4070, error);
+    PageRepositoryReader reader = repository.read(0, 4070, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -178,12 +179,12 @@ void PageRepositoryReaderTests::ReadLEB128Test1(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test1.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -198,12 +199,12 @@ void PageRepositoryReaderTests::ReadLEB128Test2(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test2.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -218,12 +219,12 @@ void PageRepositoryReaderTests::ReadLEB128Test3(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test3.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -238,12 +239,12 @@ void PageRepositoryReaderTests::ReadLEB128Test4(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test4.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -258,12 +259,12 @@ void PageRepositoryReaderTests::ReadLEB128Test5(Test& test)
 {
     Error error;
 
-    DiplodocusDB::PageFileRepository repository;
+    PageFileRepository repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test5.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    DiplodocusDB::PageRepositoryReader reader = repository.read(0, 0, error);
+    PageRepositoryReader reader = repository.read(0, 0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
