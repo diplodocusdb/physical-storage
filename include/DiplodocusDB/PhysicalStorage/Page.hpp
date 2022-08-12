@@ -7,6 +7,8 @@
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 
+#include <stddef.h>
+
 namespace DiplodocusDB
 {
 namespace PhysicalStorage
