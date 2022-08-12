@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Page.cpp" />
+    <ClCompile Include="..\..\src\Page2.cpp" />
     <ClCompile Include="..\..\src\PageCache.cpp" />
     <ClCompile Include="..\..\src\PageRepository.cpp" />
     <ClCompile Include="..\..\src\PageRepositoryPosition.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.hpp" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page2.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageCache.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryPosition.h" />

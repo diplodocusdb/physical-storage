@@ -36,7 +36,7 @@ void PageRepositoryReaderTests::CreationTest1(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<Page> page = repository.page(0, error);
+    std::shared_ptr<Page2> page = repository.page(0, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
