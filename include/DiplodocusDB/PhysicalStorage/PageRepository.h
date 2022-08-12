@@ -29,16 +29,8 @@ public:
     virtual size_t pageCount() = 0;
     virtual std::shared_ptr<Page2> page(size_t index, Ishiko::Error& error) = 0;
     virtual std::shared_ptr<Page2> allocatePage(Ishiko::Error& error) = 0;
-    virtual std::shared_ptr<Page2> insertPageAfter(Page2& page, Ishiko::Error& error) = 0;
-    virtual void save(const Page2& page, Ishiko::Error& error) = 0;
+    virtual void store(const Page2& page, Ishiko::Error& error) = 0;
 
-    PageRepositoryReader read(const PageRepositoryPosition& pos, Ishiko::Error& error);
-    virtual PageRepositoryReader read(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
-    virtual PageRepositoryReader read(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error) = 0;
-
-    PageRepositoryWriter insert(const PageRepositoryPosition& pos, Ishiko::Error& error);
-    virtual PageRepositoryWriter insert(size_t startPage, size_t offset, Ishiko::Error& error) = 0;
-    virtual PageRepositoryWriter insert(std::shared_ptr<Page2> startPage, size_t offset, Ishiko::Error& error) = 0;
     virtual void replace() = 0;
     virtual void erase() = 0;
 };

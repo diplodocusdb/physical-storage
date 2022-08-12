@@ -17,12 +17,12 @@ namespace DiplodocusDB
 namespace PhysicalStorage
 {
 
-class PageRepository;
+class PageFileRepository2;
 
 class PageRepositoryReader
 {
 public:
-    PageRepositoryReader(PageRepository& repository, std::shared_ptr<Page2> startPage, size_t startOffset);
+    PageRepositoryReader(PageFileRepository2& repository, std::shared_ptr<Page2> startPage, size_t startOffset);
 
     PageRepositoryPosition currentPosition() const;
 
@@ -30,7 +30,7 @@ public:
     size_t readLEB128(Ishiko::Error& error);
 
 private:
-    PageRepository& m_repository;
+    PageFileRepository2& m_repository;
     std::shared_ptr<Page2> m_currentPage;
     size_t m_currentOffset;
 };

@@ -6,7 +6,7 @@
 
 #include "PageRepositoryReaderTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageRepositoryReader.h"
-#include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
+#include "DiplodocusDB/PhysicalStorage/PageFileRepository2.hpp"
 
 using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
@@ -31,7 +31,7 @@ void PageRepositoryReaderTests::CreationTest1(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderCreationTest1.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -51,7 +51,7 @@ void PageRepositoryReaderTests::ReadTest1(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest1.dpdb"), error);
     
     ISHIKO_TEST_ABORT_IF(error);
@@ -74,7 +74,7 @@ void PageRepositoryReaderTests::ReadTest2(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest2.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -102,7 +102,7 @@ void PageRepositoryReaderTests::ReadTest3(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest3.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -127,7 +127,7 @@ void PageRepositoryReaderTests::ReadTest4(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest4.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -157,7 +157,7 @@ void PageRepositoryReaderTests::ReadTest5(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadTest5.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -179,7 +179,7 @@ void PageRepositoryReaderTests::ReadLEB128Test1(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test1.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -199,7 +199,7 @@ void PageRepositoryReaderTests::ReadLEB128Test2(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test2.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -219,7 +219,7 @@ void PageRepositoryReaderTests::ReadLEB128Test3(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test3.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -239,7 +239,7 @@ void PageRepositoryReaderTests::ReadLEB128Test4(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test4.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
@@ -259,7 +259,7 @@ void PageRepositoryReaderTests::ReadLEB128Test5(Test& test)
 {
     Error error;
 
-    PageFileRepository repository;
+    PageFileRepository2 repository;
     repository.open(test.context().getDataPath("PageRepositoryReaderReadLEB128Test5.dpdb"), error);
 
     ISHIKO_TEST_ABORT_IF(error);
