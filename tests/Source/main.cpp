@@ -7,8 +7,6 @@
 #include "PageTests.h"
 #include "PageCacheTests.h"
 #include "PageFileRepositoryTests.h"
-#include "PageRepositoryReaderTests.h"
-#include "PageRepositoryWriterTests.h"
 #include "DiplodocusDB/PhysicalStorage/linkoptions.hpp"
 #include <boost/filesystem/operations.hpp>
 #include <Ishiko/TestFramework.hpp>
@@ -28,8 +26,6 @@ int main(int argc, char* argv[])
     theTests.append<PageTests>();
     theTests.append<PageCacheTests>();
     theTests.append<PageFileRepositoryTests>();
-    theTests.append<PageRepositoryReaderTests>();
-    theTests.append<PageRepositoryWriterTests>();
 
     return theTestHarness.run();
 }
