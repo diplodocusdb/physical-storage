@@ -51,7 +51,6 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
         ../../src/Page.cpp
         ../../src/Page2.cpp
         ../../src/PageCache.cpp
-        ../../src/PageRepository.cpp
         ../../src/PageRepositoryPosition.cpp
         ../../src/PageFileRepository.cpp
         ../../src/PhysicalStorageErrorCategory.cpp

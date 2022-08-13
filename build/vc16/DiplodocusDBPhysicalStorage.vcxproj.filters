@@ -55,9 +55,6 @@
     <ClCompile Include="..\..\src\PageCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PageRepository.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PageRepositoryPosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
