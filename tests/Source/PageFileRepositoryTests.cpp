@@ -6,7 +6,6 @@
 
 #include "PageFileRepositoryTests.h"
 #include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
-#include "DiplodocusDB/PhysicalStorage/PageFileRepository2.hpp"
 #include <boost/filesystem/operations.hpp>
 
 using namespace DiplodocusDB::PhysicalStorage;
@@ -21,7 +20,6 @@ PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const
     append<HeapAllocationErrorsTest>("open test 2", OpenTest2);
     append<HeapAllocationErrorsTest>("allocatePage test 1", AllocatePageTest1);
     append<HeapAllocationErrorsTest>("allocatePage test 2", AllocatePageTest2);
-    append<HeapAllocationErrorsTest>("insertPageAfter test 1", InsertPageAfterTest1);
 }
 
 void PageFileRepositoryTests::CreationTest1(Test& test)
@@ -133,41 +131,6 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
 
     repository.close();
 
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
-    ISHIKO_TEST_PASS();
-}
-
-void PageFileRepositoryTests::InsertPageAfterTest1(Test& test)
-{
-    const char* outputName = "PageFileRepositoryTests_InsertPageAfterTest1.dpdb";
-    boost::filesystem::path outputPath = test.context().getOutputPath(outputName);
-
-    boost::filesystem::copy_file(test.context().getDataPath("PageFileRepositoryTests_InsertPageAfterTest1.dpdb"), outputPath,
-        boost::filesystem::copy_option::overwrite_if_exists);
-
-    Error error;
-
-    PageFileRepository2 repository;
-    repository.open(outputPath, error);
-
-    ISHIKO_TEST_ABORT_IF(error);
-
-    std::shared_ptr<Page2> page1 = repository.page(0, error);
-
-    ISHIKO_TEST_ABORT_IF(error);
-    ISHIKO_TEST_ABORT_IF_NOT(page1);
-
-    std::shared_ptr<Page2> page2 = repository.insertPageAfter(*page1, error);
-
-    ISHIKO_TEST_ABORT_IF(error);
-
-    repository.store(*page1, error);
-
-    ISHIKO_TEST_FAIL_IF(error);
-
-    repository.store(*page2, error);
-
-    ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }

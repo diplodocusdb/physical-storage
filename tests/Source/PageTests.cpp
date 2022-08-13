@@ -133,6 +133,7 @@ void PageTests::WriteTest1(Test& test)
     Error error;
     std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
     page.write(output, error);
+    output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
@@ -177,7 +178,8 @@ void PageTests::InsertTest1(Test& test)
 
     std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
     page.write(output, error);
-    
+    output.close();
+
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
@@ -201,7 +203,8 @@ void PageTests::InsertTest2(Test& test)
     
     std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
     page.write(output, error);
- 
+    output.close();
+
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
@@ -244,6 +247,7 @@ void PageTests::EraseTest1(Test& test)
         
     std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
     page.write(output, error);
+    output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
@@ -270,6 +274,7 @@ void PageTests::EraseTest2(Test& test)
                 
     std::ofstream output(test.context().getOutputPath(ouputName).c_str(), std::fstream::binary);
     page.write(output, error);
+    output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(ouputName);
@@ -296,6 +301,7 @@ void PageTests::EraseTest3(Test& test)
     
     std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
     page.write(output, error);
+    output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
@@ -331,6 +337,9 @@ void PageTests::MoveToTest1(Test& test)
     page2.write(output, error);
     
     ISHIKO_TEST_FAIL_IF(error);
+
+    output.close();
+
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }
@@ -364,6 +373,9 @@ void PageTests::MoveToTest2(Test& test)
     page2.write(output, error);
                 
     ISHIKO_TEST_FAIL_IF(error);
+
+    output.close();
+
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
     ISHIKO_TEST_PASS();
 }

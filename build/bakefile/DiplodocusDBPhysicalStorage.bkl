@@ -42,10 +42,7 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
         ../../include/DiplodocusDB/PhysicalStorage/PageCache.h
         ../../include/DiplodocusDB/PhysicalStorage/PageRepository.h
         ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryPosition.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryReader.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageRepositoryWriter.h
         ../../include/DiplodocusDB/PhysicalStorage/PageFileRepository.h
-        ../../include/DiplodocusDB/PhysicalStorage/PageFileRepository2.hpp
         ../../include/DiplodocusDB/PhysicalStorage/PhysicalStorageErrorCategory.hpp
     }
 
@@ -54,12 +51,8 @@ library DiplodocusDBPhysicalStorage : IshikoIO, IshikoErrors, Boost
         ../../src/Page.cpp
         ../../src/Page2.cpp
         ../../src/PageCache.cpp
-        ../../src/PageRepository.cpp
         ../../src/PageRepositoryPosition.cpp
-        ../../src/PageRepositoryReader.cpp
-        ../../src/PageRepositoryWriter.cpp
         ../../src/PageFileRepository.cpp
-        ../../src/PageFileRepository2.cpp
         ../../src/PhysicalStorageErrorCategory.cpp
     }
 }

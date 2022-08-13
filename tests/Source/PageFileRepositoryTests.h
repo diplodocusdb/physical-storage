@@ -21,7 +21,6 @@ private:
     static void OpenTest2(Ishiko::Test& test);
     static void AllocatePageTest1(Ishiko::Test& test);
     static void AllocatePageTest2(Ishiko::Test& test);
-    static void InsertPageAfterTest1(Ishiko::Test& test);
 };
 
 #endif
