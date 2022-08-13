@@ -39,11 +39,12 @@ endif
 #
 #      ISHIKO_CPP_BASEPLATFORM_ROOT       Path to the Ishiko BasePlatform installation
 #      ISHIKO_CPP_ERRORS_ROOT             Path to the Ishiko Errors installation
-#      ISHIKO_CPP_MEMORY_ROOT             Path to the Ishiko/C++ Memory installation
+#      ISHIKO_CPP_IO_ROOT                 Path to the Ishiko/C++ IO installation
 #      ISHIKO_CPP_BOOST_ROOT              Path to the Boost installation
+#      DIPLODOCUSDB_PHYSICALSTORAGE_ROOT  Path to the DiplodocusDB installation
+#      ISHIKO_CPP_MEMORY_ROOT             Path to the Ishiko/C++ Memory installation
 #      ISHIKO_CPP_TEXT_ROOT               Path to the Ishiko/Text installation
 #      ISHIKO_CPP_CONFIGURATION_ROOT      Path to the Ishiko Configuration installation
-#      ISHIKO_CPP_IO_ROOT                 Path to the Ishiko/C++ IO installation
 #      ISHIKO_CPP_FILESYSTEM_ROOT         Path to the Ishiko FileSystem installation
 #      ISHIKO_CPP_TYPES_ROOT              Path to the Ishiko Types installation
 #      ISHIKO_CPP_DIFF_ROOT               Path to the Ishiko Diff installation
@@ -54,7 +55,6 @@ endif
 #      ISHIKO_CPP_XML_ROOT                Path to the Ishiko XML installation
 #      ISHIKO_CPP_TESTFRAMEWORK_ROOT      Path to the Ishiko TestFramework installation
 #      ISHIKO_CPP_TESTS_ROOT              Path to the Ishiko Tests installation
-#      DIPLODOCUSDB_PHYSICALSTORAGE_ROOT  Path to the DiplodocusDB installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -79,16 +79,18 @@ endif
 ISHIKO_CPP_BASEPLATFORM_ROOT ?= $(ISHIKO_CPP)/base-platform
 # Path to the Ishiko Errors installation
 ISHIKO_CPP_ERRORS_ROOT ?= $(ISHIKO_CPP)/errors
-# Path to the Ishiko/C++ Memory installation
-ISHIKO_CPP_MEMORY_ROOT ?= $(ISHIKO_CPP)/memory
+# Path to the Ishiko/C++ IO installation
+ISHIKO_CPP_IO_ROOT ?= $(ISHIKO_CPP)/io
 # Path to the Boost installation
 ISHIKO_CPP_BOOST_ROOT ?= $(ISHIKO_CPP_THIRD_PARTY_BOOST)
+# Path to the DiplodocusDB installation
+DIPLODOCUSDB_PHYSICALSTORAGE_ROOT ?= $(DIPLODOCUSDB)/physical-storage
+# Path to the Ishiko/C++ Memory installation
+ISHIKO_CPP_MEMORY_ROOT ?= $(ISHIKO_CPP)/memory
 # Path to the Ishiko/Text installation
 ISHIKO_CPP_TEXT_ROOT ?= $(ISHIKO_CPP)/text
 # Path to the Ishiko Configuration installation
 ISHIKO_CPP_CONFIGURATION_ROOT ?= $(ISHIKO_CPP)/configuration
-# Path to the Ishiko/C++ IO installation
-ISHIKO_CPP_IO_ROOT ?= $(ISHIKO_CPP)/io
 # Path to the Ishiko FileSystem installation
 ISHIKO_CPP_FILESYSTEM_ROOT ?= $(ISHIKO_CPP)/filesystem
 # Path to the Ishiko Types installation
@@ -109,15 +111,13 @@ ISHIKO_CPP_XML_ROOT ?= $(ISHIKO_CPP)/xml
 ISHIKO_CPP_TESTFRAMEWORK_ROOT ?= $(ISHIKO_CPP)/test-framework
 # Path to the Ishiko Tests installation
 ISHIKO_CPP_TESTS_ROOT ?= $(ISHIKO_CPP)/test-framework
-# Path to the DiplodocusDB installation
-DIPLODOCUSDB_PHYSICALSTORAGE_ROOT ?= $(DIPLODOCUSDB)/physical-storage
 
 # ------------
 
 all: $(_builddir)DiplodocusDBPhysicalStorageTests
 
-$(_builddir)DiplodocusDBPhysicalStorageTests: $(_builddir)DiplodocusDBPhysicalStorageTests_PageTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageCacheTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_main.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageFileRepositoryTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageRepositoryWriterTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageRepositoryReaderTests.o
-	$(CXX) -o $@ $(LDFLAGS) $(_builddir)DiplodocusDBPhysicalStorageTests_PageTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageCacheTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_main.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageFileRepositoryTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageRepositoryWriterTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageRepositoryReaderTests.o -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_IO_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/lib -L$(ISHIKO_CPP_MEMORY_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_CONFIGURATION_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_DIFF_ROOT)/lib -L$(ISHIKO_CPP_XML_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(ISHIKO_CPP_FMT_ROOT)/lib -L$(ISHIKO_CPP_TIME_ROOT)/lib -L$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/lib -L$(ISHIKO_CPP_TESTS_ROOT)/lib -lDiplodocusDBPhysicalStorage -lIshikoTestFramework -lIshikoTestFrameworkCore -lIshikoConfiguration -lIshikoDiff -lIshikoXML -lIshikoFileSystem -lIshikoIO -lIshikoProcess -lIshikoTime -lIshikoText -lIshikoErrors -lfmt -lboost_filesystem -pthread
+$(_builddir)DiplodocusDBPhysicalStorageTests: $(_builddir)DiplodocusDBPhysicalStorageTests_PageTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageCacheTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_main.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageFileRepositoryTests.o
+	$(CXX) -o $@ $(LDFLAGS) $(_builddir)DiplodocusDBPhysicalStorageTests_PageTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageCacheTests.o $(_builddir)DiplodocusDBPhysicalStorageTests_main.o $(_builddir)DiplodocusDBPhysicalStorageTests_PageFileRepositoryTests.o -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_IO_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/lib -L$(ISHIKO_CPP_MEMORY_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_CONFIGURATION_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_DIFF_ROOT)/lib -L$(ISHIKO_CPP_XML_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(ISHIKO_CPP_FMT_ROOT)/lib -L$(ISHIKO_CPP_TIME_ROOT)/lib -L$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/lib -L$(ISHIKO_CPP_TESTS_ROOT)/lib -lDiplodocusDBPhysicalStorage -lIshikoTestFramework -lIshikoTestFrameworkCore -lIshikoConfiguration -lIshikoDiff -lIshikoXML -lIshikoFileSystem -lIshikoIO -lIshikoProcess -lIshikoTime -lIshikoText -lIshikoErrors -lfmt -lboost_filesystem -pthread
 
 $(_builddir)DiplodocusDBPhysicalStorageTests_PageTests.o: ../../Source/PageTests.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include -std=c++11 ../../Source/PageTests.cpp
@@ -130,12 +130,6 @@ $(_builddir)DiplodocusDBPhysicalStorageTests_main.o: ../../Source/main.cpp
 
 $(_builddir)DiplodocusDBPhysicalStorageTests_PageFileRepositoryTests.o: ../../Source/PageFileRepositoryTests.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include -std=c++11 ../../Source/PageFileRepositoryTests.cpp
-
-$(_builddir)DiplodocusDBPhysicalStorageTests_PageRepositoryWriterTests.o: ../../Source/PageRepositoryWriterTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include -std=c++11 ../../Source/PageRepositoryWriterTests.cpp
-
-$(_builddir)DiplodocusDBPhysicalStorageTests_PageRepositoryReaderTests.o: ../../Source/PageRepositoryReaderTests.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -DPUGIXML_HEADER_ONLY -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(DIPLODOCUSDB_PHYSICALSTORAGE_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PUGIXML_ROOT)/src -I$(ISHIKO_CPP_XML_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_TESTFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include -std=c++11 ../../Source/PageRepositoryReaderTests.cpp
 
 clean:
 	rm -f $(_builddir)*.o

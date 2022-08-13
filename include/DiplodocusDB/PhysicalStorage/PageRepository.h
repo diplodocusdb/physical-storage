@@ -9,8 +9,6 @@
 
 #include "Page2.hpp"
 #include "PageRepositoryPosition.h"
-#include "PageRepositoryReader.h"
-#include "PageRepositoryWriter.h"
 #include <Ishiko/Errors.hpp>
 #include <memory>
 
