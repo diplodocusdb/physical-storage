@@ -1,7 +1,7 @@
+diplodocusdbpath = envvar("DIPLODOCUSDB");
+import $(diplodocusdbpath)/physical-storage/include/DiplodocusDB/PhysicalStorage.bkl;
 ishikopath = envvar("ISHIKO_CPP");
 import $(ishikopath)/test-framework/include/Ishiko/TestFramework.bkl;
-diplodocusdbpath = envvar("DIPLODOCUSDB");
-import $(diplodocusdbpath)/physical-storage/Include/DiplodocusDB/PhysicalStorage/PageRepository.bkl;
 
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
@@ -11,7 +11,7 @@ vs2017.solutionfile = ../vc15/DiplodocusDBPhysicalStorageTests.sln;
 vs2015.solutionfile = ../vc14/DiplodocusDBPhysicalStorageTests.sln;
 vs2013.solutionfile = ../vc12/DiplodocusDBPhysicalStorageTests.sln;
 
-program DiplodocusDBPhysicalStorageTests : DiplodocusDBPageRepository, IshikoTestFramework
+program DiplodocusDBPhysicalStorageTests : DiplodocusDBPhysicalStorage, IshikoTestFramework
 {
     archs = x86 x86_64;
 
@@ -28,8 +28,6 @@ program DiplodocusDBPhysicalStorageTests : DiplodocusDBPageRepository, IshikoTes
         ../../Source/PageTests.h
         ../../Source/PageCacheTests.h
         ../../Source/PageFileRepositoryTests.h
-        ../../Source/PageRepositoryWriterTests.h
-        ../../Source/PageRepositoryReaderTests.h
     }
 
     sources
@@ -38,7 +36,5 @@ program DiplodocusDBPhysicalStorageTests : DiplodocusDBPageRepository, IshikoTes
         ../../Source/PageCacheTests.cpp
         ../../Source/main.cpp
         ../../Source/PageFileRepositoryTests.cpp
-        ../../Source/PageRepositoryWriterTests.cpp
-        ../../Source/PageRepositoryReaderTests.cpp
     }
 }
