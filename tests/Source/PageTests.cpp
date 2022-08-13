@@ -6,6 +6,7 @@
 
 #include "PageTests.h"
 #include "DiplodocusDB/PhysicalStorage/Page2.hpp"
+#include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
 
 using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
@@ -43,11 +44,13 @@ void PageTests::ReadTest1(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest1.dpdb");
     
-    Page2 page{0};
-
     Error error;
-    std::ifstream input(inputPath.c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(inputPath, error);
+    
+    Page2 page{0};
+    page.read(repository, error);
     
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
@@ -60,11 +63,13 @@ void PageTests::ReadTest2(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest2.dpdb");
 
-    Page2 page{0};
-
     Error error;
-    std::ifstream input(inputPath.c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 6);
@@ -77,11 +82,13 @@ void PageTests::ReadTest3(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest3.dpdb");
 
-    Page2 page{1};
-
     Error error;
-    std::ifstream input(inputPath.c_str(), std::fstream::binary);
-    page.read(input, error);
+    
+    PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    Page2 page{1};
+    page.read(repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 10);
@@ -94,11 +101,13 @@ void PageTests::ReadTest4(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest4.dpdb");
 
-    Page2 page{1};
-
     Error error;
-    std::ifstream input(inputPath.c_str(), std::fstream::binary);
-    page.read(input, error);
+    
+    PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    Page2 page{1};
+    page.read(repository, error);
 
     ISHIKO_TEST_FAIL_IF_NOT(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
@@ -111,11 +120,13 @@ void PageTests::ReadTest5(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_ReadTest5.dpdb");
 
-    Page2 page{0};
-
     Error error;
-    std::ifstream input(inputPath.c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_FAIL_IF_NOT(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
@@ -146,11 +157,13 @@ void PageTests::GetTest1(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageTests_GetTest1.dpdb");
 
-    Page2 page{0};
-
     Error error;
-    std::ifstream input(inputPath.c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(inputPath, error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 6);
@@ -187,13 +200,15 @@ void PageTests::InsertTest1(Test& test)
 
 void PageTests::InsertTest2(Test& test)
 {
-    const char* outputName = "PageTests_InsertTest2.dpdb";
-
-    Page2 page{0};
+    const char* basename = "PageTests_InsertTest2.dpdb";
 
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_InsertTest2.dpdb").c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath(basename), error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
        
@@ -201,23 +216,25 @@ void PageTests::InsertTest2(Test& test)
             
     ISHIKO_TEST_FAIL_IF(error);
     
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
+    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
     page.write(output, error);
     output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
 /// Tests an insertion that doesn't fit in the current page.
 void PageTests::InsertTest3(Test& test)
 {
-    Page2 page{0};
-
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_InsertTest3.dpdb").c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath("PageTests_InsertTest3.dpdb"), error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
@@ -229,13 +246,15 @@ void PageTests::InsertTest3(Test& test)
 
 void PageTests::EraseTest1(Test& test)
 {
-    const char* outputName = "PageTests_EraseTest1.dpdb";
-
-    Page2 page{0};
+    const char* basename = "PageTests_EraseTest1.dpdb";
 
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_EraseTest1.dpdb").c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath(basename), error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -245,24 +264,26 @@ void PageTests::EraseTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4080);
         
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
+    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
     page.write(output, error);
     output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
 void PageTests::EraseTest2(Test& test)
 {
-    const char* ouputName = "PageTests_EraseTest2.dpdb";
-
-    Page2 page{0};
+    const char* basename = "PageTests_EraseTest2.dpdb";
 
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_EraseTest2.dpdb").c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath(basename), error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
         
@@ -272,24 +293,26 @@ void PageTests::EraseTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 5);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4075);
                 
-    std::ofstream output(test.context().getOutputPath(ouputName).c_str(), std::fstream::binary);
+    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
     page.write(output, error);
     output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(ouputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
 void PageTests::EraseTest3(Test& test)
 {
-    const char* outputName = "PageTests_EraseTest3.dpdb";
-
-    Page2 page{0};
+    const char* basename = "PageTests_EraseTest3.dpdb";
 
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_EraseTest3.dpdb").c_str(), std::fstream::binary);
-    page.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath(basename), error);
+
+    Page2 page{0};
+    page.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
@@ -299,29 +322,31 @@ void PageTests::EraseTest3(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 2);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4078);
     
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
+    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
     page.write(output, error);
     output.close();
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
 void PageTests::MoveToTest1(Test& test)
 {
-    const char* outputName = "PageTests_MoveToTest1.dpdb";
-
-    Page2 page1{0};
+    const char* basename = "PageTests_MoveToTest1.dpdb";
 
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_MoveToTest1.dpdb").c_str(), std::fstream::binary);
-    page1.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath(basename), error);
+
+    Page2 page1{0};
+    page1.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
     
     Page2 page2{1};
-    page2.read(input, error);
+    page2.read(repository, error);
     
     page1.moveTo(0, 6, page2, error);
 
@@ -329,7 +354,7 @@ void PageTests::MoveToTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page1.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page2.dataSize(), 6);
     
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
+    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
     page1.write(output, error);
 
     ISHIKO_TEST_FAIL_IF(error);
@@ -340,24 +365,26 @@ void PageTests::MoveToTest1(Test& test)
 
     output.close();
 
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
 void PageTests::MoveToTest2(Test& test)
 {
-    const char* outputName = "PageTests_MoveToTest2.dpdb";
-
-    Page2 page1{0};
+    const char* basename = "PageTests_MoveToTest2.dpdb";
 
     Error error;
-    std::ifstream input(test.context().getDataPath("PageTests_MoveToTest2.dpdb").c_str(), std::fstream::binary);
-    page1.read(input, error);
+
+    PageFileRepository repository;
+    repository.open(test.context().getDataPath(basename), error);
+
+    Page2 page1{0};
+    page1.read(repository, error);
 
     ISHIKO_TEST_ABORT_IF(error);
 
     Page2 page2{1};
-    page2.read(input, error);
+    page2.read(repository, error);
     
     page1.moveTo(0, 6, page2, error);
 
@@ -365,7 +392,7 @@ void PageTests::MoveToTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page1.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page2.dataSize(), 12);
     
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
+    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
     page1.write(output, error);
 
     ISHIKO_TEST_FAIL_IF(error);
@@ -376,6 +403,6 @@ void PageTests::MoveToTest2(Test& test)
 
     output.close();
 
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }

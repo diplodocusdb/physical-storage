@@ -38,8 +38,9 @@ public:
     void replace() override;
     void erase() override;
 
-private:
+public:
     std::fstream m_file;
+private:
     size_t m_pageCount;
     PageCache m_pageCache;
 };

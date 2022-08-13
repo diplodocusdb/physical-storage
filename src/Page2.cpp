@@ -123,14 +123,14 @@ void Page2::write(std::ostream& output, Ishiko::Error& error) const
     }
 }
 
-void Page2::read(std::istream& input, Ishiko::Error& error)
+void Page2::read(PageFileRepository& repository, Ishiko::Error& error)
 {
-    input.seekg(m_page.number() * Page::sm_size);
-    Ishiko::IOErrorExtension::Fail(input, __FILE__, __LINE__, error);
+    repository.m_file.seekg(m_page.number() * Page::sm_size);
+    Ishiko::IOErrorExtension::Fail(repository.m_file, __FILE__, __LINE__, error);
     if (!error)
     {
-        input.read(m_page.m_buffer, Page::sm_size);
-        Ishiko::IOErrorExtension::Fail(input, __FILE__, __LINE__, error);
+        repository.m_file.read(m_page.m_buffer, Page::sm_size);
+        Ishiko::IOErrorExtension::Fail(repository.m_file, __FILE__, __LINE__, error);
         if (!error)
         {
             m_dataSize = *((uint16_t*)(m_page.m_buffer + 6));

@@ -70,7 +70,7 @@ std::shared_ptr<Page2> PageFileRepository::page(size_t index, Ishiko::Error& err
     if (!foundInCache)
     {
         result = std::make_shared<Page2>(index);
-        result->read(m_file, error);
+        result->read(*this, error);
         if (!error)
         {
             m_pageCache.set(result);
