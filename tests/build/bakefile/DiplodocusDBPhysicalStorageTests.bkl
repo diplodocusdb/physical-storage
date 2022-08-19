@@ -19,7 +19,7 @@ program DiplodocusDBPhysicalStorageTests : DiplodocusDBPhysicalStorage, IshikoTe
     {
         cxx-compiler-options = "-std=c++11";
         libs += DiplodocusDBPhysicalStorage;
-        libs += IshikoTestFramework IshikoTestFrameworkCore IshikoConfiguration IshikoDiff IshikoXML IshikoFileSystem IshikoIO IshikoProcess IshikoTime IshikoText IshikoErrors;
+        libs += IshikoTestFramework IshikoTestFrameworkCore IshikoConfiguration IshikoDiff IshikoXML IshikoFileSystem IshikoIO IshikoProcess IshikoTime IshikoText IshikoMemory IshikoErrors;
         libs += fmt boost_filesystem;
     }
 
