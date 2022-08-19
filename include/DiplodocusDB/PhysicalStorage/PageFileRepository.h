@@ -12,7 +12,7 @@
 #include "PageCache.h"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>
-#include <fstream>
+#include <Ishiko/FileSystem.hpp>
 #include <memory>
 
 namespace DiplodocusDB
@@ -39,7 +39,7 @@ public:
     void erase() override;
 
 public:
-    std::fstream m_file;
+    Ishiko::BinaryFile m_file;
 private:
     size_t m_pageCount;
     PageCache m_pageCache;

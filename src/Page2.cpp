@@ -107,10 +107,9 @@ void Page2::moveTo(size_t pos, size_t n, Page2& targetPage, Ishiko::Error& error
     }
 }
 
-void Page2::write(std::ostream& output, Ishiko::Error& error) const
+void Page2::write(PageFileRepository& repository, Ishiko::Error& error) const
 {
-    output.seekp(m_page.number() * Page::sm_size);
-    Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
+    repository.m_file.setFilePointer(m_page.number() * Page::sm_size);
     if (!error)
     {
         memcpy(m_page.buffer().data(), "\xF0\x06\x00\x00\x00\x00", 6);
@@ -118,26 +117,31 @@ void Page2::write(std::ostream& output, Ishiko::Error& error) const
         memcpy(m_page.buffer().data() + sm_startMarkerSize + m_dataSize, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
         *((uint32_t*)(m_page.buffer().data() + sm_startMarkerSize + m_dataSize + 2)) = m_nextPage;
         
-        output.write((const char*)m_page.buffer().data(), Page::sm_size);
-        Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
+        repository.m_file.write((const char*)m_page.buffer().data(), Page::sm_size, error);
     }
 }
 
 void Page2::read(PageFileRepository& repository, Ishiko::Error& error)
 {
-    repository.m_file.seekg(m_page.number() * Page::sm_size);
-    Ishiko::IOErrorExtension::Fail(repository.m_file, __FILE__, __LINE__, error);
+    repository.m_file.setFilePointer(m_page.number() * Page::sm_size);
     if (!error)
     {
-        repository.m_file.read((char*)m_page.buffer().data(), Page::sm_size);
-        Ishiko::IOErrorExtension::Fail(repository.m_file, __FILE__, __LINE__, error);
+        size_t read_count = repository.m_file.read(Page::sm_size, (char*)m_page.buffer().data(), error);
         if (!error)
         {
-            m_dataSize = *((uint16_t*)(m_page.buffer().data() + 6));
-            m_availableSpace = Page::sm_size - sm_startMarkerSize - sm_endMarkerSize - m_dataSize;
+            if (read_count == Page::sm_size)
+            {
+                m_dataSize = *((uint16_t*)(m_page.buffer().data() + 6));
+                m_availableSpace = Page::sm_size - sm_startMarkerSize - sm_endMarkerSize - m_dataSize;
 
-            uint32_t nextPage = *((uint32_t*)(m_page.buffer().data() + sm_startMarkerSize + m_dataSize + 2));
-            m_nextPage = nextPage;
+                uint32_t nextPage = *((uint32_t*)(m_page.buffer().data() + sm_startMarkerSize + m_dataSize + 2));
+                m_nextPage = nextPage;
+            }
+            else
+            {
+                // TODO
+                Fail(error, PhysicalStorageErrorCategory::Value::generic_error, "", __FILE__, __LINE__);
+            }
         }
     }
 }
