@@ -16,6 +16,8 @@ namespace DiplodocusDB
 namespace PhysicalStorage
 {
 
+class PageFileRepository;
+
 /// A page.
 /**
     Each page has an index which is its position in the repository.
@@ -79,7 +81,7 @@ public:
         @param input The stream from which the page will be read.
         @param error The result of the operation.
     */
-    void read(std::istream& input, Ishiko::Error& error);
+    void read(PageFileRepository& repository, Ishiko::Error& error);
 
 public:
     static const size_t sm_startMarkerSize = 8;
