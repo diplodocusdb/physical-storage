@@ -16,7 +16,7 @@ Page::Page(size_t number)
 
 void Page::init()
 {
-    memset(m_buffer, 0, sm_size);
+    memset(m_buffer.data(), 0, sm_size);
 }
 
 size_t Page::number() const

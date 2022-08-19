@@ -7,6 +7,7 @@
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 
+#include <Ishiko/Memory.hpp>
 #include <stddef.h>
 
 namespace DiplodocusDB
@@ -42,7 +43,7 @@ private:
 
 public:
     // TODO: avoid this mutable thing and public
-    mutable char m_buffer[sm_size];
+    mutable Ishiko::Buffer m_buffer{sm_size};
 };
 
 }
