@@ -136,20 +136,26 @@ void PageTests::ReadTest5(Test& test)
 
 void PageTests::WriteTest1(Test& test)
 {
-    const char* outputName = "PageTests_WriteTest1.dpdb";
+    const char* basename = "PageTests_WriteTest1.dpdb";
     
+    Error error;
+
+    PageFileRepository repository;
+    repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
     Page2 page{0};
     page.init();
-
-    Error error;
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
-    page.write(output, error);
-    output.close();
+    page.write(repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
+
+    repository.close();
+
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4080);
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
@@ -179,9 +185,14 @@ void PageTests::GetTest1(Test& test)
 
 void PageTests::InsertTest1(Test& test)
 {
-    const char* outputName = "PageTests_InsertTest1.dpdb";
+    const char* basename = "PageTests_InsertTest1.dpdb";
     
     Error error;
+
+    PageFileRepository repository;
+    repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
 
     Page2 page{0};
     page.init();
@@ -189,12 +200,14 @@ void PageTests::InsertTest1(Test& test)
 
     ISHIKO_TEST_FAIL_IF(error);
 
-    std::ofstream output(test.context().getOutputPath(outputName).c_str(), std::fstream::binary);
-    page.write(output, error);
-    output.close();
+    page.write(repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(outputName);
+
+    repository.close();
+
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
 
@@ -216,11 +229,17 @@ void PageTests::InsertTest2(Test& test)
             
     ISHIKO_TEST_FAIL_IF(error);
     
-    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
-    page.write(output, error);
-    output.close();
+    PageFileRepository output_repository;
+    output_repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
+    page.write(output_repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
+
+    output_repository.close();
+
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
@@ -264,11 +283,17 @@ void PageTests::EraseTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4080);
         
-    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
-    page.write(output, error);
-    output.close();
+    PageFileRepository output_repository;
+    output_repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
+    page.write(output_repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
+
+    output_repository.close();
+
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
@@ -292,12 +317,18 @@ void PageTests::EraseTest2(Test& test)
     ISHIKO_TEST_FAIL_IF(error);
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 5);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4075);
-                
-    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
-    page.write(output, error);
-    output.close();
+
+    PageFileRepository output_repository;
+    output_repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
+    page.write(output_repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
+
+    output_repository.close();
+
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
@@ -322,11 +353,17 @@ void PageTests::EraseTest3(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page.dataSize(), 2);
     ISHIKO_TEST_FAIL_IF_NEQ(page.availableSpace(), 4078);
     
-    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
-    page.write(output, error);
-    output.close();
+    PageFileRepository output_repository;
+    output_repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
+    page.write(output_repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
+
+    output_repository.close();
+
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
 }
@@ -354,16 +391,20 @@ void PageTests::MoveToTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page1.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page2.dataSize(), 6);
     
-    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
-    page1.write(output, error);
+    PageFileRepository output_repository;
+    output_repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
+    page1.write(output_repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
     
-    page2.write(output, error);
+    page2.write(output_repository, error);
     
     ISHIKO_TEST_FAIL_IF(error);
 
-    output.close();
+    output_repository.close();
 
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();
@@ -392,16 +433,20 @@ void PageTests::MoveToTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(page1.dataSize(), 0);
     ISHIKO_TEST_FAIL_IF_NEQ(page2.dataSize(), 12);
     
-    std::ofstream output(test.context().getOutputPath(basename).c_str(), std::fstream::binary);
-    page1.write(output, error);
+    PageFileRepository output_repository;
+    output_repository.create(test.context().getOutputPath(basename), error);
+
+    ISHIKO_TEST_ABORT_IF(error);
+
+    page1.write(output_repository, error);
 
     ISHIKO_TEST_FAIL_IF(error);
             
-    page2.write(output, error);
+    page2.write(output_repository, error);
                 
     ISHIKO_TEST_FAIL_IF(error);
 
-    output.close();
+    output_repository.close();
 
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(basename);
     ISHIKO_TEST_PASS();

@@ -7,6 +7,7 @@
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 
+#include <Ishiko/Memory.hpp>
 #include <stddef.h>
 
 namespace DiplodocusDB
@@ -34,18 +35,27 @@ public:
         @returns The number of the page.
     */
     size_t number() const;
+    inline const Ishiko::Buffer& buffer() const noexcept;
+    inline Ishiko::Buffer& buffer() noexcept;
 
     static const size_t sm_size = 4096;
 
 private:
     size_t m_number;
-
-public:
-    // TODO: avoid this mutable thing and public
-    mutable char m_buffer[sm_size];
+    Ishiko::Buffer m_buffer{sm_size};
 };
 
 }
+}
+
+const Ishiko::Buffer& DiplodocusDB::PhysicalStorage::Page::buffer() const noexcept
+{
+    return m_buffer;
+}
+
+Ishiko::Buffer& DiplodocusDB::PhysicalStorage::Page::buffer() noexcept
+{
+    return m_buffer;
 }
 
 #endif

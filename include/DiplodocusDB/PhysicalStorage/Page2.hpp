@@ -9,7 +9,7 @@
 
 #include "Page.hpp"
 #include <Ishiko/Errors.hpp>
-#include <fstream>
+#include <Ishiko/FileSystem.hpp>
 
 namespace DiplodocusDB
 {
@@ -70,7 +70,7 @@ public:
         @param output The stream to which the page will be written.
         @param error The result of the operation.
     */
-    void write(std::ostream& output, Ishiko::Error& error) const;
+    void write(PageFileRepository& repository, Ishiko::Error& error) const;
     /// Reads the contents of the page from a stream.
     /**
         The index of the page is used to find the start position of the page data in the stream. After this operation
@@ -88,7 +88,8 @@ public:
     static const size_t sm_endMarkerSize = 8;
 
 private:
-    Page m_page;
+    // TODO: avoid mutable
+    mutable Page m_page;
     size_t m_dataSize;
     size_t m_availableSpace;
     size_t m_nextPage;
