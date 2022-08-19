@@ -58,7 +58,7 @@ void Page2::get(char* buffer, size_t pos, size_t n, Ishiko::Error& error) const
 {
     if ((pos + n) <= m_dataSize)
     {
-        memcpy(buffer, m_page.m_buffer.data() + sm_startMarkerSize + pos, n);
+        memcpy(buffer, m_page.buffer().data() + sm_startMarkerSize + pos, n);
     }
     else
     {
@@ -73,7 +73,7 @@ void Page2::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Er
 {
     if (bufferSize <= m_availableSpace)
     {
-        char* p = (char*)(m_page.m_buffer.data() + sm_startMarkerSize);
+        char* p = (char*)(m_page.buffer().data() + sm_startMarkerSize);
         if (pos != m_dataSize)
         {
             memmove(p + pos + bufferSize, p + pos, (m_dataSize - pos));
@@ -91,16 +91,16 @@ void Page2::insert(const char* buffer, size_t bufferSize, size_t pos, Ishiko::Er
 
 void Page2::erase(size_t pos, size_t n, Ishiko::Error& error)
 {
-    memmove(m_page.m_buffer.data() + sm_startMarkerSize + pos, m_page.m_buffer.data() + sm_startMarkerSize + pos + n,
+    memmove(m_page.buffer().data() + sm_startMarkerSize + pos, m_page.buffer().data() + sm_startMarkerSize + pos + n,
         m_dataSize + sm_endMarkerSize - pos - n);
-    memset(m_page.m_buffer.data() + sm_startMarkerSize + m_dataSize + sm_endMarkerSize - n, 0, n);
+    memset(m_page.buffer().data() + sm_startMarkerSize + m_dataSize + sm_endMarkerSize - n, 0, n);
     m_dataSize -= n;
     m_availableSpace += n;
 }
 
 void Page2::moveTo(size_t pos, size_t n, Page2& targetPage, Ishiko::Error& error)
 {
-    targetPage.insert((const char*)(m_page.m_buffer.data() + sm_startMarkerSize + pos), n, 0, error);
+    targetPage.insert((const char*)(m_page.buffer().data() + sm_startMarkerSize + pos), n, 0, error);
     if (!error)
     {
         erase(pos, n, error);
@@ -113,12 +113,12 @@ void Page2::write(std::ostream& output, Ishiko::Error& error) const
     Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
     if (!error)
     {
-        memcpy(m_page.m_buffer.data(), "\xF0\x06\x00\x00\x00\x00", 6);
-        *((uint16_t*)(m_page.m_buffer.data() + 6)) = (uint16_t)m_dataSize;
-        memcpy(m_page.m_buffer.data() + sm_startMarkerSize + m_dataSize, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
-        *((uint32_t*)(m_page.m_buffer.data() + sm_startMarkerSize + m_dataSize + 2)) = m_nextPage;
+        memcpy(m_page.buffer().data(), "\xF0\x06\x00\x00\x00\x00", 6);
+        *((uint16_t*)(m_page.buffer().data() + 6)) = (uint16_t)m_dataSize;
+        memcpy(m_page.buffer().data() + sm_startMarkerSize + m_dataSize, "\xF1\x06\x00\x00\x00\x00\x00\x00", 8);
+        *((uint32_t*)(m_page.buffer().data() + sm_startMarkerSize + m_dataSize + 2)) = m_nextPage;
         
-        output.write((const char*)m_page.m_buffer.data(), Page::sm_size);
+        output.write((const char*)m_page.buffer().data(), Page::sm_size);
         Ishiko::IOErrorExtension::Fail(output, __FILE__, __LINE__, error);
     }
 }
@@ -129,14 +129,14 @@ void Page2::read(PageFileRepository& repository, Ishiko::Error& error)
     Ishiko::IOErrorExtension::Fail(repository.m_file, __FILE__, __LINE__, error);
     if (!error)
     {
-        repository.m_file.read((char*)m_page.m_buffer.data(), Page::sm_size);
+        repository.m_file.read((char*)m_page.buffer().data(), Page::sm_size);
         Ishiko::IOErrorExtension::Fail(repository.m_file, __FILE__, __LINE__, error);
         if (!error)
         {
-            m_dataSize = *((uint16_t*)(m_page.m_buffer.data() + 6));
+            m_dataSize = *((uint16_t*)(m_page.buffer().data() + 6));
             m_availableSpace = Page::sm_size - sm_startMarkerSize - sm_endMarkerSize - m_dataSize;
 
-            uint32_t nextPage = *((uint32_t*)(m_page.m_buffer.data() + sm_startMarkerSize + m_dataSize + 2));
+            uint32_t nextPage = *((uint32_t*)(m_page.buffer().data() + sm_startMarkerSize + m_dataSize + 2));
             m_nextPage = nextPage;
         }
     }

@@ -88,7 +88,8 @@ public:
     static const size_t sm_endMarkerSize = 8;
 
 private:
-    Page m_page;
+    // TODO: avoid mutable
+    mutable Page m_page;
     size_t m_dataSize;
     size_t m_availableSpace;
     size_t m_nextPage;
