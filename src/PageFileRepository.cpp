@@ -11,7 +11,7 @@
 using namespace DiplodocusDB::PhysicalStorage;
 
 PageFileRepository::PageFileRepository()
-    : m_pageCount(0)
+    : m_pageCount{0}
 {
 }
 
@@ -43,13 +43,11 @@ void PageFileRepository::open(const boost::filesystem::path& path,
     }
     else
     {
-        m_file.open(path.c_str(), std::fstream::in | std::fstream::out | std::fstream::binary);
-        if (!m_file.good())
+        m_file.open(path, error);
+        if (!error)
         {
-            // TODO add details
-            Fail(error, PhysicalStorageErrorCategory::Value::generic_error, "Failed to open file", __FILE__, __LINE__);
+            m_pageCount = (filesize / Page::sm_size);
         }
-        m_pageCount = (filesize / Page::sm_size);
     }
 }
 
@@ -90,7 +88,7 @@ std::shared_ptr<Page2> PageFileRepository::allocatePage(Ishiko::Error& error)
 
 void PageFileRepository::store(const Page2& page, Ishiko::Error& error)
 {
-    page.write(m_file, error);
+    page.write(*this, error);
 }
 
 void PageFileRepository::replace()
