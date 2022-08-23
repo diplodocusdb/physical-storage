@@ -85,10 +85,10 @@ void PageFileRepositoryTests::AllocatePageTest1(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<Page> page = repository.allocatePage(error);
+    Page page = repository.allocatePage(error);
 
-    ISHIKO_TEST_ABORT_IF(error);
-    ISHIKO_TEST_ABORT_IF_NOT(page);
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_NEQ(page.number(), 0);
 
     repository.close();
 
@@ -107,15 +107,15 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
 
     ISHIKO_TEST_ABORT_IF(error);
 
-    std::shared_ptr<Page> page1 = repository.allocatePage(error);
+    Page page1 = repository.allocatePage(error);
 
-    ISHIKO_TEST_ABORT_IF(error);
-    ISHIKO_TEST_ABORT_IF_NOT(page1);
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_NEQ(page1.number(), 0);
     
-    std::shared_ptr<Page> page2 = repository.allocatePage(error);
+    Page page2 = repository.allocatePage(error);
 
-    ISHIKO_TEST_ABORT_IF(error);
-    ISHIKO_TEST_ABORT_IF_NOT(page2);
+    ISHIKO_TEST_FAIL_IF(error);
+    ISHIKO_TEST_FAIL_IF_NEQ(page2.number(), 1);
                 
     repository.close();
 
