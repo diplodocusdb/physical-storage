@@ -8,7 +8,7 @@
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILEREPOSITORY_H
 
 #include "PageRepository.h"
-#include "Page2.hpp"
+#include "Page.hpp"
 #include "PageCache.h"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>
@@ -31,9 +31,9 @@ public:
     void close();
 
     size_t pageCount() override;
-    std::shared_ptr<Page2> page(size_t index, Ishiko::Error& error) override;
-    std::shared_ptr<Page2> allocatePage(Ishiko::Error& error) override;
-    void store(const Page2& page, Ishiko::Error& error) override;
+    std::shared_ptr<Page> page(size_t index, Ishiko::Error& error) override;
+    std::shared_ptr<Page> allocatePage(Ishiko::Error& error) override;
+    void store(const Page& page, Ishiko::Error& error) override;
 
     void replace() override;
     void erase() override;

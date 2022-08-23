@@ -61,34 +61,43 @@ size_t PageFileRepository::pageCount()
     return m_pageCount;
 }
 
-std::shared_ptr<Page2> PageFileRepository::page(size_t index, Ishiko::Error& error)
+std::shared_ptr<Page> PageFileRepository::page(size_t index, Ishiko::Error& error)
 {
-    std::shared_ptr<Page2> result;
-    bool foundInCache = m_pageCache.get(index, result);
-    if (!foundInCache)
+    std::shared_ptr<Page> result;
+    if (index <= m_pageCount)
     {
-        result = std::make_shared<Page2>(index);
-        result->read(*this, error);
+        result = std::make_shared<Page>(index);
+        m_file.setFilePointer(index * Page::sm_size);
         if (!error)
         {
-            m_pageCache.set(result);
+            size_t read_count = m_file.read(Page::sm_size, (char*)result->buffer().data(), error);
         }
+    }
+    else
+    {
+        // TODO
+        Fail(error, PhysicalStorageErrorCategory::Value::generic_error);
     }
     return result;
 }
 
-std::shared_ptr<Page2> PageFileRepository::allocatePage(Ishiko::Error& error)
+std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)
 {
-    std::shared_ptr<Page2> page = std::make_shared<Page2>(m_pageCount);
+    std::shared_ptr<Page> page = std::make_shared<Page>(m_pageCount);
+    // TODO: I shouldn't init the page here, that's for the caller to decide
     page->init();
-    m_pageCache.set(page);
+    m_file.resize((m_pageCount + 1) * Page::sm_size);
     ++m_pageCount;
     return page;
 }
 
-void PageFileRepository::store(const Page2& page, Ishiko::Error& error)
+void PageFileRepository::store(const Page& page, Ishiko::Error& error)
 {
-    page.write(*this, error);
+    m_file.setFilePointer(page.number() * Page::sm_size);
+    if (!error)
+    {
+        m_file.write((const char*)page.buffer().data(), Page::sm_size, error);
+    }
 }
 
 void PageFileRepository::replace()
