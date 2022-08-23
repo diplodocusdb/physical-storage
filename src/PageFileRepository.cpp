@@ -84,15 +84,20 @@ std::shared_ptr<Page> PageFileRepository::page(size_t index, Ishiko::Error& erro
 std::shared_ptr<Page> PageFileRepository::allocatePage(Ishiko::Error& error)
 {
     std::shared_ptr<Page> page = std::make_shared<Page>(m_pageCount);
+    // TODO: I shouldn't init the page here, that's for the caller to decide
     page->init();
     m_file.resize((m_pageCount + 1) * Page::sm_size);
     ++m_pageCount;
     return page;
 }
 
-void PageFileRepository::store(const Page2& page, Ishiko::Error& error)
+void PageFileRepository::store(const Page& page, Ishiko::Error& error)
 {
-    page.write(*this, error);
+    m_file.setFilePointer(page.number() * Page::sm_size);
+    if (!error)
+    {
+        m_file.write((const char*)page.buffer().data(), Page::sm_size, error);
+    }
 }
 
 void PageFileRepository::replace()

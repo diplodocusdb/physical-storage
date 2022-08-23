@@ -35,25 +35,25 @@ public:
         @returns The number of the page.
     */
     size_t number() const;
-    inline const Ishiko::Buffer& buffer() const noexcept;
-    inline Ishiko::Buffer& buffer() noexcept;
+    inline const Ishiko::ByteBuffer& buffer() const noexcept;
+    inline Ishiko::ByteBuffer& buffer() noexcept;
 
     static const size_t sm_size = 4096;
 
 private:
     size_t m_number;
-    Ishiko::Buffer m_buffer{sm_size};
+    Ishiko::ByteBuffer m_buffer{sm_size};
 };
 
 }
 }
 
-const Ishiko::Buffer& DiplodocusDB::PhysicalStorage::Page::buffer() const noexcept
+const Ishiko::ByteBuffer& DiplodocusDB::PhysicalStorage::Page::buffer() const noexcept
 {
     return m_buffer;
 }
 
-Ishiko::Buffer& DiplodocusDB::PhysicalStorage::Page::buffer() noexcept
+Ishiko::ByteBuffer& DiplodocusDB::PhysicalStorage::Page::buffer() noexcept
 {
     return m_buffer;
 }

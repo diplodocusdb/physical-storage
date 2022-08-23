@@ -9,7 +9,6 @@
 
 #include "PageRepository.h"
 #include "Page.hpp"
-#include "Page2.hpp"
 #include "PageCache.h"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>
@@ -34,7 +33,7 @@ public:
     size_t pageCount() override;
     std::shared_ptr<Page> page(size_t index, Ishiko::Error& error) override;
     std::shared_ptr<Page> allocatePage(Ishiko::Error& error) override;
-    void store(const Page2& page, Ishiko::Error& error) override;
+    void store(const Page& page, Ishiko::Error& error) override;
 
     void replace() override;
     void erase() override;
