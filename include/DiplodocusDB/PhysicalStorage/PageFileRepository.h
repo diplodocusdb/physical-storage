@@ -30,16 +30,15 @@ public:
     void close();
 
     size_t pageCount() override;
-    std::shared_ptr<Page> page(size_t index, Ishiko::Error& error) override;
-    std::shared_ptr<Page> allocatePage(Ishiko::Error& error) override;
+    Page allocatePage(Ishiko::Error& error) override;
+    Page load(size_t page_number, Ishiko::Error& error) override;
     void store(const Page& page, Ishiko::Error& error) override;
 
     void replace() override;
     void erase() override;
 
-public:
-    Ishiko::BinaryFile m_file;
 private:
+    Ishiko::BinaryFile m_file;
     size_t m_pageCount;
 };
 
