@@ -64,15 +64,23 @@ size_t PageFileRepository::pageCount()
 std::shared_ptr<Page2> PageFileRepository::page(size_t index, Ishiko::Error& error)
 {
     std::shared_ptr<Page2> result;
-    bool foundInCache = m_pageCache.get(index, result);
-    if (!foundInCache)
+    if (index <= m_pageCount)
     {
-        result = std::make_shared<Page2>(index);
-        result->read(*this, error);
-        if (!error)
+        bool foundInCache = m_pageCache.get(index, result);
+        if (!foundInCache)
         {
-            m_pageCache.set(result);
+            result = std::make_shared<Page2>(index);
+            result->read(*this, error);
+            if (!error)
+            {
+                m_pageCache.set(result);
+            }
         }
+    }
+    else
+    {
+        // TODO
+        Fail(error, PhysicalStorageErrorCategory::Value::generic_error);
     }
     return result;
 }
@@ -81,7 +89,8 @@ std::shared_ptr<Page2> PageFileRepository::allocatePage(Ishiko::Error& error)
 {
     std::shared_ptr<Page2> page = std::make_shared<Page2>(m_pageCount);
     page->init();
-    m_pageCache.set(page);
+    m_file.resize((m_pageCount + 1) * Page::sm_size);
+    //m_pageCache.set(page);
     ++m_pageCount;
     return page;
 }
