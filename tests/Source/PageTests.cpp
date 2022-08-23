@@ -5,7 +5,7 @@
 */
 
 #include "PageTests.h"
-#include "DiplodocusDB/PhysicalStorage/Page2.hpp"
+#include "DiplodocusDB/PhysicalStorage/Page.hpp"
 #include "DiplodocusDB/PhysicalStorage/PageFileRepository.h"
 
 using namespace DiplodocusDB::PhysicalStorage;
@@ -34,7 +34,7 @@ PageTests::PageTests(const TestNumber& number, const TestContext& context)
 
 void PageTests::ConstructorTest1(Test& test)
 {
-    Page2 page{0};
+    Page page{0};
 
     ISHIKO_TEST_PASS();
 }
@@ -49,7 +49,7 @@ void PageTests::ReadTest1(Test& test)
     PageFileRepository repository;
     repository.open(inputPath, error);
     
-    Page2 page{0};
+    Page page{0};
     page.read(repository, error);
     
     ISHIKO_TEST_FAIL_IF(error);

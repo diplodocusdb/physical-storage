@@ -9,7 +9,6 @@
 
 #include "PageRepository.h"
 #include "Page.hpp"
-#include "PageCache.h"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>
 #include <Ishiko/FileSystem.hpp>
@@ -42,7 +41,6 @@ public:
     Ishiko::BinaryFile m_file;
 private:
     size_t m_pageCount;
-    PageCache m_pageCache;
 };
 
 }

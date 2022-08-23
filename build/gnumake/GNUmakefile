@@ -86,18 +86,12 @@ ISHIKO_CPP_MEMORY_ROOT ?= $(ISHIKO_CPP)/memory
 
 all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a
 
-../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a: $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_Page2.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
-	$(AR) rc $@ $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_Page2.o $(_builddir)DiplodocusDBPhysicalStorage_PageCache.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
+../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),DiplodocusDBPhysicalStorage-d,DiplodocusDBPhysicalStorage).a: $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
+	$(AR) rc $@ $(_builddir)DiplodocusDBPhysicalStorage_Page.o $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o $(_builddir)DiplodocusDBPhysicalStorage_PageFileRepository.o $(_builddir)DiplodocusDBPhysicalStorage_PhysicalStorageErrorCategory.o
 	$(RANLIB) $@
 
 $(_builddir)DiplodocusDBPhysicalStorage_Page.o: ../../src/Page.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/Page.cpp
-
-$(_builddir)DiplodocusDBPhysicalStorage_Page2.o: ../../src/Page2.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/Page2.cpp
-
-$(_builddir)DiplodocusDBPhysicalStorage_PageCache.o: ../../src/PageCache.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/PageCache.cpp
 
 $(_builddir)DiplodocusDBPhysicalStorage_PageRepositoryPosition.o: ../../src/PageRepositoryPosition.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_IO_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_MEMORY_ROOT)/include -I../../include/DiplodocusDB/PhysicalStorage -std=c++11 ../../src/PageRepositoryPosition.cpp
