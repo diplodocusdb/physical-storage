@@ -7,6 +7,7 @@
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_H
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEREPOSITORY_H
 
+#include "Page.hpp"
 #include "Page2.hpp"
 #include "PageRepositoryPosition.h"
 #include <Ishiko/Errors.hpp>
@@ -25,8 +26,8 @@ public:
     virtual ~PageRepository() noexcept = default;
 
     virtual size_t pageCount() = 0;
-    virtual std::shared_ptr<Page2> page(size_t index, Ishiko::Error& error) = 0;
-    virtual std::shared_ptr<Page2> allocatePage(Ishiko::Error& error) = 0;
+    virtual std::shared_ptr<Page> page(size_t index, Ishiko::Error& error) = 0;
+    virtual std::shared_ptr<Page> allocatePage(Ishiko::Error& error) = 0;
     virtual void store(const Page2& page, Ishiko::Error& error) = 0;
 
     virtual void replace() = 0;
