@@ -4,7 +4,7 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#include "PageTests.h"
+#include "PageTests.hpp"
 #include "DiplodocusDB/PhysicalStorage/Page.hpp"
 #include "DiplodocusDB/PhysicalStorage/PageFile.hpp"
 
