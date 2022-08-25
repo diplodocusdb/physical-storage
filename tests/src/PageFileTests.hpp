@@ -4,15 +4,15 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#ifndef _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEFILEREPOSITORYTESTS_H_
-#define _DIPLODOCUSDB_TEST_PHYSICALSTORAGE_PAGEREPOSITORY_PAGEFILEREPOSITORYTESTS_H_
+#ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_TESTS_PAGEFILETESTS_HPP
+#define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_TESTS_PAGEFILETESTS_HPP
 
 #include <Ishiko/TestFramework.hpp>
 
-class PageFileRepositoryTests : public Ishiko::TestSequence
+class PageFileTests : public Ishiko::TestSequence
 {
 public:
-    PageFileRepositoryTests(const Ishiko::TestNumber& number, const Ishiko::TestContext& context);
+    PageFileTests(const Ishiko::TestNumber& number, const Ishiko::TestContext& context);
 
 private:
     static void CreationTest1(Ishiko::Test& test);

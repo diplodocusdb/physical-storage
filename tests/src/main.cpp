@@ -4,8 +4,8 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#include "PageTests.h"
-#include "PageFileRepositoryTests.h"
+#include "PageFileTests.hpp"
+#include "PageTests.hpp"
 #include "DiplodocusDB/PhysicalStorage/linkoptions.hpp"
 #include <Ishiko/TestFramework.hpp>
 
@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
     TestSequence& theTests = theTestHarness.tests();
     theTests.append<PageTests>();
-    theTests.append<PageFileRepositoryTests>();
+    theTests.append<PageFileTests>();
 
     return theTestHarness.run();
 }

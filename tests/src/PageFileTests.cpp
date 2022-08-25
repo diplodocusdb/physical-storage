@@ -4,15 +4,15 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#include "PageFileRepositoryTests.h"
+#include "PageFileTests.hpp"
 #include "DiplodocusDB/PhysicalStorage/PageFile.hpp"
 #include <boost/filesystem/operations.hpp>
 
 using namespace DiplodocusDB::PhysicalStorage;
 using namespace Ishiko;
 
-PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const TestContext& context)
-    : TestSequence(number, "PageFileRepository tests", context)
+PageFileTests::PageFileTests(const TestNumber& number, const TestContext& context)
+    : TestSequence(number, "PageFile tests", context)
 {
     append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
     append<HeapAllocationErrorsTest>("create test 1", CreateTest1);
@@ -22,14 +22,14 @@ PageFileRepositoryTests::PageFileRepositoryTests(const TestNumber& number, const
     append<HeapAllocationErrorsTest>("allocatePage test 2", AllocatePageTest2);
 }
 
-void PageFileRepositoryTests::CreationTest1(Test& test)
+void PageFileTests::CreationTest1(Test& test)
 {
     PageFile repository;
 
     ISHIKO_TEST_PASS();
 }
 
-void PageFileRepositoryTests::CreateTest1(Test& test)
+void PageFileTests::CreateTest1(Test& test)
 {
     const char* outputName = "PageFileRepositoryCreateTest1.dpdb";
 
@@ -46,7 +46,7 @@ void PageFileRepositoryTests::CreateTest1(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void PageFileRepositoryTests::OpenTest1(Test& test)
+void PageFileTests::OpenTest1(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageFileRepositoryOpenTest1.dpdb");
 
@@ -60,7 +60,7 @@ void PageFileRepositoryTests::OpenTest1(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void PageFileRepositoryTests::OpenTest2(Test& test)
+void PageFileTests::OpenTest2(Test& test)
 {
     boost::filesystem::path inputPath = test.context().getDataPath("PageFileRepositoryOpenTest2.dpdb");
 
@@ -74,7 +74,7 @@ void PageFileRepositoryTests::OpenTest2(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void PageFileRepositoryTests::AllocatePageTest1(Test& test)
+void PageFileTests::AllocatePageTest1(Test& test)
 {
     const char* outputName = "PageFileRepositoryTests_AllocatePageTest1.dpdb";
 
@@ -96,7 +96,7 @@ void PageFileRepositoryTests::AllocatePageTest1(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-void PageFileRepositoryTests::AllocatePageTest2(Test& test)
+void PageFileTests::AllocatePageTest2(Test& test)
 {
     const char* outputName = "PageFileRepositoryTests_AllocatePageTest2.dpdb";
 

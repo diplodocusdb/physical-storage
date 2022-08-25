@@ -17,10 +17,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\PageTests.h">
+    <ClInclude Include="..\..\src\PageTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PageFileRepositoryTests.h">
+    <ClInclude Include="..\..\src\PageFileTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -31,7 +31,7 @@
     <ClCompile Include="..\..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PageFileRepositoryTests.cpp">
+    <ClCompile Include="..\..\src\PageFileTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

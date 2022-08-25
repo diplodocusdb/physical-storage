@@ -158,11 +158,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\PageTests.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\PageFileRepositoryTests.cpp" />
+    <ClCompile Include="..\..\src\PageFileTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\PageTests.h" />
-    <ClInclude Include="..\..\src\PageFileRepositoryTests.h" />
+    <ClInclude Include="..\..\src\PageTests.hpp" />
+    <ClInclude Include="..\..\src\PageFileTests.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
