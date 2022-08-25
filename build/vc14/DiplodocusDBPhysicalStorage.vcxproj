@@ -150,7 +150,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Page.cpp" />
     <ClCompile Include="..\..\src\PageRepositoryPosition.cpp" />
     <ClCompile Include="..\..\src\PageFileRepository.cpp" />
     <ClCompile Include="..\..\src\PhysicalStorageErrorCategory.cpp" />

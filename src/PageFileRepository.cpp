@@ -69,7 +69,7 @@ Page PageFileRepository::load(size_t page_number, Ishiko::Error& error)
         m_file.setFilePointer(page_number * Page::sm_size);
         if (!error)
         {
-            size_t read_count = m_file.read(Page::sm_size, (char*)loaded_page.buffer().data(), error);
+            size_t read_count = m_file.read(Page::sm_size, (char*)loaded_page.data.data(), error);
         }
     }
     else
@@ -90,10 +90,10 @@ Page PageFileRepository::allocatePage(Ishiko::Error& error)
 
 void PageFileRepository::store(const Page& page, Ishiko::Error& error)
 {
-    m_file.setFilePointer(page.number() * Page::sm_size);
+    m_file.setFilePointer(page.number * Page::sm_size);
     if (!error)
     {
-        m_file.write((const char*)page.buffer().data(), Page::sm_size, error);
+        m_file.write((const char*)page.data.data(), Page::sm_size, error);
     }
 }
 
