@@ -34,9 +34,6 @@ public:
     Page load(size_t page_number, Ishiko::Error& error) override;
     void store(const Page& page, Ishiko::Error& error) override;
 
-    void replace() override;
-    void erase() override;
-
 private:
     Ishiko::BinaryFile m_file;
     size_t m_pageCount;
