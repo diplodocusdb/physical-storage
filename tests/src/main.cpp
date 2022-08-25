@@ -7,7 +7,6 @@
 #include "PageTests.h"
 #include "PageFileRepositoryTests.h"
 #include "DiplodocusDB/PhysicalStorage/linkoptions.hpp"
-#include <boost/filesystem/operations.hpp>
 #include <Ishiko/TestFramework.hpp>
 
 using namespace Ishiko;
@@ -16,10 +15,9 @@ int main(int argc, char* argv[])
 {
     TestHarness theTestHarness("DiplodocusDBPageRepository");
 
-    theTestHarness.context().setDataDirectory("../../TestData");
-    theTestHarness.context().setOutputDirectory("../../TestOutput");
-    boost::filesystem::create_directories("../../TestOutput");
-    theTestHarness.context().setReferenceDirectory("../../ReferenceData");
+    theTestHarness.context().setDataDirectory("../../data");
+    theTestHarness.context().setOutputDirectory("../../output");
+    theTestHarness.context().setReferenceDirectory("../../reference");
 
     TestSequence& theTests = theTestHarness.tests();
     theTests.append<PageTests>();

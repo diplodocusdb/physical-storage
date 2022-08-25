@@ -8,6 +8,7 @@
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 
 #include <Ishiko/Memory.hpp>
+#include <cstring>
 #include <stddef.h>
 
 namespace DiplodocusDB
@@ -15,9 +16,11 @@ namespace DiplodocusDB
 namespace PhysicalStorage
 {
 
-class Page
+struct Page
 {
-public:
+    size_t number{0};
+    Ishiko::ByteBuffer data{sm_size};
+
     /// Constructor.
     /**
         Note that the page contents are not initialized by this constructor. Use the init() function to initialize the
@@ -25,37 +28,25 @@ public:
 
         @param index The index of the page.
     */
-    Page(size_t number);
+    inline Page(size_t number);
 
     /// Fills the contents of the page with zeroes.
-    void init();
-
-    /// Returns the number of the page.
-    /**
-        @returns The number of the page.
-    */
-    size_t number() const;
-    inline const Ishiko::ByteBuffer& buffer() const noexcept;
-    inline Ishiko::ByteBuffer& buffer() noexcept;
+    inline void zero() noexcept;
 
     static const size_t sm_size = 4096;
-
-private:
-    size_t m_number;
-    Ishiko::ByteBuffer m_buffer{sm_size};
 };
 
 }
 }
 
-const Ishiko::ByteBuffer& DiplodocusDB::PhysicalStorage::Page::buffer() const noexcept
+DiplodocusDB::PhysicalStorage::Page::Page(size_t number)
+    : number(number)
 {
-    return m_buffer;
 }
 
-Ishiko::ByteBuffer& DiplodocusDB::PhysicalStorage::Page::buffer() noexcept
+void DiplodocusDB::PhysicalStorage::Page::zero() noexcept
 {
-    return m_buffer;
+    memset(data.data(), 0, sm_size);
 }
 
 #endif

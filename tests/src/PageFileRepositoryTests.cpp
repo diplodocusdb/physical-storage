@@ -88,7 +88,7 @@ void PageFileRepositoryTests::AllocatePageTest1(Test& test)
     Page page = repository.allocatePage(error);
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_NEQ(page.number(), 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(page.number, 0);
 
     repository.close();
 
@@ -110,12 +110,12 @@ void PageFileRepositoryTests::AllocatePageTest2(Test& test)
     Page page1 = repository.allocatePage(error);
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_NEQ(page1.number(), 0);
+    ISHIKO_TEST_FAIL_IF_NEQ(page1.number, 0);
     
     Page page2 = repository.allocatePage(error);
 
     ISHIKO_TEST_FAIL_IF(error);
-    ISHIKO_TEST_FAIL_IF_NEQ(page2.number(), 1);
+    ISHIKO_TEST_FAIL_IF_NEQ(page2.number, 1);
                 
     repository.close();
 
