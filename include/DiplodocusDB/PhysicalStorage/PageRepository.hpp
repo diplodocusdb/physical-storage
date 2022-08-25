@@ -28,9 +28,6 @@ public:
     virtual Page allocatePage(Ishiko::Error& error) = 0;
     virtual Page load(size_t page_number, Ishiko::Error& error) = 0;
     virtual void store(const Page& page, Ishiko::Error& error) = 0;
-
-    virtual void replace() = 0;
-    virtual void erase() = 0;
 };
 
 }

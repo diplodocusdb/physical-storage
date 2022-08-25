@@ -59,15 +59,25 @@ size_t PageFile::pageCount()
     return m_pageCount;
 }
 
+Page PageFile::allocatePage(Ishiko::Error& error)
+{
+    Page new_page{m_pageCount};
+    m_file.resize((m_pageCount + 1) * Page::sm_size);
+    ++m_pageCount;
+    return new_page;
+}
+
 Page PageFile::load(size_t page_number, Ishiko::Error& error)
 {
     Page loaded_page{page_number};
     if (page_number <= m_pageCount)
     {
-        m_file.setFilePointer(page_number * Page::sm_size);
-        if (!error)
+        size_t pos = (page_number * Page::sm_size);
+        size_t read_count = m_file.read(pos, Page::sm_size, (char*)loaded_page.data.data(), error);
+        if (!error && (read_count != PhysicalStorage::Page::sm_size))
         {
-            size_t read_count = m_file.read(Page::sm_size, (char*)loaded_page.data.data(), error);
+            // TODO
+            Fail(error, PhysicalStorageErrorCategory::Value::generic_error);
         }
     }
     else
@@ -78,27 +88,8 @@ Page PageFile::load(size_t page_number, Ishiko::Error& error)
     return loaded_page;
 }
 
-Page PageFile::allocatePage(Ishiko::Error& error)
-{
-    Page new_page{m_pageCount};
-    m_file.resize((m_pageCount + 1) * Page::sm_size);
-    ++m_pageCount;
-    return new_page;
-}
-
 void PageFile::store(const Page& page, Ishiko::Error& error)
 {
-    m_file.setFilePointer(page.number * Page::sm_size);
-    if (!error)
-    {
-        m_file.write((const char*)page.data.data(), Page::sm_size, error);
-    }
-}
-
-void PageFile::replace()
-{
-}
-
-void PageFile::erase()
-{
+    size_t pos = (page.number * Page::sm_size);
+    m_file.write(pos, (const char*)page.data.data(), Page::sm_size, error);
 }
