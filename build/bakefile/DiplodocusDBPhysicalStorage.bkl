@@ -48,7 +48,6 @@ library DiplodocusDBPhysicalStorage : IshikoFileSystem, IshikoIO, IshikoMemory, 
 
     sources
     {
-        ../../src/Page.cpp
         ../../src/PageRepositoryPosition.cpp
         ../../src/PageFileRepository.cpp
         ../../src/PhysicalStorageErrorCategory.cpp
