@@ -8,6 +8,7 @@
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 
 #include <Ishiko/Memory.hpp>
+#include <cstring>
 #include <stddef.h>
 
 namespace DiplodocusDB
@@ -27,7 +28,7 @@ struct Page
     Page(size_t number);
 
     /// Fills the contents of the page with zeroes.
-    void init();
+    void zero() noexcept;
 
     static const size_t sm_size = 4096;
 
@@ -36,6 +37,16 @@ struct Page
 };
 
 }
+}
+
+DiplodocusDB::PhysicalStorage::Page::Page(size_t number)
+    : number(number)
+{
+}
+
+void DiplodocusDB::PhysicalStorage::Page::zero() noexcept
+{
+    memset(data.data(), 0, sm_size);
 }
 
 #endif

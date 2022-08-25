@@ -5,16 +5,6 @@
 */
 
 #include "Page.hpp"
-#include <cstring>
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-Page::Page(size_t number)
-    : number(number)
-{
-}
-
-void Page::init()
-{
-    memset(data.data(), 0, sm_size);
-}
