@@ -15,47 +15,18 @@ namespace DiplodocusDB
 namespace PhysicalStorage
 {
 
-class Page
+struct Page
 {
-public:
-    /// Constructor.
-    /**
-        Note that the page contents are not initialized by this constructor. Use the init() function to initialize the
-        page to all zeroes.
-
-        @param index The index of the page.
-    */
-    Page(size_t number);
-
     /// Fills the contents of the page with zeroes.
     void init();
 
-    /// Returns the number of the page.
-    /**
-        @returns The number of the page.
-    */
-    size_t number() const;
-    inline const Ishiko::ByteBuffer& buffer() const noexcept;
-    inline Ishiko::ByteBuffer& buffer() noexcept;
-
     static const size_t sm_size = 4096;
 
-private:
-    size_t m_number;
-    Ishiko::ByteBuffer m_buffer{sm_size};
+    size_t number;
+    Ishiko::ByteBuffer data{sm_size};
 };
 
 }
-}
-
-const Ishiko::ByteBuffer& DiplodocusDB::PhysicalStorage::Page::buffer() const noexcept
-{
-    return m_buffer;
-}
-
-Ishiko::ByteBuffer& DiplodocusDB::PhysicalStorage::Page::buffer() noexcept
-{
-    return m_buffer;
 }
 
 #endif
