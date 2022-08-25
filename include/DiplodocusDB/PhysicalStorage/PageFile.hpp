@@ -4,10 +4,10 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILEREPOSITORY_H
-#define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILEREPOSITORY_H
+#ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILE_HPP
+#define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGEFILE_HPP
 
-#include "PageRepository.h"
+#include "PageRepository.hpp"
 #include "Page.hpp"
 #include <boost/filesystem/path.hpp>
 #include <Ishiko/Errors.hpp>
@@ -20,10 +20,10 @@ namespace PhysicalStorage
 {
 
 /// A file organized in a series of pages of fixed size.
-class PageFileRepository : public PageRepository
+class PageFile : public PageRepository
 {
 public:
-    PageFileRepository();
+    PageFile();
 
     void create(const boost::filesystem::path& path, Ishiko::Error& error);
     void open(const boost::filesystem::path& path, Ishiko::Error& error);

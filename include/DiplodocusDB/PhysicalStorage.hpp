@@ -9,8 +9,8 @@
 
 #include "PhysicalStorage/linkoptions.hpp"
 #include "PhysicalStorage/Page.hpp"
-#include "PhysicalStorage/PageFileRepository.h"
-#include "PhysicalStorage/PageRepository.h"
+#include "PhysicalStorage/PageFile.hpp"
+#include "PhysicalStorage/PageRepository.hpp"
 #include "PhysicalStorage/PageRepositoryPosition.h"
 #include "PhysicalStorage/PhysicalStorageErrorCategory.hpp"
 
