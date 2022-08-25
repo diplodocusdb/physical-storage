@@ -17,6 +17,15 @@ namespace PhysicalStorage
 
 struct Page
 {
+    /// Constructor.
+    /**
+        Note that the page contents are not initialized by this constructor. Use the init() function to initialize the
+        page to all zeroes.
+
+        @param index The index of the page.
+    */
+    Page(size_t number);
+
     /// Fills the contents of the page with zeroes.
     void init();
 
