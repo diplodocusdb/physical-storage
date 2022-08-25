@@ -156,13 +156,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\PageTests.cpp" />
-    <ClCompile Include="..\..\Source\main.cpp" />
-    <ClCompile Include="..\..\Source\PageFileRepositoryTests.cpp" />
+    <ClCompile Include="..\..\src\PageTests.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\PageFileRepositoryTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\PageTests.h" />
-    <ClInclude Include="..\..\Source\PageFileRepositoryTests.h" />
+    <ClInclude Include="..\..\src\PageTests.h" />
+    <ClInclude Include="..\..\src\PageFileRepositoryTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
