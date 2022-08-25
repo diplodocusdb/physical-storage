@@ -4,19 +4,18 @@
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
 
-#include "PageFileRepository.h"
+#include "PageFile.hpp"
 #include "PhysicalStorageErrorCategory.hpp"
 #include <boost/filesystem/operations.hpp>
 
 using namespace DiplodocusDB::PhysicalStorage;
 
-PageFileRepository::PageFileRepository()
+PageFile::PageFile()
     : m_pageCount{0}
 {
 }
 
-void PageFileRepository::create(const boost::filesystem::path& path,
-                                Ishiko::Error& error)
+void PageFile::create(const boost::filesystem::path& path, Ishiko::Error& error)
 {
     std::fstream file(path.c_str(), std::fstream::out | std::fstream::binary);
     if (!file.good())
@@ -31,8 +30,7 @@ void PageFileRepository::create(const boost::filesystem::path& path,
     }
 }
 
-void PageFileRepository::open(const boost::filesystem::path& path,
-                              Ishiko::Error& error)
+void PageFile::open(const boost::filesystem::path& path, Ishiko::Error& error)
 {
     boost::system::error_code ec;
     boost::uintmax_t filesize = boost::filesystem::file_size(path, ec);
@@ -51,17 +49,17 @@ void PageFileRepository::open(const boost::filesystem::path& path,
     }
 }
 
-void PageFileRepository::close()
+void PageFile::close()
 {
     m_file.close();
 }
 
-size_t PageFileRepository::pageCount()
+size_t PageFile::pageCount()
 {
     return m_pageCount;
 }
 
-Page PageFileRepository::load(size_t page_number, Ishiko::Error& error)
+Page PageFile::load(size_t page_number, Ishiko::Error& error)
 {
     Page loaded_page{page_number};
     if (page_number <= m_pageCount)
@@ -80,7 +78,7 @@ Page PageFileRepository::load(size_t page_number, Ishiko::Error& error)
     return loaded_page;
 }
 
-Page PageFileRepository::allocatePage(Ishiko::Error& error)
+Page PageFile::allocatePage(Ishiko::Error& error)
 {
     Page new_page{m_pageCount};
     m_file.resize((m_pageCount + 1) * Page::sm_size);
@@ -88,7 +86,7 @@ Page PageFileRepository::allocatePage(Ishiko::Error& error)
     return new_page;
 }
 
-void PageFileRepository::store(const Page& page, Ishiko::Error& error)
+void PageFile::store(const Page& page, Ishiko::Error& error)
 {
     m_file.setFilePointer(page.number * Page::sm_size);
     if (!error)
@@ -97,10 +95,10 @@ void PageFileRepository::store(const Page& page, Ishiko::Error& error)
     }
 }
 
-void PageFileRepository::replace()
+void PageFile::replace()
 {
 }
 
-void PageFileRepository::erase()
+void PageFile::erase()
 {
 }
