@@ -18,6 +18,9 @@ namespace PhysicalStorage
 
 struct Page
 {
+    size_t number{0};
+    Ishiko::ByteBuffer data{sm_size};
+
     /// Constructor.
     /**
         Note that the page contents are not initialized by this constructor. Use the init() function to initialize the
@@ -25,15 +28,12 @@ struct Page
 
         @param index The index of the page.
     */
-    Page(size_t number);
+    inline Page(size_t number);
 
     /// Fills the contents of the page with zeroes.
-    void zero() noexcept;
+    inline void zero() noexcept;
 
     static const size_t sm_size = 4096;
-
-    size_t number;
-    Ishiko::ByteBuffer data{sm_size};
 };
 
 }
