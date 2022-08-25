@@ -151,16 +151,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\PageRepositoryPosition.cpp" />
-    <ClCompile Include="..\..\src\PageFileRepository.cpp" />
+    <ClCompile Include="..\..\src\PageFile.cpp" />
     <ClCompile Include="..\..\src\PhysicalStorageErrorCategory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\linkoptions.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\Page.hpp" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepository.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageRepositoryPosition.h" />
-    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFileRepository.h" />
+    <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PageFile.hpp" />
     <ClInclude Include="..\..\include\DiplodocusDB\PhysicalStorage\PhysicalStorageErrorCategory.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
