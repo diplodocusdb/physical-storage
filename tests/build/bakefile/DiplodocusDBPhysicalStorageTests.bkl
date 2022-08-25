@@ -25,14 +25,14 @@ program DiplodocusDBPhysicalStorageTests : DiplodocusDBPhysicalStorage, IshikoTe
 
     headers
     {
-        ../../Source/PageTests.h
-        ../../Source/PageFileRepositoryTests.h
+        ../../src/PageTests.h
+        ../../src/PageFileRepositoryTests.h
     }
 
     sources
     {
-        ../../Source/PageTests.cpp
-        ../../Source/main.cpp
-        ../../Source/PageFileRepositoryTests.cpp
+        ../../src/PageTests.cpp
+        ../../src/main.cpp
+        ../../src/PageFileRepositoryTests.cpp
     }
 }
