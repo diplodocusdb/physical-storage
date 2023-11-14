@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ishiko/gcc-ishiko-cpp:0.36.0
+      - image: ishiko/gcc-ishiko-cpp:0.38.0
     steps:
       - run: 
           name: "Set DIPLODOCUSDB environment variable and create workspace directory"

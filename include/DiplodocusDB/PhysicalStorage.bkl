@@ -1,4 +1,4 @@
-ishikopath = envvar("ISHIKO_CPP");
+ishikopath = envvar("ISHIKO_CPP_ROOT");
 import $(ishikopath)/errors/include/Ishiko/Errors.bkl;
 import $(ishikopath)/filesystem/include/Ishiko/FileSystem.bkl;
 import $(ishikopath)/io/include/Ishiko/IO.bkl;
