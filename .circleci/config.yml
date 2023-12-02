@@ -5,8 +5,8 @@ jobs:
       - image: ishiko/gcc-ishiko-cpp:0.38.0
     steps:
       - run: 
-          name: "Set DIPLODOCUSDB environment variable and create workspace directory"
-          command: mkdir -p /projects/diplodocusdb && echo 'export DIPLODOCUSDB="/projects/diplodocusdb"' >> $BASH_ENV
+          name: "Set DIPLODOCUSDB_ROOT environment variable and create workspace directory"
+          command: mkdir -p /projects/diplodocusdb && echo 'export DIPLODOCUSDB_ROOT="/projects/diplodocusdb"' >> $BASH_ENV
       - checkout:
           path: /projects/diplodocusdb/physical-storage
       - run:
