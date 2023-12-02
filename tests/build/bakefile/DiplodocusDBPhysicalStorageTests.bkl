@@ -1,4 +1,4 @@
-diplodocusdbpath = envvar("DIPLODOCUSDB");
+diplodocusdbpath = envvar("DIPLODOCUSDB_ROOT");
 import $(diplodocusdbpath)/physical-storage/include/DiplodocusDB/PhysicalStorage.bkl;
 ishikopath = envvar("ISHIKO_CPP_ROOT");
 import $(ishikopath)/test-framework/include/Ishiko/TestFramework.bkl;

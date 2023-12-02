@@ -88,7 +88,7 @@ ISHIKO_CPP_FILESYSTEM_ROOT ?= $(ISHIKO_CPP_ROOT)/filesystem
 # Path to the Ishiko/C++ Memory installation
 ISHIKO_CPP_MEMORY_ROOT ?= $(ISHIKO_CPP_ROOT)/memory
 # Path to the DiplodocusDB installation
-DIPLODOCUSDB_PHYSICALSTORAGE_ROOT ?= $(DIPLODOCUSDB)/physical-storage
+DIPLODOCUSDB_PHYSICALSTORAGE_ROOT ?= $(DIPLODOCUSDB_ROOT)/physical-storage
 # Path to the Ishiko/C++ Text installation
 ISHIKO_CPP_TEXT_ROOT ?= $(ISHIKO_CPP_ROOT)/text
 # Path to the Ishiko/C++ Configuration installation

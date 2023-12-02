@@ -8,7 +8,7 @@ import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 setting DIPLODOCUSDB_PHYSICALSTORAGE_ROOT
 {
     help = "Path to the DiplodocusDB installation";
-    default = '$(DIPLODOCUSDB)/physical-storage';
+    default = '$(DIPLODOCUSDB_ROOT)/physical-storage';
 }
 
 template DiplodocusDBPhysicalStorage : IshikoFileSystem, IshikoIO, IshikoMemory, IshikoErrors, Boost
