@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2022 Xavier Leclercq
+    Copyright (c) 2022-2024 Xavier Leclercq
     Released under the MIT License
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
@@ -16,22 +16,19 @@ const PhysicalStorageErrorCategory& PhysicalStorageErrorCategory::Get() noexcept
 
 const char* PhysicalStorageErrorCategory::name() const noexcept
 {
-    return "DiplodocusDB::PageRepositoryErrorCategory";
+    return "DiplodocusDB::PhypsicalStorageErrorCategory";
 }
 
-std::ostream& PhysicalStorageErrorCategory::streamOut(int value, std::ostream& os) const
+const char* PhysicalStorageErrorCategory::message(int ev, char* buffer, size_t len) const noexcept
 {
-    switch (static_cast<Value>(value))
+    switch (static_cast<Value>(ev))
     {
     case Value::generic_error:
-        os << "generic error";
-        break;
+        return "generic error";
 
     default:
-        os << "unknown value";
-        break;
+        return "unknown value";
     }
-    return os;
 }
 
 void DiplodocusDB::PhysicalStorage::Fail(Ishiko::Error& error, PhysicalStorageErrorCategory::Value value) noexcept

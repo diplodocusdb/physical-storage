@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2022 Xavier Leclercq
+    Copyright (c) 2022-2024 Xavier Leclercq
     Released under the MIT License
     See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
 */
@@ -23,7 +23,7 @@ public:
     };
 
     static const PhysicalStorageErrorCategory& Get() noexcept;
-    std::ostream& streamOut(int value, std::ostream& os) const override;
+    const char* message(int ev, char* buffer, size_t len) const noexcept override;
 
     const char* name() const noexcept override;
 
