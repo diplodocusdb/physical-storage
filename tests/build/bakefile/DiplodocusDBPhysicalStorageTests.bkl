@@ -3,9 +3,10 @@ import $(diplodocusdbpath)/physical-storage/include/DiplodocusDB/PhysicalStorage
 ishikopath = envvar("ISHIKO_CPP_ROOT");
 import $(ishikopath)/test-framework/include/Ishiko/TestFramework.bkl;
 
-toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+toolsets = gnu vs2022 vs2019 vs2017 vs2015 vs2013;
 
 gnu.makefile = ../gnumake/GNUmakefile;
+vs2022.solutionfile = ../vc17/DiplodocusDBPhysicalStorageTests.sln;
 vs2019.solutionfile = ../vc16/DiplodocusDBPhysicalStorageTests.sln;
 vs2017.solutionfile = ../vc15/DiplodocusDBPhysicalStorageTests.sln;
 vs2015.solutionfile = ../vc14/DiplodocusDBPhysicalStorageTests.sln;
