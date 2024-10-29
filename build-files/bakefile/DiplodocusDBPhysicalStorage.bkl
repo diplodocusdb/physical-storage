@@ -5,14 +5,13 @@ import $(ishikopath)/io/include/Ishiko/IO.bkl;
 import $(ishikopath)/memory/include/Ishiko/Memory.bkl;
 import $(ishikopath)/third-party-glue/include/Ishiko/ThirdParty/Boost.bkl;
 
-toolsets = gnu vs2022 vs2019 vs2017 vs2015 vs2013;
+toolsets = gnu vs2022 vs2019 vs2017 vs2015;
 
 gnu.makefile = ../gnumake/GNUmakefile;
 vs2022.solutionfile = ../vc17/DiplodocusDBPhysicalStorage.sln;
 vs2019.solutionfile = ../vc16/DiplodocusDBPhysicalStorage.sln;
 vs2017.solutionfile = ../vc15/DiplodocusDBPhysicalStorage.sln;
 vs2015.solutionfile = ../vc14/DiplodocusDBPhysicalStorage.sln;
-vs2013.solutionfile = ../vc12/DiplodocusDBPhysicalStorage.sln;
 
 library DiplodocusDBPhysicalStorage : IshikoFileSystem, IshikoIO, IshikoMemory, IshikoErrors, Boost
 {

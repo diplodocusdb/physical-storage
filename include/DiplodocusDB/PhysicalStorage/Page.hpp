@@ -1,8 +1,5 @@
-/*
-    Copyright (c) 2018-2022 Xavier Leclercq
-    Released under the MIT License
-    See https://github.com/diplodocusdb/physical-storage/blob/main/LICENSE.txt
-*/
+// SPDX-FileCopyrightText: 2018-2024 Xavier Leclercq
+// SPDX-License-Identifier: MIT
 
 #ifndef GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
 #define GUARD_DIPLODOCUSDB_PHYSICALSTORAGE_PAGE_HPP
@@ -19,7 +16,7 @@ namespace PhysicalStorage
 struct Page
 {
     size_t number{0};
-    Ishiko::ByteBuffer data{sm_size};
+    Ishiko::HeapByteBuffer data{sm_size};
 
     /// Constructor.
     /**
