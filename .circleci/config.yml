@@ -11,13 +11,13 @@ jobs:
           path: /workspace/projects/diplodocusdb/physical-storage
       - run:
           name: Build 
-          command: cd /workspace/projects/diplodocusdb/physical-storage/build/gnumake && make
+          command: cd /workspace/projects/diplodocusdb/physical-storage/build-files/gnumake && make
       - run:
           name: Build tests
-          command: cd /workspace/projects/diplodocusdb/physical-storage/tests/build/gnumake && make
+          command: cd /workspace/projects/diplodocusdb/physical-storage/tests/build-files/gnumake && make
       - run:
           name: Run tests
-          command: cd /workspace/projects/diplodocusdb/physical-storage/tests/build/gnumake && ./DiplodocusDBPhysicalStorageTests
+          command: cd /workspace/projects/diplodocusdb/physical-storage/tests/build-files/gnumake && ./DiplodocusDBPhysicalStorageTests
 workflows:
   version: 2
   continuous_build:
