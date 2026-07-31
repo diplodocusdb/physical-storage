@@ -28,7 +28,7 @@ public:
     const char* name() const noexcept override;
 
 private:
-    PhysicalStorageErrorCategory() noexcept = default;
+    PhysicalStorageErrorCategory() noexcept;
 };
 
 void Fail(Ishiko::Error& error, PhysicalStorageErrorCategory::Value value) noexcept;
