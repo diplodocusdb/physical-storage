@@ -8,6 +8,11 @@
 
 using namespace DiplodocusDB::PhysicalStorage;
 
+PhysicalStorageErrorCategory::PhysicalStorageErrorCategory() noexcept
+    : Ishiko::ErrorCategory(ID(0x6938d4da6bd6417fULL, 0x9f3101569cbaa182ULL)) // 6938d4da-6bd6-417f-9f31-01569cbaa182
+{
+}
+
 const PhysicalStorageErrorCategory& PhysicalStorageErrorCategory::Get() noexcept
 {
     static PhysicalStorageErrorCategory theCategory;
